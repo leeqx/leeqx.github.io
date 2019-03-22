@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="糊涂之至，方能致远!!">
+  <meta name="keywords" content="linux,后台技术,">
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="一个简单的入门实例  实现一个简单的exit(0);  exit.s  123456789101112131415161718192021222324252627282930  # 数据段的开始  .section .data  # 代码段开始（存放程序指令的部分）  .section .text  #注意这里的.globl 表示汇编程序不应在汇编之后废弃次符号（_start) ,因为连接">
-<meta name="keywords" content="Linux Programs">
+<meta name="keywords" content="linux,后台技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux programer">
+<meta property="og:title" content="基于linux-汇编深入理解c程序">
 <meta property="og:url" content="http://leeqx.github.io/2019/03/22/基于linux-汇编深入理解c程序/index.html">
 <meta property="og:site_name" content="linux programer">
 <meta property="og:description" content="一个简单的入门实例  实现一个简单的exit(0);  exit.s  123456789101112131415161718192021222324252627282930  # 数据段的开始  .section .data  # 代码段开始（存放程序指令的部分）  .section .text  #注意这里的.globl 表示汇编程序不应在汇编之后废弃次符号（_start) ,因为连接">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-22T02:37:35.479Z">
+<meta property="og:updated_time" content="2019-03-22T04:13:13.146Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux programer">
+<meta name="twitter:title" content="基于linux-汇编深入理解c程序">
 <meta name="twitter:description" content="一个简单的入门实例  实现一个简单的exit(0);  exit.s  123456789101112131415161718192021222324252627282930  # 数据段的开始  .section .data  # 代码段开始（存放程序指令的部分）  .section .text  #注意这里的.globl 表示汇编程序不应在汇编之后废弃次符号（_start) ,因为连接">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title> | linux programer</title>
+  <title>基于linux-汇编深入理解c程序 | linux programer</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline"></h2>
+          <h2 class="post-title" itemprop="name headline">基于linux-汇编深入理解c程序</h2>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T11:39:01+08:00">
                 2019-03-22
               </time>
             
@@ -332,6 +332,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后台技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -447,6 +469,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/后台技术/" rel="tag"># 后台技术</a>
+          
+        </div>
+      
 
       
       
@@ -456,8 +486,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/CPU与内存的那些事/" rel="next" title>
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2019/03/22/大端模式和小端模式/" rel="next" title="大端模式和小端模式">
+                <i class="fa fa-chevron-left"></i> 大端模式和小端模式
               </a>
             
           </div>
@@ -466,8 +496,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/22/hello-world/" rel="prev" title="Hello World">
-                Hello World <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/22/利用tcpburn进行长连接压测、现网流量压测/" rel="prev" title="利用tcpburn进行长连接压测、现网流量压测">
+                利用tcpburn进行长连接压测、现网流量压测 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -554,14 +584,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>

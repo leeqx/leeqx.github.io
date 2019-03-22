@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="linux,后台技术,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="C/C++ 知识点 子进程正常退出会不会触发SIGCHLD\SIGSEV信号 1234567891011121314151617181920212223242526272829303132 1 #include &amp;lt;sys/wait.h&amp;gt; 2 #include &amp;lt;signal.h&amp;gt; 3 #include &amp;lt;stdio.h&amp;gt; 4 #include &amp;lt;stdli">
+<meta name="keywords" content="linux,后台技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c_c--_tips">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/c_c--_tips/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="C/C++ 知识点 子进程正常退出会不会触发SIGCHLD\SIGSEV信号 1234567891011121314151617181920212223242526272829303132 1 #include &amp;lt;sys/wait.h&amp;gt; 2 #include &amp;lt;signal.h&amp;gt; 3 #include &amp;lt;stdio.h&amp;gt; 4 #include &amp;lt;stdli">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T04:13:12.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="c_c--_tips">
+<meta name="twitter:description" content="C/C++ 知识点 子进程正常退出会不会触发SIGCHLD\SIGSEV信号 1234567891011121314151617181920212223242526272829303132 1 #include &amp;lt;sys/wait.h&amp;gt; 2 #include &amp;lt;signal.h&amp;gt; 3 #include &amp;lt;stdio.h&amp;gt; 4 #include &amp;lt;stdli">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/c_c--_tips/">
+
+
+
+
+
+  <title>c_c--_tips | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">不吝赐教</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/c_c--_tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">c_c--_tips</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T11:39:01+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后台技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/c_c--_tips/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/c_c--_tips/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="C-C-知识点"><a href="#C-C-知识点" class="headerlink" title="C/C++ 知识点"></a>C/C++ 知识点</h1><ol start="0">
+<li><p>子进程正常退出会不会触发SIGCHLD\SIGSEV信号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"> <span class="number">2</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"> <span class="number">3</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> <span class="number">4</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"> <span class="number">5</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"> <span class="number">6</span> <span class="function"><span class="keyword">void</span> <span class="title">sig_handler</span><span class="params">(<span class="keyword">int</span> sig)</span></span></span><br><span class="line"><span class="function"> 7 </span>&#123;</span><br><span class="line"> <span class="number">8</span>     <span class="built_in">printf</span>(<span class="string">"catch signal:%d SIGCHILD=%d getpid=%d getppid=%d\n"</span>,sig,SIGCHLD,getpid(),getppid());</span><br><span class="line"> <span class="number">9</span>     <span class="keyword">int</span> status;</span><br><span class="line"><span class="number">10</span>     <span class="keyword">pid_t</span> pid = wait(&amp;status);</span><br><span class="line"><span class="number">11</span>     <span class="built_in">printf</span>(<span class="string">"pid %d exit\n"</span>,pid);</span><br><span class="line"><span class="number">12</span>     kill(getpid(),SIGABRT);</span><br><span class="line"><span class="number">13</span> &#125;</span><br><span class="line"><span class="number">14</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">( <span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function">15 </span>&#123;</span><br><span class="line"><span class="number">16</span>     <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">action</span>;</span></span><br><span class="line"><span class="number">17</span>     action.sa_handler = sig_handler;</span><br><span class="line"><span class="number">18</span>     sigaction(SIGCHLD,&amp;action,<span class="literal">NULL</span>);</span><br><span class="line"><span class="number">19</span> </span><br><span class="line"><span class="number">20</span>     <span class="keyword">pid_t</span> pid = <span class="number">0</span>;</span><br><span class="line"><span class="number">21</span>     <span class="keyword">if</span>((pid=fork()) == <span class="number">0</span>)&#123;</span><br><span class="line"><span class="number">22</span>         <span class="built_in">printf</span>(<span class="string">"this is child process:%d %d\n"</span>,getpid(),getppid());</span><br><span class="line"><span class="number">23</span>         <span class="built_in">exit</span>(<span class="number">-1</span>); <span class="comment">// 这里如果是exit(0) 那么将不会触发SIGCHLD 信号，这里也有可能是需要exit(EXIT_FAILURE)产生SIGSEV;才会触发信号</span></span><br><span class="line"><span class="number">24</span>     &#125;</span><br><span class="line"><span class="number">25</span>     <span class="keyword">while</span>(<span class="number">1</span>) sleep(<span class="number">100000</span>);</span><br><span class="line"><span class="number">26</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="number">27</span> &#125;</span><br><span class="line">output:</span><br><span class="line">  <span class="keyword">this</span> is child process:<span class="number">881</span> <span class="number">880</span></span><br><span class="line">  <span class="keyword">catch</span> signal:<span class="number">17</span> SIGCHILD=<span class="number">17</span> getpid=<span class="number">880</span> getppid=<span class="number">6871</span></span><br><span class="line">  pid <span class="number">881</span> <span class="built_in">exit</span></span><br><span class="line">  Aborted</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译期的factorial  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ResultType,<span class="keyword">int</span> N&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factorial</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">enum</span> &#123; value = (ResultType)N*Factorial&lt;ResultType,N<span class="number">-1</span>&gt;::value &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ResultType&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factorial</span>&lt;ResultType,1&gt; &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">enum</span> &#123; value =(ResultType)<span class="number">1</span> &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ResultType&gt;</span><br><span class="line"><span class="function">ResultType <span class="title">factorial</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n != <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> n * factorial&lt;ResultType&gt;(n<span class="number">-1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PRIME    100</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PRINTTYPE <span class="meta-string">"%llu"</span></span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Factorial:"</span> PRINTTYPE <span class="string">"\n"</span>,Factorial&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>,PRIME&gt;::value);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">time_t</span> btime,etime;</span><br><span class="line">    btime = time(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Factorial2:"</span> PRINTTYPE <span class="string">"\n"</span>,factorial&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>&gt;(PRIME));</span><br><span class="line">    etime = time(<span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"time cost:%lu\n"</span>,etime - btime);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select 1024 限制问题 </p>
+<blockquote>
+<p>KERNEL部分<br>1.首先我需要重新修改<br>/usr/src/linux/include/linux/posix_types.h中<strong>FD_SETSIZE的大小<br>2.重新编译KERNEL并启动进入这个新的KERNEL<br>用户应用部分<br>3.修改<br>/usr/include/linux/posix_types.h中</strong>FD_SETSIZE的大小<br>/usr/include/bits/typesizes.h中__FD_SETSIZE的大小<br>4.重新编译应用程序<br>5.修改可以打开的最大文件数<br>（1）通过ulimit -n 修改 或者<br>（2）在自己应用程序中调用setrlimit修改<br>这里我有几个小问题：<br>1.有文档提到还要同时修改<br>/proc/sys/fs/file-max<br>/proc/sys/fs/file-nr<br>/proc/sys/fs/inode-nr<br>这样类似的文件，但是以我的理解，好像对2.6的KERNEL不再需要<br>2.有些文档好像还提到了修改glibc库<br>按我的理解，似乎也不需要<br>3.还有文档提到编译自己的应用程序的时候需要加上<br>-DFD_SETSIZE=nnn<br>按我的理解，也不需要<br>4./proc下的文件有没有详细的说明，我是说对内涵2.6来说   </p>
+</blockquote>
+</li>
+<li><p>map 循环删除元素  </p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator it = m.begin(); it != m.end();it++)</span><br><span class="line">    m.erase(it++); <span class="comment">// 或者 it = m.erase(it);</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>c++ 萃取技术（根据参数获取对应的成员）  </p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyTest</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">int</span>  value_type;</span><br><span class="line">    <span class="function">value_type <span class="title">get</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</span><br><span class="line">&#125;;  </span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TYPE&gt;</span><br><span class="line">TYPE::<span class="function">value_type <span class="title">GetValue</span><span class="params">(TYPE t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    reutrn t.get();</span><br><span class="line">&#125;</span><br><span class="line">在没有使用萃取技术前，上面的方法对于下面的调用返回的是：</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyTest</span> <span class="title">a</span>;</span></span><br><span class="line">GetValue(a);  <span class="comment">// 返回1</span></span><br><span class="line"><span class="keyword">int</span> b=<span class="number">1</span>;</span><br><span class="line">GetValue(b); <span class="comment">// 此时由于b是内建类型无法定义value_type 和get这两个属性</span></span><br><span class="line">那么我们如何做呢？</span><br><span class="line">------------------------------------------------------</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyTest</span>&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> T value_type;</span><br><span class="line">    <span class="function">value_type <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"test"</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//泛化模板（1）</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Traits</span> &#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> T::value_type value_type;</span><br><span class="line">    <span class="function">value_type <span class="title">get</span><span class="params">(T obj)</span> </span>&#123; <span class="keyword">return</span> obj.get();&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//模板完全特化（由于所有木板参数都特化了，如果只是部分参数特化则称为偏特化)（2）</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Traits</span>&lt;int&gt;</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">int</span>  value_type;</span><br><span class="line">    <span class="function">value_type  <span class="title">get</span><span class="params">(<span class="keyword">int</span> obj)</span></span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 对int*特化（3）</span></span><br><span class="line"><span class="keyword">template</span>&lt;&gt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Traits</span>&lt;int*&gt;</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">int</span> value_type;</span><br><span class="line">    <span class="function">value_type  <span class="title">get</span><span class="params">(<span class="keyword">int</span> *obj)</span> </span>&#123; <span class="keyword">return</span> <span class="number">2</span>;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//此时GetValue方法可以改写成：</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">typename</span> Traits&lt;T&gt;::<span class="function">value_type <span class="title">GetValue</span><span class="params">(T t)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     Traits&lt;T&gt;().get(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,GetValue(a));<span class="comment">//对应调用Traits(2)</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,GetValue(&amp;a));<span class="comment">// 调用Traits(3)</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">MyTest</span>&lt;char*&gt; <span class="title">tt</span>;</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,GetValue&lt;MyTest&lt;<span class="keyword">char</span>*&gt; &gt;(tt)); <span class="comment">//调用traits(1)</span></span><br><span class="line">&#125;</span><br><span class="line">输出：</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">test</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>由上可见，此时GetValue已经支持int int*,如果想要支持其他类是的内建模型则需要实现其对应的Traits（相当与代理)<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">class CComplexObject</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">        void clone()&#123; printf(&quot;in clone&quot;);&#125;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;typename T,bool isClonable&gt;</span><br><span class="line">class XContainer</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">        enum &#123; Clonable=isConable&#125;;</span><br><span class="line">        void clone(T*pobj)</span><br><span class="line">        &#123;</span><br><span class="line">            Traits&lt;isCloneable&gt;().clone(pobj);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        template&lt;bool flag&gt;</span><br><span class="line">        class Traits&lt;true&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            public:</span><br><span class="line">                void clone(T* pobj)</span><br><span class="line">                &#123;</span><br><span class="line">                    pobj-&gt;clone();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        template&lt;bool flag&gt;</span><br><span class="line">            class Traits&lt;false&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                void clone(T*pobj)</span><br><span class="line">                &#123;</span><br><span class="line">                    printf(&quot; non clonable&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int *p1 = 0;</span><br><span class="line">    CComplexObject *p2 = 0;</span><br><span class="line">    XContainer&lt;int,false&gt; n1;</span><br><span class="line">    XContainer&lt;CComplexObject,true&gt; n2;</span><br><span class="line">    n1.clone(p1);</span><br><span class="line">    n2.clone(p2);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://hsw625728.blog.163.com/blog/static/39570728200972105341629/" target="_blank" rel="noopener">c++ 萃取</a></p>
+<ol start="0">
+<li><p>结构体成员偏移量</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   <span class="class"><span class="keyword">struct</span> <span class="title">Test</span>  </span></span><br><span class="line"><span class="class">   &#123;</span>  </span><br><span class="line">     <span class="keyword">int</span> a;  </span><br><span class="line">     <span class="keyword">int</span> b;  </span><br><span class="line">   &#125;;  </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GET_MEMBER_OFFSET (_type,_mem) &amp;(((struct _type*)0)-&gt;_mem)  </span></span><br><span class="line">GET_MEMBER_OFFSET(Test,a) ----&gt;<span class="number">0</span>  </span><br><span class="line">GET_MEMBER_OFFSET(Test,b) ----&gt;<span class="number">4</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>递归全排列<br>算法很简单：将每个数组元素都依次与最后一个元素交换，然后递归的生成其余排列。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printfResult</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[],<span class="keyword">size_t</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"&#123;"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="built_in">printf</span> (<span class="string">"%d "</span>,a[i]);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"&#125;\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>* x,<span class="keyword">int</span> *y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x != y)</span><br><span class="line">    &#123;</span><br><span class="line">    *x ^=*y;</span><br><span class="line">    *y ^=*x;</span><br><span class="line">    *x ^=*y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">permgen</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">size_t</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">size_t</span> total_size = n;</span><br><span class="line">    <span class="keyword">if</span>(n &lt;= <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        printfResult(a,total_size);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 依次与最后一位交换然后获取其排列</span></span><br><span class="line">        <span class="keyword">int</span> last = n<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;= last;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                swap(&amp;a[last],&amp;a[i]);</span><br><span class="line">                permgen(a,last);</span><br><span class="line">                <span class="comment">//恢复</span></span><br><span class="line">                swap(&amp;a[last],&amp;a[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">int</span> a [] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">     permgen(a,<span class="keyword">sizeof</span>(a)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>交换两个数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> *a ,<span class="keyword">int</span> *b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">if</span>(a != b)  <span class="comment">//注意这里必须要判断，否则当传入的是同一个变量的地址时将会置为0: swap(&amp;a,&amp;a);</span></span><br><span class="line"> &#123;</span><br><span class="line">  *a ^= *b;</span><br><span class="line">  *b ^= *a;</span><br><span class="line">  *a ^= *b;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>类成员方法的函数指针调用问题  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line">    <span class="number">1</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span>;</span></span><br><span class="line">    <span class="number">2</span></span><br><span class="line">    <span class="number">3</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">    4 &#123;</span></span><br><span class="line">    <span class="number">5</span>     <span class="keyword">public</span>:</span><br><span class="line">    <span class="number">6</span>        <span class="function"><span class="keyword">int</span> <span class="title">AAA</span><span class="params">(<span class="keyword">int</span>(A::*pFunc)(<span class="keyword">int</span>))</span></span></span><br><span class="line"><span class="function">    7        </span>&#123;<span class="comment">// 类方法内部调用类成员指针,运算符-&gt;*  是Member pointer selector</span></span><br><span class="line">    <span class="number">8</span>           <span class="keyword">return</span> (<span class="keyword">this</span>-&gt;*pFunc)(<span class="number">1</span>);</span><br><span class="line">    <span class="number">9</span>        &#125;</span><br><span class="line">   <span class="number">10</span>       <span class="function"><span class="keyword">int</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function">   11        </span>&#123;</span><br><span class="line">   <span class="number">12</span>           <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,a);</span><br><span class="line">   <span class="number">13</span>           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   <span class="number">14</span>        &#125;</span><br><span class="line">   <span class="number">15</span> &#125;;</span><br><span class="line">   <span class="number">16</span></span><br><span class="line">   <span class="number">18</span> <span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(A* pA,<span class="keyword">int</span>(A::*pFunc)(<span class="keyword">int</span>), <span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function">   19 </span>&#123;</span><br><span class="line">   <span class="number">20</span>     <span class="keyword">return</span> (pA-&gt;*pFunc)(a);</span><br><span class="line">   <span class="number">21</span> &#125;</span><br><span class="line">   <span class="number">22</span> <span class="function"><span class="keyword">int</span> <span class="title">test1</span><span class="params">(A pA,<span class="keyword">int</span>(A::*pFunc)(<span class="keyword">int</span>), <span class="keyword">int</span> a)</span></span></span><br><span class="line"><span class="function">   23 </span>&#123;</span><br><span class="line">   <span class="number">24</span>     <span class="comment">// 类方法内部调用类成员指针,运算符.*  是Member pointer selector</span></span><br><span class="line">   <span class="number">25</span>     <span class="keyword">return</span> (pA.*pFunc)(a);</span><br><span class="line">   <span class="number">26</span> &#125;</span><br><span class="line">   <span class="number">27</span></span><br><span class="line">   <span class="number">28</span></span><br><span class="line">   <span class="number">29</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">   30 </span>&#123;</span><br><span class="line">   <span class="number">31</span>     A a;</span><br><span class="line">   <span class="number">32</span>     a.AAA(&amp;A::print);</span><br><span class="line">   <span class="number">33</span></span><br><span class="line">   <span class="number">34</span>     test(&amp;a,&amp;A::print,<span class="number">2</span>);</span><br><span class="line">   <span class="number">35</span>     test1(a,&amp;A::print,<span class="number">3</span>);</span><br><span class="line">   <span class="number">36</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   <span class="number">37</span> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>linux epoll  、网络编程注意事项</p>
+<ol start="0">
+<li><code>epoll_event</code> 中的data是一个<code>union</code>结构，所以使用时需要注意</li>
+<li>对socket调用<code>recv</code> 采用<code>buff[2]</code>将会使得<code>recv</code>返回-1，且<code>errno=EAGAIN</code> 或者<code>EWOULDBLOCK</code> [non-block 模式]</li>
+<li>对socket调用<code>recv</code>返回0表示客户端关闭了链接;如果返回值-1除了<code>EAGAIN \EWOULDBLOCK</code>其他的都认为链接有问题需要关闭</li>
+<li>对socket调用<code>send</code>如果返回值-1除了<code>EAGAIN \EWOULDBLOCK</code>其他的都认为链接有问题需要关闭</li>
+</ol>
+</li>
+<li><p>如何把字符串转换成int或者long</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">atoi</span><span class="params">(<span class="keyword">char</span>* str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> c;</span><br><span class="line">  <span class="keyword">long</span> result=<span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> mult =   <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">if</span>(str &amp;&amp; *str == <span class="string">'-'</span>)&#123;</span><br><span class="line">       mult = <span class="number">-1</span>;</span><br><span class="line">       str++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">int</span> desc;</span><br><span class="line">  <span class="keyword">while</span>((c=*str++) != <span class="string">'\0'</span> )</span><br><span class="line">  &#123;</span><br><span class="line">      <span class="keyword">int</span> desc = c - <span class="string">'0'</span>;</span><br><span class="line">  	<span class="keyword">if</span>(desc &gt;=<span class="number">0</span> &amp;&amp; desc &lt; <span class="number">10</span>)</span><br><span class="line">      &#123;</span><br><span class="line">      	result *=<span class="number">10</span>;</span><br><span class="line">          result +=desc;</span><br><span class="line">      &#125;</span><br><span class="line">     <span class="keyword">else</span></span><br><span class="line">     &#123;</span><br><span class="line">     	 <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">return</span> result * mult;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>c++中虚函数表存储在哪里？<br>对于不同的编译器是不一样的，在g++中存放在.rodata 段，可以通过下面命令查看一个有虚函数的目标文件,每个有</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T1</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        T1()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"this is T1 constructor"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"this is the T1::print "</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T2</span>:</span> <span class="keyword">public</span> T1</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        T2()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"this is T2 constructor"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; <span class="string">"this is T2::print"</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">T3</span>:</span><span class="keyword">public</span> T1</span><br><span class="line">&#123;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"begin main"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">T1</span> <span class="title">tt</span>;</span></span><br><span class="line">    tt.print();</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">T2</span> <span class="title">t2</span>;</span></span><br><span class="line">    t2.print();</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">T3</span> <span class="title">t3</span>;</span></span><br><span class="line">    t3.print();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> objdump -x -d -s a.out|c++filt |grep vtable</span><br><span class="line"> </span><br><span class="line">0000000000400c20  w    O .rodata        0000000000000018              vtable for T1</span><br><span class="line">0000000000400be0  w    O .rodata        0000000000000018              vtable for T3</span><br><span class="line">0000000000400c00  w    O .rodata        0000000000000018              vtable for T2</span><br><span class="line">0000000000602080  w    O .bss   0000000000000058              vtable for __cxxabiv1::__class_type_info@@CXXABI_1.3</span><br><span class="line">0000000000602200  w    O .bss   0000000000000058              vtable for __cxxabiv1::__si_class_type_info@@CXXABI_1.3  </span><br><span class="line">```  </span><br><span class="line">关于c++虚函数表可以参考 [C++虚函数表解析](http://blog.csdn.net/haoel/article/details/1948051)  </span><br><span class="line">0. 如何初始化map  </span><br><span class="line"></span><br><span class="line">  ```c  </span><br><span class="line">typedef map&lt;int,const char*&gt;::value_type VALUETYPE;</span><br><span class="line">const static VALUETYPE desArray[] =</span><br><span class="line">&#123;</span><br><span class="line">    VALUETYPE(100,"test1"),</span><br><span class="line">    VALUETYPE(101,"test2")</span><br><span class="line">&#125;;</span><br><span class="line">//用desArray 初始化map</span><br><span class="line">const static map&lt;int,const char*&gt; g_codeDespMap(desArray,desArray+sizeof(desArray));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指针操作  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a=<span class="number">0x12345678</span>;</span><br><span class="line">    <span class="keyword">char</span>* pa = (<span class="keyword">char</span>*)&amp;a;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"&amp;a=%p\n"</span>,&amp;a);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="keyword">sizeof</span>(<span class="keyword">int</span>);i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%p=%p\n"</span>,pa+i,(<span class="keyword">char</span>)*(pa+i));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">short</span> *spa = (<span class="keyword">short</span>*)&amp;a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;<span class="keyword">sizeof</span>(<span class="keyword">int</span>);i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%p=%p\n"</span>,spa+i,(<span class="keyword">int</span>)*(spa+i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>output：<br>&amp;a=0x7ffff01c4684<br>0x7ffff01c4684=0x78<br>0x7ffff01c4685=0x56<br>0x7ffff01c4686=0x34<br>0x7ffff01c4687=0x12  </p>
+<p>0x7ffff01c4684=0x5678<br>0x7ffff01c4686=0x1234<br>0x7ffff01c4688=(nil)<br>0x7ffff01c468a=(nil)  </p>
+</blockquote>
+<ol start="0">
+<li><p>数组 a 与&amp;a的区别(指针数组与数组指针）<br>指针数组是值一个数组里面装着指针<br>数组指针是指一个指向数组的指针，它代表指针，指向整个数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> a[<span class="number">5</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">  <span class="keyword">int</span> *prt = (<span class="keyword">int</span>*)(&amp;a+<span class="number">1</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d,%d\n"</span>,*(a+<span class="number">1</span>),*(ptr<span class="number">-1</span>));</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>因为&amp;a是数组的指针（数组的首地址即a）而在栈中数组的分布情况如下：<br>|bb|高地址<br>|a4|<br>|a3|<br>|a2|<br>|a1|<br>|a0|<br>|cc|低地址<br>&amp;a=a0的地址<br>而&amp;a+c ,这里c=1 则将会使得指针移动到bb所在的地址，<br>（因为它所以移动的是c*n个元素单位，n为数组的元素个数这里c为1）  </p>
+<p>同理要将二维数组赋给一指针，应这样赋值：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">3</span>][<span class="number">4</span>];</span><br><span class="line"><span class="keyword">int</span> (*p)[<span class="number">4</span>]; <span class="comment">//该语句是定义一个数组指针，指向含4个元素的一维数组。</span></span><br><span class="line"> p=a;        <span class="comment">//将该二维数组的首地址赋给p，也就是a[0]或&amp;a[0][0]</span></span><br><span class="line"> p++;       <span class="comment">//该语句执行过后，也就是p=p+1;p跨过行a[0][]指向了行a[1][]</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+<p>所以数组指针也称指向一维数组的指针，亦称行指针。<br>   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> v[<span class="number">2</span>][<span class="number">10</span>] = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>&#125;,&#123;<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>,<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>,<span class="number">19</span>,<span class="number">20</span>&#125;&#125;;</span><br><span class="line">       <span class="keyword">int</span> (*a)[<span class="number">10</span>] = v;</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"%d "</span>,**a);    <span class="comment">//1</span></span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"%d "</span>,**(a+<span class="number">1</span>)); <span class="comment">//11===*a[1]</span></span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"%d "</span>,*(*a+<span class="number">1</span>)); <span class="comment">//2====*(a[0]+1)</span></span><br><span class="line">&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>分析:<br>                   <em>a+1<br>                     |<br>                     v  
+       </em>a —–&gt; [1, 2, 3,4,5,6,7,8,9,10]<br>       (a+1)—&gt; [11,12,13,14,15,16,17,18,19,20]<br>     a+1 一共向后移动了:字节数 = 列元素个数×sizeof(int)  </p>
+</blockquote>
+<ol start="0">
+<li><p>STL<br>stl容器只支持“实值语义”，不支持引用语义，下面的写法无法通过编译: </p>
+<p><code>vector&lt;shape&amp;&gt; v;</code></p>
+</li>
+<li><p>一个空类对象的 </p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TT</span> &#123;</span>&#125;; <span class="comment">//sizeof TT=1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TT0</span>&#123;</span><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;&#125;; <span class="comment">//sizeof TT0 =1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>sizeof TT=1–linux gcc，这是由c++标准规定的:c++标准规定一个空类以及那些不包含虚函数和非静态数据的成员时，其对象大小也是1. 其主要目的是为了类的实例化，如果大小为0完全不占用内存空间，那么空类无法获取实例的地址，this指针失效，因此不能被实例化。<br>另外在类中的static成员不存储在对象成员中所以sizeof是不包含static类的成员.根据继承的权限来区分子类成员是否被继承如果非虚拟继承那么类对象大小与基类以至于，如果是虚拟继承那么需要考虑一个指向指针虚拟函数表的指针的大小，如果是多个虚拟继承也需要将该指针叠加其他情况需要考虑对齐，其对齐计算方法与结构体类似.  </p>
+<ol start="0">
+<li><p>变参使用  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span>* szFormat,...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     va_list args</span><br><span class="line">     va_start(args, szFormat);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="built_in">vsprintf</span>(buf,szFormat,args);</span><br><span class="line"></span><br><span class="line">     va_end(args);</span><br><span class="line">     <span class="comment">//取参数</span></span><br><span class="line">     va_args(args);    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ifstream使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c;</span><br><span class="line">ifstream input;</span><br><span class="line">input.open();</span><br><span class="line">input.fail();</span><br><span class="line"><span class="keyword">while</span>(!input.eof())</span><br><span class="line">&#123;</span><br><span class="line">     input.get(c);</span><br><span class="line">&#125;</span><br><span class="line">input.close();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="析构"><a href="#析构" class="headerlink" title="析构"></a>析构</h2>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//只有基类的析构函数被声明定义为virtual，才会使得，一个基类的指针指向派生类的对象被释放时才会调用基类和派生类的</span></span><br><span class="line"><span class="comment">//析构方法，否则只有基类的析构方法被调用。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base1</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     base1()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base1"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     ~base1()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base1 destruct"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> len;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> base1::len = <span class="number">2</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base2</span>:</span><span class="keyword">public</span> base1&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     base2()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base2"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     ~base2()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base2 destruct"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="built_in">cout</span>&lt;&lt;<span class="string">"derive "</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">///////////////////////////////////////////////////</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base1_v</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     base1_v()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base1_v"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">virtual</span> ~base1_v()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base1_v destruct"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">base2_v</span>:</span><span class="keyword">public</span> base1_v&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     base2_v()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base2_v"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     ~base2_v()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"base2_v destruct"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">///////////////////////////////////////////////////</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">str1</span>&#123;</span></span><br><span class="line">     <span class="keyword">int</span> t;</span><br><span class="line">     str1()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">virtual</span> ~str1()&#123;<span class="comment">//只有为virtual才会使得delete的时候父类、子类析构函数被调用，</span></span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"~"</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">str2</span>:</span><span class="keyword">public</span> str1&#123;</span><br><span class="line">     str2()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     ~str2()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"~"</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">int</span> tt2;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">///////////////////////////////////////</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">String</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">     String()&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// ~String()&#123;</span></span><br><span class="line">          <span class="comment">//cout&lt;&lt;__func__&lt;&lt;endl;</span></span><br><span class="line">       <span class="comment">// &#125;</span></span><br><span class="line">     <span class="function"><span class="keyword">explicit</span> <span class="title">String</span><span class="params">(<span class="keyword">char</span> *buf)</span></span>&#123;</span><br><span class="line">          <span class="built_in">memcpy</span>(m_buf,buf,m_len);</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;<span class="string">"Constructor "</span>&lt;&lt;__func__&lt;&lt;<span class="string">"(char *buf):set m_buf="</span>&lt;&lt;m_buf&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="function"><span class="keyword">explicit</span> <span class="title">String</span><span class="params">(<span class="keyword">const</span> String&amp; obj)</span></span>&#123;</span><br><span class="line">          <span class="built_in">memcpy</span>(m_buf,obj.m_buf,obj.m_len);</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="string">"Copy constructor"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     String&amp; <span class="keyword">operator</span> = (<span class="keyword">const</span> String &amp;obj)&#123;</span><br><span class="line">          *<span class="keyword">this</span> = obj;</span><br><span class="line">          <span class="built_in">memcpy</span>(<span class="keyword">this</span>-&gt;m_buf,obj.m_buf,obj.m_len);</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="string">"Assigned"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">          <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">          <span class="built_in">cout</span>&lt;&lt;__func__&lt;&lt;<span class="string">":m_buf="</span>&lt;&lt;m_buf&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">     &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">     <span class="keyword">static</span> <span class="keyword">int</span> m_len;</span><br><span class="line">     <span class="keyword">char</span> *m_buf;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">int</span> String::m_len = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">///////////////////////////////////////</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line"><span class="comment">// base2 b2;</span></span><br><span class="line"><span class="comment">// base1 b1=b2;</span></span><br><span class="line">base1 *bb2 = <span class="keyword">new</span> base2;</span><br><span class="line"><span class="keyword">delete</span> bb2;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"**********************"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">base1_v *bb2_v = <span class="keyword">new</span> base2_v;</span><br><span class="line"><span class="keyword">delete</span> bb2_v;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"**********************"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">////////////////////////////////////</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">str1</span> *<span class="title">st</span> = <span class="title">new</span> <span class="title">str2</span>;</span></span><br><span class="line"><span class="keyword">delete</span> st;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">str1</span> <span class="title">sst</span>;</span></span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"**********************"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">//////////////////////////////////</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">base1 *b = <span class="keyword">new</span> base2;</span><br><span class="line">base2 *b2 = <span class="keyword">dynamic_cast</span>&lt;base2*&gt;(b);<span class="comment">// base1 must have more than one virtual method include constructor</span></span><br><span class="line">b-&gt;<span class="built_in">set</span>();</span><br><span class="line">b2-&gt;<span class="built_in">set</span>();</span><br><span class="line"><span class="keyword">delete</span> b2;<span class="comment">//两个指针释放其中一个即可</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"**********************"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="comment">// String s = "33";//compile error</span></span><br><span class="line">String ss=String(<span class="string">"33"</span>);<span class="comment">//just call constructor one time.</span></span><br><span class="line">String *ps=&amp;ss;<span class="comment">//will not call the constructor</span></span><br><span class="line"><span class="function">String <span class="title">szStr</span><span class="params">(<span class="string">"123"</span>)</span></span>;</span><br><span class="line">String &amp;pStr=szStr;<span class="comment">//will not call the constructor,won't call the assignment constructor.</span></span><br><span class="line">pStr.print();</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//** output **</span></span><br><span class="line"><span class="comment">// base1</span></span><br><span class="line"><span class="comment">// base2</span></span><br><span class="line"><span class="comment">// base1 destruct</span></span><br><span class="line"><span class="comment">// **********************</span></span><br><span class="line"><span class="comment">// base1_v</span></span><br><span class="line"><span class="comment">// base2_v</span></span><br><span class="line"><span class="comment">// base2_v destruct //有虚析构则会调用子类的析构函数</span></span><br><span class="line"><span class="comment">// base1_v destruct</span></span><br><span class="line"><span class="comment">// **********************</span></span><br><span class="line"><span class="comment">// str1</span></span><br><span class="line"><span class="comment">// str2</span></span><br><span class="line"><span class="comment">// ~str2</span></span><br><span class="line"><span class="comment">// ~str1</span></span><br><span class="line"><span class="comment">// **********************</span></span><br><span class="line"><span class="comment">// str1</span></span><br><span class="line"><span class="comment">// ~str1</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组-指针"><a href="#数组-指针" class="headerlink" title="数组 指针"></a>数组 指针</h2><ol start="0">
+<li>0长度数组的含义<br>linux总进程的结构体定义如下，也有0长数组：   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread_info</span> &#123;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">task</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">exec_domain</span> *<span class="title">exec_domain</span>;</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> flags;</span><br><span class="line">__u32 status;</span><br><span class="line">__u32 cpu;</span><br><span class="line"><span class="keyword">int</span> preempt_count;</span><br><span class="line"><span class="keyword">mm_segment_t</span> addr_limit;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">restart_block</span> <span class="title">restart_block</span>;</span></span><br><span class="line"><span class="keyword">void</span> __user *sysenter_return;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> previous_esp;</span><br><span class="line">__u8 supervisor_stack[<span class="number">0</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>标准C或者C++中由于不支持 0 长度的数组，只有GNU C允许使用这种用法，目的是为了访问不定长结构体时节省空间和便利性。<br>例如：<br>    <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">demo</span> &#123;</span></span><br><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">char</span> b[<span class="number">256</span>];</span><br><span class="line"><span class="keyword">char</span> follow[<span class="number">0</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>假如，现在程序中要分配一个struct demo结构体，并紧邻其后分配长度为LEN个字节空间，则可以使用如下方法得到：<br>struct demo <em>demo = (struct demo </em>) malloc (sizeof(strcut demo) + LEN);<br>这样我们就可以用 demo-&gt;follow 来访问结构体demo随后的空间数据。<br>当然，我们可以使用指针来达到这样的目的。</p>
+<pre><code><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">demo</span> &#123;</span></span><br><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">char</span> b[<span class="number">256</span>];</span><br><span class="line"><span class="keyword">char</span> *follow;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">demo</span> *<span class="title">demo</span> = (<span class="title">struct</span> <span class="title">demo</span> *) <span class="title">malloc</span> (<span class="title">sizeof</span>(<span class="title">strcut</span> <span class="title">demo</span>) + <span class="title">LEN</span>);</span></span><br></pre></td></tr></table></figure>
+</code></pre><p>同样可以达到零长度数组的效果，但是却多分配了一个char指针。如果分配额外数据空间还好，否则就是白白浪费了空间。</p>
+<ol start="0">
+<li><p>例子<br>C,pasted just now: </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> stdio.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> string.h</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span> ar[<span class="number">2</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line">    <span class="built_in">printf</span>(<span class="keyword">sizeof</span>=%d\n,<span class="keyword">sizeof</span> ar); </span><br><span class="line">    <span class="built_in">printf</span>(<span class="built_in">strlen</span> = %d,<span class="built_in">strlen</span>(ar));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *p = hello;func(p);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line"></span><br><span class="line"><span class="keyword">sizeof</span>=<span class="number">4</span></span><br><span class="line"><span class="built_in">strlen</span> = <span class="number">5</span></span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="0">
+<li><p>例子<br> C,pasted 1 second ago:</p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> stdio.h</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> string.h</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func</span><span class="params">(<span class="keyword">char</span> ar[<span class="number">2</span>])</span></span>&#123; </span><br><span class="line">        <span class="keyword">int</span> a = (<span class="keyword">int</span>)((<span class="keyword">int</span>*)<span class="number">0</span>+<span class="number">4</span>); </span><br><span class="line">        <span class="keyword">int</span> b = (<span class="keyword">int</span>)((<span class="keyword">short</span>*)<span class="number">0</span>+<span class="number">4</span>);</span><br><span class="line">        <span class="built_in">printf</span>(a=%d\n,a); </span><br><span class="line">        <span class="built_in">printf</span>(b=%d\n,b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        func(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    Output:</span><br><span class="line"></span><br><span class="line">    a=<span class="number">16</span></span><br><span class="line">    b=<span class="number">8</span></span><br><span class="line">    ```   </span><br><span class="line"></span><br><span class="line">    ```c  </span><br><span class="line">  ** 注意：**  </span><br><span class="line">     这里只是<span class="number">4</span>✘<span class="keyword">sizeof</span>(<span class="keyword">int</span>)或者<span class="number">4</span>*<span class="keyword">sizeof</span>(<span class="keyword">short</span>)个字节，只不过是将他们细分为<span class="number">16</span>份而已  </span><br><span class="line">    <span class="number">0x0010</span>  </span><br><span class="line">    <span class="number">0x000f</span>  </span><br><span class="line">    <span class="number">0x000e</span>  </span><br><span class="line">    。。。  </span><br><span class="line">    <span class="number">0x003</span>  </span><br><span class="line">    <span class="number">0x002</span>  </span><br><span class="line">    <span class="number">0x001</span>  </span><br><span class="line">    <span class="number">0x000</span>----(<span class="keyword">int</span> *) <span class="number">0</span>  </span><br><span class="line">   ``` </span><br><span class="line"></span><br><span class="line"><span class="number">0.</span> 指针例子  </span><br><span class="line">C,pasted just now:</span><br><span class="line"></span><br><span class="line">    ```c</span><br><span class="line">    #include stdio.h</span><br><span class="line">    #include <span class="built_in">string</span>.h</span><br><span class="line">    <span class="keyword">int</span> func(<span class="keyword">long</span> L)</span><br><span class="line">    &#123;</span><br><span class="line">        L=L+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func2</span><span class="params">(<span class="keyword">long</span> *pL)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        pL +=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">func3</span><span class="params">(<span class="keyword">long</span> *pL)</span></span>&#123;</span><br><span class="line">        *pL +=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> lValue =<span class="number">20</span>;</span><br><span class="line">        <span class="keyword">long</span> *plValue = lValue;</span><br><span class="line">        func(lValue);</span><br><span class="line">        <span class="built_in">printf</span>(lvalue = %d,*plValue=%d\n,lValue,*plValue);</span><br><span class="line">        func(*plValue);</span><br><span class="line">        <span class="built_in">printf</span>(lvalue = %d,*plValue=%d\n,lValue,*plValue);</span><br><span class="line">        func2(lValue);</span><br><span class="line">        <span class="built_in">printf</span>(lvalue = %d,*plValue=%d\n,lValue,*plValue);</span><br><span class="line">        func2(plValue);</span><br><span class="line">        <span class="built_in">printf</span>(lvalue = %d,*plValue=%d\n,lValue,*plValue);</span><br><span class="line">        func3(lValue);</span><br><span class="line">        <span class="built_in">printf</span>(lvalue = %d,*plValue=%d\n,lValue,*plValue);</span><br><span class="line">        </span><br><span class="line">        func3(plValue);</span><br><span class="line">        <span class="built_in">printf</span>(lvalue = %d,*plValue=%d\n,lValue,*plValue);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line"></span><br><span class="line">lvalue = <span class="number">20</span>,*plValue=<span class="number">20l</span>value = <span class="number">20</span>,*plValue=<span class="number">20l</span>value = <span class="number">20</span>,*plValue=<span class="number">20</span></span><br><span class="line"></span><br><span class="line">lvalue = <span class="number">20</span>,*plValue=<span class="number">20l</span>value = <span class="number">21</span>,*plValue=<span class="number">21l</span>value = <span class="number">22</span>,*plValue=<span class="number">22</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string 查找<br>C++中使用的string 中有一个属性npos即string::npos可以用来判断string中查找的字符串是否存在  </p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> member constant</span><br><span class="line">&lt;<span class="built_in">string</span>&gt;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span>::npos</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">size_t</span> npos = <span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Maximum value for size_t<br>npos is a static member constant value with the greatest possible value for an element of type size_t.<br>This value, when used as the value for a len (or sublen) parameter in string’s member functions, means “until the end of the string”.<br>As a return value, it is usually used to indicate no matches.<br>This constant is defined with a value of -1, which because size_t is an unsigned integral type, it is the largest possible representable value for this type.<br>    <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> str;</span><br><span class="line"></span><br><span class="line">pos=str.find_first_of(<span class="string">"h"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(pos!=<span class="built_in">string</span>::npos)<span class="comment">//  match</span></span><br></pre></td></tr></table></figure></p>
+<ol start="0">
+<li>linux下整型转换字符<br>在windows下可以通过，itoa(value,buffer,type),value是待转换的值，buffer，存放转换后的字符串，最后我一个参数是表示需要转换的进制的形式，另外，她的头文件是stdlib.h,但是很奇怪在Linux下gcc并不支持他，另外在windows下还可以通过CString::format来进行转换，该方法在linux下依然是行不同的，在Linux下可以通过sprintf(buffer,”format”,param) 5此方法在window下依然是行的通的，或者通过宏来实现    <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Tostring（a） #a</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>那么展开后就是const char*即”xxx”  </p>
+<ol start="0">
+<li>c/c++ 数组做形参：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">float</span> a[<span class="number">10</span>])</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>注意：形参中给出数组长度是没有意义的，编译器并不为它分配内存，将上面 test 函数的形参改为 float a[1]、float a[10] 依然是正确的。所以一般用指针变量来代替，可以改为float *a。<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">float</span> a[<span class="number">10</span>],<span class="keyword">float</span> aa[<span class="number">1000</span>],<span class="keyword">float</span>* aaa)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d %d %d"</span>,<span class="keyword">sizeof</span>(a),<span class="keyword">sizeof</span>(aa),<span class="keyword">sizeof</span>(aaa));</span><br><span class="line">&#125;</span><br><span class="line">在<span class="number">64b</span>it系统上输出：<span class="number">8</span> <span class="number">8</span> <span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+<ol start="0">
+<li>c全局变量、局部变量都是先定义的在低地址，后定义的在高地址（注意是定义不是声明）</li>
+<li>编译器什么时候为类提供默认构造函数<ol start="0">
+<li>本类、本类定义的成员对象或者父类中有虚函数存在的情况</li>
+<li>父类或者本类中定义的成员对象带有构造函数</li>
+</ol>
+</li>
+<li><p>编译器如何传递this指针<br>this指针保存所属对象的首地址，在使用默认的调用约定时（thiscall)在调用成员函数的过程中编译其做了一个小动作<br>利用寄存器（ECX或者RAX）保存对象的首地址，并以寄存器传参的方式传递到成员函数中</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">TT</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">int</span> tn1;</span><br><span class="line">        <span class="keyword">int</span> tn2;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TT a;</span><br><span class="line">    a.tn1=<span class="number">0x01</span>;</span><br><span class="line">    a.tn2=<span class="number">0x02</span>;</span><br><span class="line">    a.print();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以下是反汇编代码</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="number">4004</span>ed:       <span class="number">55</span>                      push   %rbp</span><br><span class="line">  <span class="number">4004</span>ee:       <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">  <span class="number">4004f</span>1:       <span class="number">48</span> <span class="number">83</span> ec <span class="number">10</span>             sub    $<span class="number">0x10</span>,%rsp</span><br><span class="line">    TT a;</span><br><span class="line">    a.tn1=<span class="number">0x01</span>;</span><br><span class="line">  <span class="number">4004f</span>5:       c7 <span class="number">45</span> f0 <span class="number">01</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    movl   $<span class="number">0x1</span>,<span class="number">-0x10</span>(%rbp)</span><br><span class="line">    a.tn2=<span class="number">0x02</span>;</span><br><span class="line">  <span class="number">4004f</span>c:       c7 <span class="number">45</span> f4 <span class="number">02</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    movl   $<span class="number">0x2</span>,<span class="number">-0xc</span>(%rbp)</span><br><span class="line">    a.print();</span><br><span class="line">  <span class="number">400503</span>:       <span class="number">48</span> <span class="number">8</span>d <span class="number">45</span> f0             lea    <span class="number">-0x10</span>(%rbp),%rax    <span class="comment">//取出a对象的地址放入到rax寄存器中</span></span><br><span class="line">  <span class="number">400507</span>:       <span class="number">48</span> <span class="number">89</span> c7                mov    %rax,%rdi</span><br><span class="line">  <span class="number">40050</span>a:       e8 <span class="number">07</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          callq  <span class="number">400516</span> &lt;_ZN2TT5printEv&gt;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="number">40050f</span>:       b8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x0</span>,%eax</span><br><span class="line">&#125;</span><br><span class="line">  <span class="number">400514</span>:       c9                      leaveq</span><br><span class="line">  <span class="number">400515</span>:       c3                      retq</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/后台技术/" rel="tag"># 后台技术</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/linux_work_cmd/" rel="prev" title="linux_work_cmd">
+                linux_work_cmd <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-C-知识点"><span class="nav-number">1.</span> <span class="nav-text">C/C++ 知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#析构"><span class="nav-number">1.1.</span> <span class="nav-text">析构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组-指针"><span class="nav-number">1.2.</span> <span class="nav-text">数组 指针</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">QingxinLi@2015</span>
+
+  
+</div>
+
+
+
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

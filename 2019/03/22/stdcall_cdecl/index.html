@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="糊涂之至，方能致远!!">
+  <meta name="keywords" content="linux,后台技术,">
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="_stdcall 与 _cdecl的区别首先，需要了解两者之间的区别：WINDOWS的函数调用时需要用到栈（STACK，一种先入后出的存储结构）。当函数调用完成后，栈需要清除，这里就是问题的关键，如何清除？？如果我们的函数使用了_cdecl，那么栈的清除工作是由调用者，用COM的术语来讲就是客户来完成的。这样带来了一个棘手的问题，不同的编译器产生栈的方式不尽相同，那么调用者能否正常的完成清除工作呢">
-<meta name="keywords" content="Linux Programs">
+<meta name="keywords" content="linux,后台技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux programer">
+<meta property="og:title" content="stdcall_cdecl">
 <meta property="og:url" content="http://leeqx.github.io/2019/03/22/stdcall_cdecl/index.html">
 <meta property="og:site_name" content="linux programer">
 <meta property="og:description" content="_stdcall 与 _cdecl的区别首先，需要了解两者之间的区别：WINDOWS的函数调用时需要用到栈（STACK，一种先入后出的存储结构）。当函数调用完成后，栈需要清除，这里就是问题的关键，如何清除？？如果我们的函数使用了_cdecl，那么栈的清除工作是由调用者，用COM的术语来讲就是客户来完成的。这样带来了一个棘手的问题，不同的编译器产生栈的方式不尽相同，那么调用者能否正常的完成清除工作呢">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-22T02:37:35.494Z">
+<meta property="og:updated_time" content="2019-03-22T04:13:13.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux programer">
+<meta name="twitter:title" content="stdcall_cdecl">
 <meta name="twitter:description" content="_stdcall 与 _cdecl的区别首先，需要了解两者之间的区别：WINDOWS的函数调用时需要用到栈（STACK，一种先入后出的存储结构）。当函数调用完成后，栈需要清除，这里就是问题的关键，如何清除？？如果我们的函数使用了_cdecl，那么栈的清除工作是由调用者，用COM的术语来讲就是客户来完成的。这样带来了一个棘手的问题，不同的编译器产生栈的方式不尽相同，那么调用者能否正常的完成清除工作呢">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title> | linux programer</title>
+  <title>stdcall_cdecl | linux programer</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline"></h2>
+          <h2 class="post-title" itemprop="name headline">stdcall_cdecl</h2>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T11:39:01+08:00">
                 2019-03-22
               </time>
             
@@ -332,6 +332,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后台技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -412,6 +434,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/后台技术/" rel="tag"># 后台技术</a>
+          
+        </div>
+      
 
       
       
@@ -421,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/redis-dict字典/" rel="next" title>
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2019/03/22/tcpburn-压测/" rel="next" title="tcpburn-压测">
+                <i class="fa fa-chevron-left"></i> tcpburn-压测
               </a>
             
           </div>
@@ -431,8 +461,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/22/Mac-os-Docker-安装使用/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/22/redis-dict字典/" rel="prev" title="redis-dict字典">
+                redis-dict字典 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,14 +549,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>

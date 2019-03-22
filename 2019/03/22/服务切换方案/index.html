@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="糊涂之至，方能致远!!">
+  <meta name="keywords" content="linux,后台技术,">
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="服务切换方案   在服务维护过程中，经常会遇到服务器故障（磁盘崩盘，好吧，是否考虑优化log输出？）、或者DB故障，悲催的我们，需要做服务迁移。那么我们怎么达到在不影响服务的情况下进行迁移呢？本篇幅主要针对DB故障。   假定服务A 有两个数据库：M（master）----------&amp;gt;S(slave)   master 切换到slave服务往M中写，此时M发生故障了，需要切换到S，那么如果">
-<meta name="keywords" content="Linux Programs">
+<meta name="keywords" content="linux,后台技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux programer">
+<meta property="og:title" content="服务切换方案">
 <meta property="og:url" content="http://leeqx.github.io/2019/03/22/服务切换方案/index.html">
 <meta property="og:site_name" content="linux programer">
 <meta property="og:description" content="服务切换方案   在服务维护过程中，经常会遇到服务器故障（磁盘崩盘，好吧，是否考虑优化log输出？）、或者DB故障，悲催的我们，需要做服务迁移。那么我们怎么达到在不影响服务的情况下进行迁移呢？本篇幅主要针对DB故障。   假定服务A 有两个数据库：M（master）----------&amp;gt;S(slave)   master 切换到slave服务往M中写，此时M发生故障了，需要切换到S，那么如果">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-22T02:37:35.496Z">
+<meta property="og:updated_time" content="2019-03-22T04:13:13.213Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux programer">
+<meta name="twitter:title" content="服务切换方案">
 <meta name="twitter:description" content="服务切换方案   在服务维护过程中，经常会遇到服务器故障（磁盘崩盘，好吧，是否考虑优化log输出？）、或者DB故障，悲催的我们，需要做服务迁移。那么我们怎么达到在不影响服务的情况下进行迁移呢？本篇幅主要针对DB故障。   假定服务A 有两个数据库：M（master）----------&amp;gt;S(slave)   master 切换到slave服务往M中写，此时M发生故障了，需要切换到S，那么如果">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title> | linux programer</title>
+  <title>服务切换方案 | linux programer</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline"></h2>
+          <h2 class="post-title" itemprop="name headline">服务切换方案</h2>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T11:39:01+08:00">
                 2019-03-22
               </time>
             
@@ -332,6 +332,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后台技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -420,6 +442,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/后台技术/" rel="tag"># 后台技术</a>
+          
+        </div>
+      
 
       
       
@@ -429,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/linux服务器性能分析_TCP内存/" rel="next" title>
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2019/03/22/父子进程的继承关系/" rel="next" title="父子进程的继承关系">
+                <i class="fa fa-chevron-left"></i> 父子进程的继承关系
               </a>
             
           </div>
@@ -438,6 +468,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/大端模式和小端模式/" rel="prev" title="大端模式和小端模式">
+                大端模式和小端模式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -523,14 +557,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>

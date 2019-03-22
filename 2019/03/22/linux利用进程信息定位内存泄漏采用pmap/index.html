@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="糊涂之至，方能致远!!">
+  <meta name="keywords" content="linux,后台技术,">
 
 
 
@@ -80,16 +80,16 @@
 
 
 <meta name="description" content="比如进程id:1381由于带有虚拟函数的类实例在new时再内存heap中会有对应的虚函数表，所以我们可以通过这个切入点来分析heap中的各类实例的统计数，然后进一步根据实例的数量判断是否存在内存泄漏。 gdb attach 138112345(gdb) shellp pmap 1381(gdb) set height 0              ----自动，不需要手动(gdb) set log">
-<meta name="keywords" content="Linux Programs">
+<meta name="keywords" content="linux,后台技术">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux programer">
+<meta property="og:title" content="linux利用进程信息定位内存泄漏采用pmap">
 <meta property="og:url" content="http://leeqx.github.io/2019/03/22/linux利用进程信息定位内存泄漏采用pmap/index.html">
 <meta property="og:site_name" content="linux programer">
 <meta property="og:description" content="比如进程id:1381由于带有虚拟函数的类实例在new时再内存heap中会有对应的虚函数表，所以我们可以通过这个切入点来分析heap中的各类实例的统计数，然后进一步根据实例的数量判断是否存在内存泄漏。 gdb attach 138112345(gdb) shellp pmap 1381(gdb) set height 0              ----自动，不需要手动(gdb) set log">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-22T02:37:35.479Z">
+<meta property="og:updated_time" content="2019-03-22T04:13:13.047Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux programer">
+<meta name="twitter:title" content="linux利用进程信息定位内存泄漏采用pmap">
 <meta name="twitter:description" content="比如进程id:1381由于带有虚拟函数的类实例在new时再内存heap中会有对应的虚函数表，所以我们可以通过这个切入点来分析heap中的各类实例的统计数，然后进一步根据实例的数量判断是否存在内存泄漏。 gdb attach 138112345(gdb) shellp pmap 1381(gdb) set height 0              ----自动，不需要手动(gdb) set log">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title> | linux programer</title>
+  <title>linux利用进程信息定位内存泄漏采用pmap | linux programer</title>
   
 
 
@@ -310,7 +310,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline"></h2>
+          <h2 class="post-title" itemprop="name headline">linux利用进程信息定位内存泄漏采用pmap</h2>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T11:39:01+08:00">
                 2019-03-22
               </time>
             
@@ -332,6 +332,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后台技术/" itemprop="url" rel="index">
+                    <span itemprop="name">后台技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -413,6 +435,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/后台技术/" rel="tag"># 后台技术</a>
+          
+        </div>
+      
 
       
       
@@ -422,14 +452,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/22/linux服务器性能分析_TCP内存/" rel="next" title="linux服务器性能分析_TCP内存">
+                <i class="fa fa-chevron-left"></i> linux服务器性能分析_TCP内存
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/22/CPU与内存的那些事/" rel="prev" title>
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/22/linux_进程死锁定位_端口无法连接/" rel="prev" title="linux_进程死锁定位_端口无法连接">
+                linux_进程死锁定位_端口无法连接 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -507,14 +541,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>

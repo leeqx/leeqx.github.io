@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="TCP/IP 编程读书笔记  **TCP/IPd定时器种类、个数4种定时器、7个重传计时器：Retransmission Timer坚持计时器：Persistent Timer保活计时器：Keeplive Timer时间等待计时器：Time_Wait Timer   TCP/IP是一种流协议     意味着数据是以字节流的形式传递给接收者，没有固定的“报文”或者“报文边界”。Send函数只是将数据">
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/TCP_IP编程读书笔记/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="TCP/IP 编程读书笔记  **TCP/IPd定时器种类、个数4种定时器、7个重传计时器：Retransmission Timer坚持计时器：Persistent Timer保活计时器：Keeplive Timer时间等待计时器：Time_Wait Timer   TCP/IP是一种流协议     意味着数据是以字节流的形式传递给接收者，没有固定的“报文”或者“报文边界”。Send函数只是将数据">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T02:37:35.488Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+<meta name="twitter:description" content="TCP/IP 编程读书笔记  **TCP/IPd定时器种类、个数4种定时器、7个重传计时器：Retransmission Timer坚持计时器：Persistent Timer保活计时器：Keeplive Timer时间等待计时器：Time_Wait Timer   TCP/IP是一种流协议     意味着数据是以字节流的形式传递给接收者，没有固定的“报文”或者“报文边界”。Send函数只是将数据">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/TCP_IP编程读书笔记/">
+
+
+
+
+
+  <title> | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/TCP_IP编程读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/TCP_IP编程读书笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/TCP_IP编程读书笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="TCP-IP-编程读书笔记"><a href="#TCP-IP-编程读书笔记" class="headerlink" title="TCP/IP 编程读书笔记"></a>TCP/IP 编程读书笔记</h1><hr>
+<ol start="0">
+<li>**TCP/IPd定时器种类、个数<br><code>4种定时器、7个</code><br>重传计时器：Retransmission Timer<br>坚持计时器：Persistent Timer<br>保活计时器：Keeplive Timer<br>时间等待计时器：Time_Wait Timer  </li>
+<li><p><strong>TCP/IP是一种流协议</strong>  </p>
+<blockquote>
+<p> 意味着数据是以字节流的形式传递给接收者，没有固定的“报文”或者“报文边界”。<br>Send函数只是将数据复制到发送端的协议栈中，然后就返回。至于要发送多少数据由TCP决定（前提是tcpsocket）。<br>尽管数据是以IP分组的形式传输的，但是分组中的数据量与send调用中传递的TCP多少数据并没有直接关系。而且程序中<br>没有什么可靠的方法是可以判断数据是如何分组的，因为在连词recv调用之间可能会有多个分组到来。TCP会记录它发送<br>多少字节以及确认的字节，但它不会记录这些字节是如何分组的。实际上分组重传丢失的分组的时候传送的数据可能比原来<br>的多一些或者少一些。</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主机A---M2-----M1-----主机B</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在接收端，对于调用recv，都不会对tcp发送给他的数量做任何假设。对于接收端读取第一条报文可能有四种结果。  </p>
+<ol start="0">
+<li>没有数据可读，应用程序阻塞（没有设置非阻塞标识位）或者返回错误说明没有数据可读（设置非阻塞位）</li>
+<li>应用程序只读取了M1中部分报文而不是全部</li>
+<li>应用程序获取了报文M1中所有的数据，除此之外没有任何其他内容</li>
+<li>应用程序获取报文M1的所有数据，以及报文M2的部分或者全部数据</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>理解TCP写操作</strong></p>
+<ol start="0">
+<li><strong>从应用程序的角度看写操作(写操作返回错误)</strong><ol start="0">
+<li>套接字描述符无效</li>
+<li>使用Send及其兄弟函数时文件描述符指向的不是套接字</li>
+<li>调用中制定的套接字不存在或者未连接</li>
+<li>缓冲地址参数指向无效地址</li>
+</ol>
+</li>
+<li><p><strong>从TCP角度看写操作</strong>  </p>
+<blockquote>
+<p>写操作负责将数据从应用程序的写缓冲区搬移到内核中去，并通知TCP有来自应用程序的新数据需要处理。</p>
+<ol start="0">
+<li>第一种流量控制算法被称为<strong>慢启动</strong><br>“慢慢的”将向网络发送数据的速率增加到一个门限值。</li>
+<li>TCP输出例程，在符合下列某一项数据就会被传送出去：<ol start="0">
+<li>可以发送一个完整的MSS尺寸的段</li>
+<li>连接空闲，并且可以清空发送缓冲区</li>
+<li>Nagle 算法被禁止，并且可以清空发送缓冲区</li>
+<li>有紧急数据需要发送</li>
+<li>有一小段“暂时”无法发送的数据</li>
+<li>对等实体的接受窗口至少是半开的</li>
+<li>需要重传一个段</li>
+<li>需要为来自对等实体的数据传回一个ACK</li>
+<li>需要发布一次窗口更新</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p><strong>理解TCP的有序释放操作</strong>  </p>
+<ol start="0">
+<li>连接建立阶段   </li>
+<li>数据传输阶段  </li>
+<li>连接拆除阶段  </li>
+</ol>
+<blockquote>
+<p>链接的一端完成了数据的发送，并将此事通知对等实体，但同时仍然在接收数据。因为<br>TCP连接是全双工的，而且一个方向的数据流与另一个方向的数据流是相互独立的，所以可能会出现这种情况。  </p>
+</blockquote>
+</li>
+<li><p><strong>shutdown调用有乾坤</strong> </p>
+   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shutdown</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> how)</span></span></span><br></pre></td></tr></table></figure>
+<pre><code>  how| 动作|
+---|----|
+SHUT_RD(0)|关闭连接的接收端|
+SHUT_WT(1)|关闭连接的发送端|
+SHUT_RDWR(2)|两端都关闭|
+</code></pre><p>  <code>shutdown(s,2)</code> 等效于<code>close(s)</code></p>
+<blockquote>
+<p>有序释放的目的是确保两端都能在连接拆除之前收到所有来自其对等实体的数据。  </p>
+</blockquote>
+</li>
+<li><p><strong>文件描述符就绪的条件</strong>  </p>
+<ol start="0">
+<li><strong>socket可读</strong>  <ol start="0">
+<li>socket 内核接收缓存区中的字节数大于或者等于其低水位标记SO_RCVLOWAT。此时我们可以无阻塞的读该socket，并且读取操作返回的字节大于0</li>
+<li>socket通信的对方关闭连接。此时对socket的读操作将返回0.</li>
+<li>监听socket上有新的连接请求。</li>
+<li>socket 上有未处理的错误，此时我们可以使用getsockopt来读取和清除该错误。</li>
+</ol>
+</li>
+<li><p><strong>socket可写</strong></p>
+<ol start="0">
+<li>socket 内核发送缓存区中的可用字节数大于或者等于其低水位标记SO_SNDLOWAT。此时我们可以无阻塞的写该socket，并且写操作返回的字节数大于0.</li>
+<li>socket的写操作被关闭，对写操作被关闭的socket执行写操作将处罚一个SIGPIPE信号</li>
+<li>socket使用非阻塞connect 连接成功或者失败（超时)之后</li>
+<li>socket上有未处理的错误，此时我们可以使用getsockopt来读取和清除该错误</li>
+</ol>
+<p>注意：网络程序中select能处理的异常情况只有一种：socket接收带外数据。（MSG_OOB)</p>
+</li>
+</ol>
+</li>
+<li><p>accept 发生在哪个阶段<br>首先tcp有两个队列：syn和accept队列，完成三次握手之后将会从syn队列移到accept队列，如果发现accpet队列已经满，则根据配置决定是否要应答RST报文。  </p>
+<blockquote>
+<p>Because of the 3-way handshake used by TCP, an incoming connection goes through an intermediate state SYN RECEIVED before it reaches the ESTABLISHED state and can be returned by the accept syscall to the application (see the part of the TCP state diagram reproduced above). This means that a TCP/IP stack has two options to implement the backlog queue for a socket in LISTEN state:  </p>
+<ol>
+<li>The implementation uses a single queue, the size of which is determined by the backlog argument of the listen syscall. When a SYN packet is received, it sends back a SYN/ACK packet and adds the connection to the queue. When the corresponding ACK is received, the connection changes its state to ESTABLISHED and becomes eligible for handover to the application. This means that the queue can contain connections in two different state: SYN RECEIVED and ESTABLISHED. Only connections in the latter state can be returned to the application by the accept syscall.</li>
+<li>The implementation uses two queues, a SYN queue (or incomplete connection queue) and an accept queue (or complete connection queue). Connections in state SYN RECEIVED are added to the SYN queue and later moved to the accept queue when their state changes to ESTABLISHED, i.e. when the ACK packet in the 3-way handshake is received. As the name implies, the accept call is then implemented simply to consume connections from the accept queue. In this case, the backlog argument of the listen syscall determines the size of the accept queue.</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<ol start="0">
+<li>Epoll LT 、ET模式注意   <ul>
+<li>LT工作模式的文件描述符，当epoll_wait 检测到其上有事件发生并且将此时间同时应用程序后，应用程序可以不立即处理该时间，这样当应用程序下次调用epoll_wait时，还会再次向应用程序通告此事件，直到改时间被处理。</li>
+<li>ET工作木事的文件描述符，当epoll_wait检测到其上有时间发生并且此事件通知应用程序之后，<code>应用程序必须立即处理该事件</code>，因为后续的epoll_wait调用将<code>不再向应用程序通知</code>这一事件</li>
+</ul>
+</li>
+</ol>
+<ol start="0">
+<li><p>Epoll EPOLLONESHOT事件<br>即使我们采用了ET模式，一个soket上的某个事件还是<code>可能被触发多次</code>，这在冰法程序中就会引发一个问题，比如一个线程或者进程在读取完某个socket上的数据后开始处理这些数据，<code>在数据的处理过程中该socket上又有新数据可读，此时另外一个线程被唤醒来读取这些新的数据</code>。于是就出现了两个线程同时操作一个socket的局面。我们希望的是一个socke连接在任一时刻都只能被一个线程处理。对于注册了EPOLLONESHOT事件的文件描述符，<code>操作系统最多触发其上的一个可读、可写或者异常事件，且只触发一次，除非我们使用epoll_ctl函数重置该文件描述符上注册的EPOLLONESHOT事件</code>。反过来，注册了EPOLLONESHOT事件的socket一旦被某个线程处理完毕，该线程就应该立即重置这个socket上的EPOLLONESHOT事件，以确保这个socket下次可读时，其EPOLLIN事件能被触发，进而让其他工作线程有机会继续处理这个socket。</p>
+</li>
+<li><p>I/O复用区别</p>
+<p>系统调用|select | poll| epoll|<br>——-|——-|—–|——|<br>事件集合|用户通过3个参数分别传入感兴趣的可读可写及异常等事件，内核通过对这些参数的在线修改反馈其中的就绪事件这使得用户这次调用select都要重置这三个参数|统一处理所有事件类型因此秩序一个事件集参数。用户通过poll.events传入感兴趣的事件，内核通过修改pollfd.revents反馈其中就绪的事件|内核通过一个事件表直接管理用户感兴趣的所有事件因此每次调用epoll_wait时无须反复传入用户感兴趣的事件，epoll_wait系统调用的参数events仅用来反馈就绪的事件。|<br>应用程序索引就绪文件描述符的事件复杂度|O(n)|O(n)|O(1)|<br>最大支持文件描述符数|一般由最大值限制|65535|65535|<br>工作模式|LT|LT|LT\ET|<br>内核实现和工作效率|采用轮询方式来检测就绪事件，算法事件复杂度为O(n)|采用轮询方式来检测就绪事件，算法事件复杂度为O(n)|采用回调方式来检测就绪事件，算法事件复杂度为O(1)|</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/tcpburn-压测/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/Iptables/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-编程读书笔记"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP 编程读书笔记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

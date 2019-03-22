@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="linux 32平台下默认对齐方式为： char 按照字节对齐2. short 按照2字节对齐   int,long等其他基本类型按照4字节对齐    为了让结构体数组中的每一个结构体内部元素都保持对齐，编译器会在结构体的末尾插入gap以满足结构体内部元素的对齐要求。结构体的地址对齐按照结构体中包含的最大字节数元素对齐，以满足结构体数组的对齐要求。或者根据原理:    pack pragmapac">
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/结构体对齐/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="linux 32平台下默认对齐方式为： char 按照字节对齐2. short 按照2字节对齐   int,long等其他基本类型按照4字节对齐    为了让结构体数组中的每一个结构体内部元素都保持对齐，编译器会在结构体的末尾插入gap以满足结构体内部元素的对齐要求。结构体的地址对齐按照结构体中包含的最大字节数元素对齐，以满足结构体数组的对齐要求。或者根据原理:    pack pragmapac">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T02:37:35.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+<meta name="twitter:description" content="linux 32平台下默认对齐方式为： char 按照字节对齐2. short 按照2字节对齐   int,long等其他基本类型按照4字节对齐    为了让结构体数组中的每一个结构体内部元素都保持对齐，编译器会在结构体的末尾插入gap以满足结构体内部元素的对齐要求。结构体的地址对齐按照结构体中包含的最大字节数元素对齐，以满足结构体数组的对齐要求。或者根据原理:    pack pragmapac">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/结构体对齐/">
+
+
+
+
+
+  <title> | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/结构体对齐/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/结构体对齐/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/结构体对齐/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="linux-32平台下默认对齐方式为："><a href="#linux-32平台下默认对齐方式为：" class="headerlink" title="linux 32平台下默认对齐方式为："></a>linux 32平台下默认对齐方式为：</h1><ol start="0">
+<li>char 按照字节对齐2. short 按照2字节对齐  </li>
+<li>int,long等其他基本类型按照4字节对齐   </li>
+<li><p>为了让结构体数组中的每一个结构体内部元素都保持对齐，编译器会在结构体的末尾插入gap以满足结构体内部元素的对齐要求。结构体的地址对齐按照结构体中包含的最大字节数元素对齐，以满足结构体数组的对齐要求。<br>或者根据原理:  </p>
+<blockquote>
+<p>pack pragma<br>pack pragma设置了struct、union或class中各成员的对齐方式，结构成员对齐指的是成员相对于起始地址的偏移量。该指令基本用法如下： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(n)  </span></span><br><span class="line">``` </span><br><span class="line">    它指定了结构成员按n（<span class="number">1</span>，<span class="number">2</span>，<span class="number">4</span>，<span class="number">8</span>，<span class="number">16</span>)(alignment must be a small power of <span class="number">2</span>)字节对齐，如果未指定n，则恢复成默认值。需要注意的是，它并不是指结构体中的每个成员都要按n对齐，而是 按照每个成员的大小和n相比较小的值对齐。下面引用MSDN中C++ Preprocessor Reference部分关于pack指令的说明：   </span><br><span class="line">n (optional)   </span><br><span class="line">Specifies the value, in bytes, to be used <span class="keyword">for</span> packing. The <span class="keyword">default</span> value <span class="keyword">for</span> n is <span class="number">8.</span> Valid values are <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="keyword">and</span> <span class="number">16.</span> The alignment of a member will be on a boundary that is either a multiple of n <span class="keyword">or</span> a multiple of the size of the member, whichever is smaller.   </span><br><span class="line">即成员member的对齐值   </span><br><span class="line">align of member = min( pack setting value, <span class="keyword">sizeof</span>(member type) )   </span><br><span class="line">    &gt;  </span><br><span class="line">    这里的pack是编译器结构体对齐的字节数，默认是<span class="number">4</span>字节，可以通过#pargma  pack(n)   </span><br><span class="line">进行调整（#pargma unpack() 回复到原来)，boxsize 也就是每个成员对齐的盒子大小，  </span><br><span class="line">计算时成员所占内存大小必须是这个boxsize的整数倍，    </span><br><span class="line">`box_size=min&#123;pack，max&#123;<span class="keyword">sizeof</span>(member type)&#125; &#125; `注意这里的<span class="keyword">sizeof</span>(memeber type) 是成员的基本类型比如：<span class="keyword">char</span> a[<span class="number">10</span>]，应该是<span class="keyword">sizeof</span>(<span class="keyword">char</span>) 而不是<span class="keyword">sizeof</span>(a[<span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   编译器每次只取一个盒子大小的内存，如果当前盒子不够又会在再取一个盒子的大小：</span><br><span class="line">    ```c</span><br><span class="line">struct A</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="keyword">short</span> s;</span><br><span class="line">  <span class="keyword">char</span> c;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">sizeof</span>(A)=<span class="number">12</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>分析：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">box_size=min&#123;pack(<span class="number">4</span>),max(<span class="keyword">sizeof</span>(member))&#125;</span><br><span class="line">        =min&#123;<span class="number">4</span>,<span class="number">4</span>&#125;</span><br><span class="line">        =<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<p>因为编译器先取一个盒子放a，刚好用完已取内存接着再拿一个盒子大小的内存放b也刚好用完，接着再取一个，发现存放s之后还有2个字节，接着与c大小比较，结果也能够存储c。所以size=12。所以我们应该尽量将不能是box_size大小的成员放在一起，以节省内存。<br>上面的例子如果调换一下b和s的位置那么sizeof=16  </p>
+</li>
+<li><p>例子   </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line">&#125;; <span class="comment">//sizeof ch = 1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof ch =%d\n"</span>,<span class="keyword">sizeof</span> (ch));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch2</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span> c;</span><br><span class="line">  <span class="keyword">char</span> cc;</span><br><span class="line">&#125;;<span class="comment">//sizeof ch2 = 2</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof ch2 =%d\n"</span>,<span class="keyword">sizeof</span> (ch2));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">short</span> s;</span><br><span class="line">&#125;; <span class="comment">//sizeof size = 4</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size1=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="keyword">short</span> s;</span><br><span class="line">&#125;;<span class="comment">//sizeof size = 4</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size2=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"> <span class="keyword">char</span> c;</span><br><span class="line"> <span class="keyword">short</span> s;</span><br><span class="line"> <span class="keyword">char</span> cc;</span><br><span class="line">&#125;;<span class="comment">//sizeof size = 6</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size3=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="keyword">int</span>   i;</span><br><span class="line">&#125;;<span class="comment">//sizeof size = 8</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size4 =%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">int</span>   i;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line">&#125;; <span class="comment">//sizeof size = 12</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof  size5=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch</span> <span class="title">ich</span>;</span></span><br><span class="line">&#125;;<span class="comment">//sizeof size = 12</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size6=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch</span> <span class="title">ich</span>;</span></span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line">&#125;;<span class="keyword">sizeof</span> size = <span class="number">8</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size7=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br>   Sizeof ch =1<br>   Sizeof ch2 =2<br>   Sizeof size1=4<br>   Sizeof size2=4<br>   Sizeof size3=6<br>   Sizeof size4 =8<br>   Sizeof  size5=12<br>   Sizeof size6=12<br>   Sizeof size7=8  </p>
+</li>
+</ol>
+<p>当结构体中出现结构体类型的数据成员是，不会将嵌套的结构体类型的整体长度参与到对齐计算中，而是以嵌套定义的结构体锁使用的对齐值进行对齐。<br>eg:</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagOne</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">char</span> cChar;</span><br><span class="line"><span class="keyword">char</span> cArray[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">short</span> sShort;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagTwo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">int</span> nInt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagOne</span> <span class="title">to</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line">虽然tagOne占据量<span class="number">8</span>字节大小，但由于其对齐值为min&#123;pack，max&#123;<span class="keyword">sizeof</span>(member type)&#125;&#125; = <span class="number">2</span></span><br><span class="line">所以tagTwo的对齐值应该为 min&#123;pack，max&#123;sizeofmember type&#125;&#125; = <span class="number">4</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/linux_work_cmd/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/gdb_调试/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-32平台下默认对齐方式为："><span class="nav-number">1.</span> <span class="nav-text">linux 32平台下默认对齐方式为：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

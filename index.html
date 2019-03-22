@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="website">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/">
+
+
+
+
+
+  <title>linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/服务切换方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/服务切换方案/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="服务切换方案"><a href="#服务切换方案" class="headerlink" title="服务切换方案"></a>服务切换方案</h1><p>   在服务维护过程中，经常会遇到服务器故障（磁盘崩盘，好吧，是否考虑优化log输出？）、或者DB故障，悲催的我们，需要做服务迁移。那么我们怎么达到在不影响服务的情况下进行迁移呢？本篇幅主要针对DB故障。  </p>
+<p>假定服务A 有两个数据库：<code>M（master）----------&gt;S(slave)</code> </p>
+<ol start="0">
+<li>master 切换到slave<br>服务往M中写，此时M发生故障了，需要切换到S，那么如果你的db是采用域名进行管理，那么需要将域名指向S，如果你的服务有自动重连机制，那么此时你的服务也不需要重启。注意需要检查A是否有权限访问S。<br>此时是否万事大吉？有没有注意到切换到slave 服务是单点DB，风险很大，一旦出问题那么全部崩盘。 所以我们需要做一个S的slave出来使得：<br><code>S（master)----&gt;NS(slave)</code><br>好，slave NS做好了，由于服务器负载问题，NS性能会好一些，所以考虑将服务切换到NS。那么此时我们又该如何处理？  </li>
+<li>master—–&gt;slave  <ol start="0">
+<li>首先重新将域名指向NS，（如果服务没有重连机制，那么需要重启服务）。  </li>
+<li>查看master——&gt;slave 数据是否延迟，可以在master 插入一条数据，再查询slave（NS）上的db是否有该数据  </li>
+<li>第二步正常那么此时可以切断S–&gt;NS（因为S现在基本上是作废了，没有数据从NS同步到S）  </li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/linux服务器性能分析_TCP内存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/linux服务器性能分析_TCP内存/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="linux-服务器性能分析"><a href="#linux-服务器性能分析" class="headerlink" title="linux 服务器性能分析"></a>linux 服务器性能分析</h2><ol start="0">
+<li>网络连接数<br>cat /proc/net/sockstat<br>或者ss 进行统计（比较慢）  </li>
+<li><p>系统dmesg提示 socket out of memory</p>
+<ol start="0">
+<li>首先查看系统socket使用了多少，参考1.</li>
+<li><p>查看系统给tcp分配的内存大小限制<br>cat /proc/sys/net/ipv4/tcp_rmem   #tcp read buffer bytes  </p>
+<blockquote>
+<p>4096  87380 629145<br>第一项是buffer最小4096字节，第二项是默认值87380字节，第三项是read buffer 最大限制629145 字节  </p>
+</blockquote>
+<p>cat /proc/sys/net/ipv4/tcp_wmem   #tcp write buffer bytes<br><em>write buffer与read buffer类似</em><br>cat /proc/sys/net/ipv4/tcp_mem    #tcp memory pages  </p>
+<blockquote>
+<p>21498 28665 42996<br>第一个值是内存使用的下限；第二个值是内存压力模式开始对缓冲区使用应用压力的上限；第三个值是内存使用的上限。在这个层次上可以将报文丢弃，从而减少对内存的使用socket out of memory。可以结合sockstat里的统计数据分析tcp使用内存是否超过了限制，注意这里单位是页，查看页大小getconf PAGESIZE<br>另外可以查看tcp读写发送窗口默认值：<br>/proc/sys/net/core/rmem_default<br>/proc/sys/net/core/rmem_max<br>/proc/sys/net/core/wmem_default<br>/proc/sys/net/core/wmem_max<br>另外socket out of memory 也有可能是孤儿socket过多导致的。<br>内核配置最大的孤儿socket数：<br>cat /proc/sys/net/ipv4/max_orphans<br>4096 </p>
+</blockquote>
+</li>
+<li>查看孤儿socket<br>cat /proc/net/sockstat  <blockquote>
+<p>sockets: used 403<br>TCP: inuse 4 orphan 0 tw 0 alloc 10 mem 1<br>UDP: inuse 12 mem 7<br>UDPLITE: inuse 0<br>RAW: infuse 0<br>FRAG: inuse 0 memory 0<br>注意这里的orphan 往往会被内核x2 或者x4，所以有时候看到这里的orphan数比较小，但是却有out of socket memory的提示，有可能就是这个放大倍数导致的。<br>关于孤儿socket 可以参考：<a href="http://www.aichengxu.com/view/2486870" target="_blank" rel="noopener">孤儿socket</a></p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>一个tcp socket占用多大内存<br>首先socket包括本地ip、端口，对端ip、端口；发送、接收缓冲区等（跟配置有关）。<br>如果按照上面最小的读写缓冲区来算那么一个socket大概占用8K的内存。<br>如果单从一个socket占用的内存来看，一个8GB的内存，一般情况下可以承受100万得sock长连接，前提是系统文件句柄要调大<br>tcp内存最大也要进行调整。</li>
+<li>tcp内核参数调优<br><a href="http://www.2cto.com/os/201304/205115.html" target="_blank" rel="noopener">tcp参数调优</a></li>
+<li><p>查看系统总共使用了多少文件描述符<br>cat /proc/sys/fs/file-nr</p>
+<blockquote>
+<p>4096 0 9000<br>第一项就是当前系统已经打开的文件句柄（包括socket ）</p>
+</blockquote>
+<p>cat /proc/sys/fs/file-max<br>系统最大的文件句柄数</p>
+</li>
+<li>dmesg  or dmesg -T<br>查看内核的错误信息，比如tcp链接太多，句柄不够用，内存不足导致某些进程被kill掉</li>
+<li>slabtop 内核内存分配</li>
+<li>iostat -d 1 10 -x</li>
+<li>vmstat -n 1 10<br>可以通过该命令动态观察swap内存是否在发生变化，如果一直在增长，那么可以初步断定系统内存不够用。</li>
+<li>当cache、buffer占用大量内存是可以通过调整内核参数释放改内存：<br>$sync   (必须要先执行）<br>$ echo “3” &gt; /proc/sys/vm/drop_caches  (该值默认是0，不释放)  </li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/利用tcpburn进行长连接压测、现网流量压测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/利用tcpburn进行长连接压测、现网流量压测/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="利用tcpburn进行长连接压测、现网流量压测"><a href="#利用tcpburn进行长连接压测、现网流量压测" class="headerlink" title="利用tcpburn进行长连接压测、现网流量压测"></a>利用tcpburn进行长连接压测、现网流量压测</h2><ol start="0">
+<li>安装tcpcopy(主要是使用其intercept)或者是intercept    </li>
+<li><p>配置<br>配置是成功的关键，<code>注意所有用来部署intercept、tcpburn、目标服务都必须在同一个网段</code>。<br>0)目标服务：待测试的服务部署 这里假定端口是16001  ip：a.b.c.234<br>   添加路由规则主要是将待测试服务的应答包正确的路由到intercept服务，由intercept服务转发到tcpburn，完整整个过程。  </p>
+   <figure class="highlight plain"><figcaption><span>add -net 62.135.0.0 netmask 255.255.0.0 gw a.b.c.123  ```  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">      注意这里的net 62.135.0.0 需要与intercept -F中配置的项对应（如果要配置的话）。  </span><br><span class="line">      gw 这里填的是intercept 的ip。  </span><br><span class="line">      如果想要删除路由规则用下面的将上面的add 换成del 即可其他的不变  </span><br><span class="line">```route del -net 62.135.0.0 netmask 255.255.0.0 gw a.b.c.123  ```  </span><br><span class="line">   1)首先我们需要一台server a.b.c.123来部署intercept，启动端口默认是36524启动命令比简单：  </span><br><span class="line">      ```intercept -i eth1 -F &quot;src port 16001 and net 62.135.250.0/24&quot; -d```  </span><br><span class="line">      注意这里的-F 中的条件是用来过滤目标服务器回报那些需要转发给tcpburn。   </span><br><span class="line">      比如目标服务器待测试的端口是`16001`，那么`src port 16001 `就是从源端口是16001发出的数据包。    </span><br><span class="line">      net 表示网段是`62.135.250.0/24`的，这里需要跟tcpburn中`-c`参数中指定的相匹配。     </span><br><span class="line">   2)部署tcpburn：可以跟intercept部署在一台server上：a.b.c.123   </span><br><span class="line">     启动命令：  </span><br><span class="line">    ```./tcpburn -x 16001-a.b.c.234:16001 -f 16001_online_test.cap -s a.b.c.123 -p 36524 -u 100 -c 62.135.250.x ```   </span><br><span class="line">     `注意需要优先启动intercept，否则会链接失败`    </span><br><span class="line">     这里需要注意的几个地方：   </span><br><span class="line">        16001-a.b.c.234:16001   前面的16001是生成16001_online_test.cap 抓包使用的端口后面的ip端口是目标测试服务的ip和端口。  </span><br><span class="line">        -s 指定intercept 的ip   </span><br><span class="line">        -p指定intercept的端口   </span><br><span class="line">        -u是模拟多少客户端 </span><br><span class="line">        -c是客户端的网段，这里的网段必须与intercept中过滤条件、目标服务器上添加的net相对应。</span><br><span class="line">    由于tcpburn是基于流量回放的模式所以需要事前抓一个数据包 16001_online_test.cap是通过tcpdump抓包的数据，用来发送到目标测试服务的。    </span><br><span class="line">       ```tcpdump -s 0 port 16001 -i any -w 16001_online_test.cap -c 20000  ```  </span><br><span class="line">    ``` shell</span><br><span class="line">   ./tcpburn -x historyServerPort-targetServerIP:targetServerPort -f &lt;pcapfile,&gt; -s &lt;intercept address&gt; -u &lt;user num&gt; -c &lt;ip range,&gt;</span><br></pre></td></tr></table></figure>
+<p>如果是想测试支持长连接的，那么编译tcpburn时configure带上参数<code>--comet</code>,再也不用担心编写接入层服务时200万长连接由于机器限制端口范围（1024-65535）而各种nat、虚拟网卡、虚拟ip、服务启动多个端口、客户端起多个进程等等这些繁琐的事情了</p>
+<h2 id="附录："><a href="#附录：" class="headerlink" title="附录："></a>附录：</h2><h3 id="安装方法："><a href="#安装方法：" class="headerlink" title="安装方法："></a>安装方法：</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libpcap libpcap-devel</span><br><span class="line"></span><br><span class="line">cd `pwd`/tcpcopy-0.9.9</span><br><span class="line">make clean</span><br><span class="line">sh autogen.sh</span><br><span class="line">./configure --enable-single --enable-pcap --enable-advanced</span><br><span class="line">make </span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line">cd `pwd`/tcpburn</span><br><span class="line">make clean</span><br><span class="line"><span class="meta">#</span><span class="bash">./configure --single    <span class="comment">#支持--single模式</span></span></span><br><span class="line">./configure --single  --comet  #支持comet 模式即长连接模式</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="简单的自动配置脚本生成工具"><a href="#简单的自动配置脚本生成工具" class="headerlink" title="简单的自动配置脚本生成工具"></a>简单的自动配置脚本生成工具</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">intercept server</span></span><br><span class="line">intercept_server=a.b.c.123</span><br><span class="line">intercept_port=36524</span><br><span class="line"><span class="meta">#</span><span class="bash">our <span class="built_in">test</span> service</span></span><br><span class="line">target_server=a.b.c.234</span><br><span class="line">target_port=16001</span><br><span class="line">tcpdump_port=16001</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">generate by tcpdump -s 0 port 80(your port) -i any -w 80.cap</span></span><br><span class="line">cap_file=$tcpdump_port.cap</span><br><span class="line">client_net_range=62.135.250.x</span><br><span class="line">route_net=`echo $client_net_range|awk -F'.' '&#123;print $1"."$2".0.0"&#125;'`</span><br><span class="line">intercept_filter_net=`echo $client_net_range|awk -F'.' '&#123;print $1"."$2"."$3".0"&#125;'`</span><br><span class="line"></span><br><span class="line">echo "###################################################################################"</span><br><span class="line">echo "#intercept install on $intercept_server"</span><br><span class="line">echo "#target_server  install on $intercept_server ,such as(client_access\setlogic)"</span><br><span class="line">echo "#run this command on $target_server"</span><br><span class="line">echo "# route add -net $route_net netmask 255.255.0.0 gw $intercept_server"</span><br><span class="line">echo "# for delete runing:"</span><br><span class="line">echo "# route del -net $route_net netmask 255.255.0.0 gw $intercept_server"</span><br><span class="line">echo "#use tcpdump to capture packet on realserver,eg:"</span><br><span class="line">echo "#    tcpdump -s 0 port $tcpdump_port -i any -w $cap_file"</span><br><span class="line">echo "#"</span><br><span class="line">echo "# use this command to run tcpburn:"</span><br><span class="line">echo "#./tcpburn/objs/tcpburn -x $tcpdump_port-$target_server:$target_port -f $cap_file -s $intercept_server -p $intercept_port -u 100 -c $client_net_range"</span><br><span class="line">echo "###################################################################################"</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">1. <span class="built_in">set</span> route on target server</span></span><br><span class="line"><span class="meta">#</span><span class="bash">eg:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Assume 65.135.233.161 is the IP address of the assistant server. We <span class="built_in">set</span> the following</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> route commands to route all responses to the 62.135.200.x<span class="string">'s clients to the assistant</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> server.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">add:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  route add -net 62.135.200.0 netmask 255.255.255.0 gw 65.135.233.161</span></span><br><span class="line"><span class="meta">#</span><span class="bash">delete:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  route  -net 62.135.200.0 netmask 255.255.255.0 gw 65.135.233.161</span></span><br><span class="line"><span class="meta">#</span><span class="bash">run this on targe sever:such as on  execute:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> net 62.135.0.0 must match the client ips at tcpburn option -c here is <span class="string">"62.135.250.x"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">       route add -net `<span class="built_in">echo</span> <span class="variable">$client_net_range</span>|awk -F<span class="string">'.'</span> <span class="string">'&#123;print $1"."$2".0.0"&#125;'</span> netmask 255.255.0.0 gw <span class="variable">$intercept_server</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">2.start intercept </span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="string">"src port 80"</span> is match with tcpdump capture</span></span><br><span class="line"><span class="meta">#</span><span class="bash">eg:</span></span><br><span class="line">echo intercept -i eth1 -F \"src port $target_port and net $intercept_filter_net/24\"  -d</span><br><span class="line">intercept -i eth1 -F "src port $target_port and net $intercept_filter_net/24"  -d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">3. start tcpburn to send request to target server throught intercept</span></span><br><span class="line"><span class="meta">#</span><span class="bash">eg:</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Assume 65.135.233.160 is the IP address of the target server and 10.110.10.161 is the</span></span><br><span class="line"><span class="meta">#</span><span class="bash">internal IP address of the assistant server and 65.135.233.161 is the external IP </span></span><br><span class="line"><span class="meta">#</span><span class="bash">address of the assistant server.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">  ./tcpburn -x 80-65.135.233.160:80 -f /path/to/80.pcap -s 10.110.10.161 </span></span><br><span class="line"><span class="meta">#</span><span class="bash">   -u 10000 -c 62.135.200.x</span></span><br><span class="line">sleep 5</span><br><span class="line">netstat -anp|grep $intercept_port</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">file <span class="variable">$cap_file</span> is tcpdump: tcpdump -s 0 dst port <span class="variable">$tcpdump_port</span> -i any -c 1000000 -w <span class="variable">$cap_file</span></span></span><br><span class="line">echo ./tcpburn/objs/tcpburn -x $tcpdump_port-$target_server:$target_port -f $cap_file -s $intercept_server -p $intercept_port -u 100 -c $client_net_range</span><br><span class="line">echo "tcpburn log on /usr/local/tcpburn/logs"</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/leeqx/tcpburn" target="_blank" rel="noopener">tcpburn</a><br><a href="http://blog.upcoder.net/?p=84" target="_blank" rel="noopener">tcpburn案例</a>  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/Mac-os-Docker-安装使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/Mac-os-Docker-安装使用/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Mac-os-docker-安装"><a href="#Mac-os-docker-安装" class="headerlink" title="Mac os docker 安装"></a>Mac os docker 安装</h1><p>docker新兴的虚拟技术，来尝鲜一下，ubuntu上安装很简单，apt-get install docker基本上就可以了。但是mac安装需要折腾一番，毕竟mac<br>系统是unix系列的OS。</p>
+<h2 id="安装、操作步骤："><a href="#安装、操作步骤：" class="headerlink" title="安装、操作步骤："></a>安装、操作步骤：</h2><ol start="0">
+<li>首先安装virtual box,尽可能安装最新版。只需要安装virtual box 不用自己创建虚拟机，后面的步骤会自动装上。  </li>
+<li>下载boot2docker.dmg  </li>
+<li><p>安装完boot2docker之后，启动virtual box，然后在terminal中执行依次执行如下命令：  </p>
+<ol start="0">
+<li>boot2docker -v init (成功的话会自动下载boot2docker.iso，该文件用来创建虚拟机的镜像)</li>
+<li>配置环境变量：<br>由于docker 是通过virtual box中的虚拟机执行docker 容器，所以需要与虚拟机进行通信：  </li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_TLS_VERIFY=1</span><br><span class="line">export DOCKER_HOST=tcp://192.168.59.103:2376</span><br><span class="line">export DOCKER_CERT_PATH=/Users/nano/.boot2docker/certs/boot2docker-vm</span><br></pre></td></tr></table></figure>
+<ol start="0">
+<li>启动virtual box，可以看到里面多了一个boot2docker的系统该系统是没有界面，但是我们不需要手动执行它。而是通过boot2docker来拉起她。boot2docker -v up 或者start 启动docker。至此成功了。  </li>
+<li>使用：  </li>
+</ol>
+<pre><code class="shell">docker images                    #显示已经下载的镜像
+docker pull ubuntu:latest        #下载制定的镜像，这里是ubuntu latest版本
+docker run  -it ubuntu /bin/bash #执行容器
+docker rm  &lt;container id&gt;        #删除容器
+docker mi  &lt;imags id&gt;            #删除image，需要首先删除container
+</code></pre>
+<ol start="0">
+<li>如果需要删除重新安装：boot2docker -v delete  </li>
+</ol>
+</li>
+</ol>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol start="0">
+<li><p>如果出现：hostly create failed 那么可以尝试如下方法：</p>
+<ol start="0">
+<li>方法1：</li>
+</ol>
+<pre><code class="shell">sudo &quot;/Library/Application Support/VirtualBox/LaunchDaemons/VirtualBoxStart.sh restart
+</code></pre>
+<ol start="0">
+<li>方法2:<br> virtualbox安装不正确，需要重新安装</li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/stdcall_cdecl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/stdcall_cdecl/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="stdcall-与-cdecl的区别"><a href="#stdcall-与-cdecl的区别" class="headerlink" title="_stdcall 与 _cdecl的区别"></a><code>_stdcall</code> 与 <code>_cdecl</code>的区别</h1><p>首先，需要了解两者之间的区别：<br>WINDOWS的函数调用时需要用到栈（STACK，一种先入后出的存储结构）。当函数调用完成后<br>，栈需要清除，这里就是问题的关键，如何清除？？如果我们的函数使用了_cdecl，那么栈的<br>清除工作是由调用者，用COM的术语来讲就是客户来完成的。这样带来了一个棘手的问题，<br>不同的编译器产生栈的方式不尽相同，那么调用者能否正常的完成清除工作呢？答案是不能。<br>如果使用<strong>stdcall，上面的问题就解决了，函数自己解决清除工作。所以，在跨（开发）<br>平台的调用中，我们都使用</strong>stdcall（虽然有时是以WINAPI的样子出现）。<br>那么为什么还需要_cdecl呢？当我们遇到这样的函数如fprintf()它的参数是可变的，<br>不定长的，被调用者事先无法知道参数的长度，事后的清除工作也无法正常的进行，<br>因此，这种情况我们只能使用_cdecl。到这里我们有一个结论，如果你的程序中没有涉及<br>可变参数，最好使用__stdcall关键字。  </p>
+<p>另：<br><code>_cdecl</code><br>按从右至左的顺序压参数入栈，由调用者把参数弹出栈。对于“C”函数或者变量，修饰名是在函数名前加下划线。<br>对于“C++”函数，有所不同。<br>如函数<code>void test(void)的修饰名是_test；</code>对于不属于一个类的“C++”全局函数，修饰名是?test@@ZAXXZ。<br>这是MFC缺省调用约定。由于是调用者负责把参数弹出栈，所以可以给函数定义个数不定的参数，如printf函数。  </p>
+<p>stdcall 和pascal一样,都是pascal的调用习惯<br>按从右至左的顺序压参数入栈，由被调用者把参数弹出栈。对于“C”函数或者变量，修饰名以下划线为前缀，<br>然后是函数名，然后是符号“@”及参数的字节数，如函数int func(int a, double b)的修饰名是_func@12。<br>对于“C++”函数，则有所不同。  </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/redis-dict字典/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/redis-dict字典/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="redis-dict"><a href="#redis-dict" class="headerlink" title="redis dict"></a>redis dict</h1><p>　　redis 数据库结构是通过dict 字典来完成的。该dict数据结构如下：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span> <span class="keyword">void</span>*key;                                                                                                         <span class="keyword">union</span> &#123;                                                              </span><br><span class="line">    <span class="keyword">void</span> *val;                                                                 </span><br><span class="line">    <span class="keyword">uint64_t</span> u64;</span><br><span class="line">    <span class="keyword">int64_t</span> s64;  </span><br><span class="line">    <span class="keyword">double</span> d;</span><br><span class="line">  &#125;v;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span>                                                       </span><br><span class="line">&#125; dictEntry;   </span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span>                                                                                            </span><br><span class="line">      dictEntry **table;  <span class="comment">//数组存放指针                                                                </span></span><br><span class="line">      <span class="keyword">unsigned</span> <span class="keyword">long</span> size;                                                                                            </span><br><span class="line">      <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;                                                                                        </span><br><span class="line">      <span class="keyword">unsigned</span> <span class="keyword">long</span> used;                                                                                             </span><br><span class="line">   &#125; dictht;                                                                                                         </span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span>                                                                                             </span><br><span class="line">     dictType *type; </span><br><span class="line">     <span class="keyword">void</span> *privdata;                                                                                                 </span><br><span class="line">     dictht ht[<span class="number">2</span>];                                                                                                   </span><br><span class="line">     <span class="keyword">long</span> rehashidx; <span class="comment">/* rehashing not in progress if rehashidx == -1 */</span>                                             </span><br><span class="line">     <span class="keyword">int</span> iterators; <span class="comment">/* number of iterators currently running */</span>                                                     </span><br><span class="line">  &#125; dict;</span><br></pre></td></tr></table></figure></p>
+<p>从上面的数据结构的定义可以发现，ht[0].table ht[1].table 是用来实际存储数据的，它存储的逻辑也是根据ｈａｓｈ函数计算出来的值然后与ht[0］的ｓｉｚｅ中相与来决定具体的位置。这里为什么使用ht[2]呢？我们都知道在ｈａｓｈ种免不了碰撞的ｋｅｙ，所以随着数据的增长，每个ｂｕｃｋｅｔ中的碰撞ｋｅｙ也会越来越多，当达到一定的量级之后将会影响查询效率。这个时候另外一个ｈｔ就可以排上用场了。<br>　　当正在使用的ｈｔ[x]ｋｅｙ数达到一定的阈值之后，将会出发ｒｅｄｉｓ的ｒｅｈａｓｈ操作，该操作主要是新分配一个更大的或者更小的dictht然后，假定目前正在使用的是ｈｔ[0] 那么新分配的应该是位于ｈｔ［1]。然后循序渐进的讲数据从ｈｔ[0]慢慢的迁移到ht[1]：计算新的ｈａｓｈ、与ｓｉｚｅ与得到ｋｅｙ的ｉｎｄｅｘ。重复操作之后该ｄｉｃｔ的数据将趋于平衡。<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Performs N steps of incremental rehashing. Returns 1 if there are still</span></span><br><span class="line"><span class="comment"> * keys to move from the old to the new hash table, otherwise 0 is returned.</span></span><br><span class="line"><span class="comment"> * Note that a rehashing step consists in moving a bucket (that may have more</span></span><br><span class="line"><span class="comment"> * than one key as we use chaining) from the old to the new hash table. */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dictRehash</span><span class="params">(dict *d, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!dictIsRehashing(d)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(n--) &#123;</span><br><span class="line">        dictEntry *de, *nextde;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Check if we already rehashed the whole table... */</span></span><br><span class="line">        <span class="keyword">if</span> (d-&gt;ht[<span class="number">0</span>].used == <span class="number">0</span>) &#123;</span><br><span class="line">            zfree(d-&gt;ht[<span class="number">0</span>].table);</span><br><span class="line">            d-&gt;ht[<span class="number">0</span>] = d-&gt;ht[<span class="number">1</span>];</span><br><span class="line">            _dictReset(&amp;d-&gt;ht[<span class="number">1</span>]);</span><br><span class="line">            d-&gt;rehashidx = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* Note that rehashidx can't overflow as we are sure there are more</span></span><br><span class="line"><span class="comment">         * elements because ht[0].used != 0 */</span></span><br><span class="line">        assert(d-&gt;ht[<span class="number">0</span>].size &gt; (<span class="keyword">unsigned</span> <span class="keyword">long</span>)d-&gt;rehashidx);</span><br><span class="line">        <span class="keyword">while</span>(d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx] == <span class="literal">NULL</span>) d-&gt;rehashidx++;</span><br><span class="line">        de = d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx];</span><br><span class="line">        <span class="comment">/* Move all the keys in this bucket from the old to the new hash HT */</span></span><br><span class="line">        <span class="keyword">while</span>(de) &#123;</span><br><span class="line">            <span class="keyword">unsigned</span> <span class="keyword">int</span> h;</span><br><span class="line"></span><br><span class="line">            nextde = de-&gt;next;</span><br><span class="line">            <span class="comment">/* Get the index in the new hash table */</span></span><br><span class="line">            h = dictHashKey(d, de-&gt;key) &amp; d-&gt;ht[<span class="number">1</span>].sizemask;</span><br><span class="line">            de-&gt;next = d-&gt;ht[<span class="number">1</span>].table[h];</span><br><span class="line">            d-&gt;ht[<span class="number">1</span>].table[h] = de;</span><br><span class="line">            d-&gt;ht[<span class="number">0</span>].used--;</span><br><span class="line">            d-&gt;ht[<span class="number">1</span>].used++;</span><br><span class="line">            de = nextde;</span><br><span class="line">        &#125;</span><br><span class="line">        d-&gt;ht[<span class="number">0</span>].table[d-&gt;rehashidx] = <span class="literal">NULL</span>;</span><br><span class="line">        d-&gt;rehashidx++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">     <span class="number">1</span> <span class="comment">/* Expand or create the hash table */</span>                                                                          </span><br><span class="line">     <span class="number">2</span> <span class="function"><span class="keyword">int</span> <span class="title">dictExpand</span><span class="params">(dict *d, <span class="keyword">unsigned</span> <span class="keyword">long</span> size)</span>                                                               </span></span><br><span class="line"><span class="function">     3 </span>&#123;                                                                                                              </span><br><span class="line">     <span class="number">4</span>     dictht n; <span class="comment">/* the new hash table */</span>                                                                        </span><br><span class="line">     <span class="number">5</span>     <span class="keyword">unsigned</span> <span class="keyword">long</span> realsize = _dictNextPower(size);                                                               </span><br><span class="line">     <span class="number">6</span>                                                                                                                </span><br><span class="line">     <span class="number">7</span>     <span class="comment">/* the size is invalid if it is smaller than the number of                                                 </span></span><br><span class="line"><span class="comment">     8     ¦* elements already inside the hash table */</span>                                                               </span><br><span class="line">     <span class="number">9</span>     <span class="keyword">if</span> (dictIsRehashing(d) || d-&gt;ht[<span class="number">0</span>].used &gt; size)                                                            </span><br><span class="line">    <span class="number">10</span>     ¦   <span class="keyword">return</span> DICT_ERR;</span><br><span class="line">　　<span class="number">11</span>               </span><br><span class="line">    <span class="number">12</span>     <span class="comment">/* Allocate the new hash table and initialize all pointers to NULL */</span>             </span><br><span class="line">    <span class="number">13</span>     n.size = realsize;                                                                                     </span><br><span class="line">    <span class="number">14</span>     n.sizemask = realsize<span class="number">-1</span>;                                                                                   </span><br><span class="line">✗   <span class="number">15</span>     n.table = zcalloc(realsize*<span class="keyword">sizeof</span>(dictEntry*));                                                            </span><br><span class="line">    <span class="number">16</span>     n.used = <span class="number">0</span>; </span><br><span class="line">　　　<span class="number">17</span>                                                                                     </span><br><span class="line">    <span class="number">18</span>     <span class="comment">/* Is this the first initialization? If so it's not really a rehashing             </span></span><br><span class="line"><span class="comment">    19     ¦* we just set the first hash table so that it can accept keys. */</span></span><br><span class="line">    <span class="number">20</span>     <span class="keyword">if</span> (d-&gt;ht[<span class="number">0</span>].table == <span class="literal">NULL</span>) &#123;                                                </span><br><span class="line">    <span class="number">21</span>     ¦   d-&gt;ht[<span class="number">0</span>] = n;                                                                                          </span><br><span class="line">    <span class="number">22</span>     ¦   <span class="keyword">return</span> DICT_OK;</span><br><span class="line">    <span class="number">23</span>     &#125;   </span><br><span class="line">　　<span class="number">24</span>                                   </span><br><span class="line">    <span class="number">25</span>     <span class="comment">/* Prepare a second hash table for incremental rehashing */</span>                                                </span><br><span class="line">    <span class="number">26</span>     d-&gt;ht[<span class="number">1</span>] = n;      </span><br><span class="line">    <span class="number">27</span>     d-&gt;rehashidx = <span class="number">0</span>;       </span><br><span class="line">    <span class="number">28</span>     <span class="keyword">return</span> DICT_OK;</span><br><span class="line">    <span class="number">29</span> &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="查找key"><a href="#查找key" class="headerlink" title="查找ｋｅｙ"></a>查找ｋｅｙ</h2>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dictEntry *<span class="title">dictFind</span><span class="params">(dict *d, <span class="keyword">const</span> <span class="keyword">void</span> *key)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    dictEntry *he;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> h, idx, table;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (d-&gt;ht[<span class="number">0</span>].size == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>; <span class="comment">/* We don't have a table at all */</span></span><br><span class="line">    <span class="keyword">if</span> (dictIsRehashing(d)) _dictRehashStep(d);</span><br><span class="line">    h = dictHashKey(d, key);</span><br><span class="line">    <span class="keyword">for</span> (table = <span class="number">0</span>; table &lt;= <span class="number">1</span>; table++) &#123;</span><br><span class="line">        idx = h &amp; d-&gt;ht[table].sizemask;</span><br><span class="line">        he = d-&gt;ht[table].table[idx];</span><br><span class="line">        <span class="keyword">while</span>(he) &#123;</span><br><span class="line">            <span class="keyword">if</span> (dictCompareKeys(d, key, he-&gt;key))</span><br><span class="line">                <span class="keyword">return</span> he;</span><br><span class="line">            he = he-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!dictIsRehashing(d)) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/linux-程序内存分布/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/linux-程序内存分布/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="linux-内存模型"><a href="#linux-内存模型" class="headerlink" title="linux 内存模型"></a>linux 内存模型</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">【kernel <span class="keyword">virtual</span> memory                  】</span><br><span class="line">【user stack (向下)                      】</span><br><span class="line">【memory-<span class="built_in">map</span>/share-memory(向上)          】  </span><br><span class="line">【running heap(向上)                     】</span><br><span class="line">【read/write segment(.data .bss)         】</span><br><span class="line">【read_only segment(.init .text .rodata) 】</span><br></pre></td></tr></table></figure>
+<p><strong>说明: </strong>  </p>
+<blockquote>
+<p>已初始化的全局变量存储在.dada数据段;为初始化的全局变量位于.bss为初始化数据段。<br>静态全局变量也在.data数据段<br>局部变量在栈上，静态局部变量，并不是在调用函数时分配，并不是在函数返回时释放，<br>其跟全局变量一样静态分配，在.data数据段，但作用域只在函数中 const 修饰的变量在<br>.rodata只读段，只读段与.text在同一个segment。</p>
+</blockquote>
+<ol start="0">
+<li>代码段：代码段（code segment/text segment）通常是指用来存放程序执行代码的一块内存区域。<br>这部分区域的大小在程序运行前就已经确定，并且内存区域通常属于只读, 某些架构也允许代码段<br>为可写，即允许修改程序。在代码段中，也有可能包含一些只读的常数变量，例如字符串常量等。<br>程序在被载入内存后，会被分为很多小的区（section），有一个rodata区（也就是常量区），<br>常量区的数据内存中的位置为代码段，存放的数据为字符串、const修饰的常量（全局的或是静态的，<br>odata区，而这个字符串的地址也就是指针s存放在数据段中（程序载入内存中为.data区）。<br>再如，static char *const s=”hello,world”;那么这时候不仅”hello，world”字符串存放在rodata区，<br>指针s也同样。   </li>
+<li>数据段：数据段（data segment）通常是指用来存放程序中已初始化的全局变量或者静态变量的<br>一块内存区域。数据段属于静态内存分配。原则上数据段所对应的内存区数据是可以改变的。<br>这里没有提到局部变量，这是因为局部变量一般都存放在栈中。局部变量不管是否有const修饰<br>都存放在栈中，例如char *const lcp=”999”;字符窜”999”存放在代码段的rodata区，这个没有说的，<br>而它对应的地址lcp指针存放在栈中; </li>
+<li>BSS段：BSS段（bss segment）通常是指用来存放程序中未初始化的全局变量的一块内存区域。<br>BSS是英文Block Started by Symbol的简称。BSS段属于静态内存分配。例如全局变量int i;<br>静态变量static int si;都存放在这里面。 </li>
+<li>堆（heap）：堆是用于存放进程运行中被动态分配的内存段，它的大小并不固定，可动态扩张或缩减。<br>当进程调用malloc等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；<br>当利用free等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减），要注意的是，<br>当分配的数据大小操作内核的限制时，内核采用匿名映射的方式实现而不是从堆中分配内存。 </li>
+<li>栈(stack)：栈又称堆栈， 是用户存放程序临时创建的局部变量，也就是说我们函数括弧“{}”<br>中定义的变量（但不包括static声明的变量，static意味着在数据段或代码段中存放变量）。<br>除此以外，在函数被调用时，其参数也会被压入发起调用的进程栈中，并且待到调用结束后，<br>函数的返回值也会被存放回栈中。由于栈的先进先出特点，所以栈特别方便用来保存/恢复调用现场。<br>从这个意义上讲，我们可以把堆栈看成一个寄存、交换临时数据的内存区。 </li>
+</ol>
+<p>在进程被载入内存中时，基本上被分裂成许多小的节（section）。我们比较关注的是几个主要的节：  </p>
+<ol start="0">
+<li>.text 节<br>.text 节基本上相当于二进制可执行文件的.text部分，它包含了完成程序任务的机器指令。<br>该节标记为只读，如果发生写操作，会造成segmentation fault。在进程最初被加载到内存中开始，该节的大小就被固定。 </li>
+<li>.data 节<br>.data节用来存储初始化过的变量，如：全局int a =0 ; 该节的大小在运行时固定的。 </li>
+<li>.bss 节<br>栈下节（below stack section ,即.bss）用来存储为初始化的变量，如：int a; 该节的大小在运行时固定的。 </li>
+<li> 堆节<br>堆节（heap section）用来存储动态分配的变量，位置从内存的低地址向高地址增长。内存的分配和释放通过malloc() 和 free() 函数控制。 </li>
+<li> 栈节<br>栈节（stack section）用来跟踪函数调用（可能是递归的），在大多数系统上从内存的高地址向低地址增长。<br>同时，栈这种增长方式，导致了缓冲区溢出的可能性。 </li>
+<li>.rodata节<br>常量区，全局或静态const变量、指针存放区。  </li>
+<li>环境/参数节<br>环境/参数节（environment/arguments section）用来存储系统环境变量的一份复制文件，<br>进程在运行时可能需要。例如，运行中的进程，可以通过环境变量来访问路径、shell 名称、主机名等信息。<br>该节是可写的，因此在格式串（format string）和缓冲区溢出（buffer overflow）攻击中都可以使用该节。<br>另外，命令行参数也保持在该区域中。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/设计模式读书笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/设计模式读书笔记/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="设计模式读书笔记"><a href="#设计模式读书笔记" class="headerlink" title="设计模式读书笔记"></a>设计模式读书笔记</h1><ol start="0">
+<li><p>重新设计和解决问题的对应模式</p>
+<p>需求|设计模式|说明<br>—|——-|—<br>通过显示指定一个类来创建对象|abstract factory，factory method，prototype|<br>对特殊操作的依赖|chain of resposibility，command|<br>对硬件平台和软件平台的依赖|abstract factory，bridge|<br>对对象表示或者实现的依赖|abstract factory，bridge，memento，proxy|<br>算法依赖|builder，iterator，strategy，template method|<br>紧耦合|abstract factory，command，facade，mediator， observer，chain of resposibility|<br>通过生成子类来扩展功能|bridge，chain of resposibility，composite，decorator，observer，strategy|<br>不能方便的对类进行修改|adapter，decorator，visitor|</p>
+</li>
+<li><p>创建型模型</p>
+<p>模式 | 意图| 适用性|<br>—–|—-|——|<br>Abstract factory| 提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类|0. 一个系统要独立于他的产品的创建、组合、表示时  0. 一个系统要由多个产品系列中的一个来配置时 0. 当你要强调一系列相关的产品对象的设计以便进行联合使用时。 0. 当你提供一个产品类库，而只想显示他们的接口而不是实现时|<br>Builder|将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示|0. 当创建复杂对象的算法应该独立于该对象的组成部分以及他们的装配方式时。 0. 当构造过程必须允许被构造的对象有部不同的表示时。|<br>Factory method|定义一个用于创建对象的接口，让子类决定实例化哪一个类，factory method使一个类的实例化延迟到其子类。|0. 当一个类不知道它所必须创建的对象类的时候 0. 当一个类希望由它的子类来指定它所创建的对象的时候  0.当类将创建对象的职责委托给多个帮助子类中的某一个，并且向将哪一个帮助子类是代理者这一信息局部化的时候|  </p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/大端模式和小端模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/大端模式和小端模式/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="大端模式和小端模式"><a href="#大端模式和小端模式" class="headerlink" title="大端模式和小端模式"></a>大端模式和小端模式</h1><ol start="0">
+<li><p>什么是大端和小端<br>Big-Endian和Little-Endian的定义如下：   </p>
+<ol start="0">
+<li>Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。 </li>
+<li>Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。<br>举一个例子，比如数字0x12 34 56 78在内存中的表示形式为：  <ol start="0">
+<li>大端模式：<br>低地址 —————–&gt; 高地址 0x12 | 0x34 | 0x56 | 0x78</li>
+<li>小端模式：<br>低地址 ——————&gt; 高地址 0x78 | 0x56 | 0x34 | 0x12<br>可见，大端模式和字符串的存储模式类似。  </li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>下面是两个具体例子：<br>16bit宽的数0x1234在Little-endian模式（以及Big-endian模式）CPU内存中的存放方式（假设从地址0x4000开始存放）为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">内存地址    小端模式存放内容    大端模式存放内容</span><br><span class="line"><span class="number">0x4000</span>     	<span class="number">0x34</span>                 	<span class="number">0x12</span></span><br><span class="line"><span class="number">0x4001</span>     	<span class="number">0x12</span>                	<span class="number">0x34</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>32bit宽的数0x12345678在Little-endian模式以及Big-endian模式）CPU内存中的存放方式（假设从地址0x4000开始存放）为：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">内存地址	小端模式存放内容	大端模式存放内容</span><br><span class="line"><span class="number">0x4000</span>	<span class="number">0x78</span>	<span class="number">0x12</span></span><br><span class="line"><span class="number">0x4001</span>	<span class="number">0x56</span>	<span class="number">0x34</span></span><br><span class="line"><span class="number">0x4002</span>	<span class="number">0x34</span>	<span class="number">0x56</span></span><br><span class="line"><span class="number">0x4003</span>	<span class="number">0x12</span>	<span class="number">0x78</span></span><br></pre></td></tr></table></figure></p>
+<ol start="0">
+<li><p>大端小端没有谁优谁劣，各自优势便是对方劣势：</p>
+<p> 小端模式 ：强制转换数据不需要调整字节内容，1、2、4字节的存储方式一样。<br> 大端模式 ：符号位的判定固定为第一个字节，容易判断正负。</p>
+</li>
+<li><p>数组在大端小端情况下的存储：<br>　　以unsigned int value = 0x12345678为例，分别看看在两种字节序下其存储情况，<br>我们可以用unsigned char buf[4]来表示value： </p>
+ <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Big-Endian: </span><br><span class="line">低地址存放高位，如下：   </span><br><span class="line">高地址  </span><br><span class="line">  buf[<span class="number">3</span>] (<span class="number">0x78</span>) -- 低位   </span><br><span class="line">  buf[<span class="number">2</span>] (<span class="number">0x56</span>)  </span><br><span class="line">  buf[<span class="number">1</span>] (<span class="number">0x34</span>)   </span><br><span class="line">  buf[<span class="number">0</span>] (<span class="number">0x12</span>) -- 高位   </span><br><span class="line">低地址 </span><br><span class="line">ittle-Endian: 低地址存放低位，如下： </span><br><span class="line">高地址 </span><br><span class="line">  buf[<span class="number">3</span>] (<span class="number">0x12</span>) -- 高位 </span><br><span class="line">  buf[<span class="number">2</span>] (<span class="number">0x34</span>) </span><br><span class="line">  buf[<span class="number">1</span>] (<span class="number">0x56</span>) </span><br><span class="line">  buf[<span class="number">0</span>] (<span class="number">0x78</span>) -- 低位 </span><br><span class="line">低地址</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为什么会有大小端模式之分呢？</p>
+<p> 这是因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为8bit。<br> 但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器），<br> 另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，<br> 那么必然存在着一个如果将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。<br> 例如一个16bit的short型x，<br> 在内存中的地址为0x0010，x的值为0x1122，那么0x11为高字节，0x22为低字节。<br> 对于大端模式，就将0x11放在低地址中，即0x0010中，0x22放在高地址中，即0x0011中。<br> 小端模式，刚好相反。我们常用的X86结构是小端模式，而KEIL C51则为大端模式。<br> 很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。</p>
+</li>
+<li><p>如何判断机器的字节序<br>可以编写一个小的测试程序来判断机器的字节序：<br>[cpp] view plaincopyprint?</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">IsBigEndian</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0x1234</span>;</span><br><span class="line"><span class="keyword">char</span> b = *(<span class="keyword">char</span> *)&amp;a; <span class="comment">//通过将int强制类型转换成char单字节，通过判断起始存储位置。即等于 取b等于a的低地址部分</span></span><br><span class="line"><span class="keyword">if</span>( b == <span class="number">0x12</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>联合体union的存放顺序是所有成员都从低地址开始存放，利用该特性可以轻松地获得了CPU对内存采用Little-endian还是Big-endian模式读写：<br>[cpp] view plaincopyprint?<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">IsBigEndian</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">union</span> NUM</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">char</span> b;</span><br><span class="line">&#125;num;</span><br><span class="line">num.a = <span class="number">0x1234</span>;</span><br><span class="line"><span class="keyword">if</span>( num.b == <span class="number">0x12</span> )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="0">
+<li>常见的字节序<br>一般操作系统都是小端，而通讯协议是大端的。    <ol start="0">
+<li>常见CPU的字节序<br>Big Endian : PowerPC、IBM、Sun Little Endian : x86、DEC ARM既可以工作在大端模式，也可以工作在小端模式。  </li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/Nginx负载均衡处理后端链接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/Nginx负载均衡处理后端链接/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Nginx负载均衡处理后端链接"><a href="#Nginx负载均衡处理后端链接" class="headerlink" title="Nginx负载均衡处理后端链接"></a>Nginx负载均衡处理后端链接</h1><p><a href="http://nginx.org/" target="_blank" rel="noopener">Nginx</a> 不仅可以满足作为web 服务端的需求，同时也可以作为负载均衡。<br>对于现在的大并发的情况，单节点已经无法满足我们大用户量的并发并发请求，这个时候往往我们需要<br>多部署几台server以满足需求。可以考虑用LVS来实现这个需求，LVS有三种模式：NET/TUN/DR。<br>其中DR模式是应用比较广的模式，该模式下用户的请求到达LVS调度器，LVS修改MAC转发到realserver，<br>realserver处理完直接返回给客户端，而不需要经过调度器。<br>     这里主要讨论Nginx负载均衡，在开发过程中比如我们采用http_lua_module 并结合nginx处理业务逻辑，<br>有时候避免不了要在自己的模块中请求后端服务，那么我们可以充分利用nginx 负载均衡功能。首先可以使<br>用Upstream，将请求发送到上游服务端。Nginx 负载均衡有四种模式：  </p>
+<ol start="0">
+<li><p>轮询均衡  </p>
+<blockquote>
+<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。<br><img src="http://jbcdn2.b0.upaiyun.com/2012/07/Parse-nginx-load-balancing1.jpg" alt="Alt text">  </p>
+ <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> test_svr &#123;   </span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:9090</span> down;</span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> weight=<span class="number">2</span>;</span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:6060</span>;</span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:7070</span> backup;</span><br><span class="line">&#125;</span><br><span class="line"> ....</span><br><span class="line"> <span class="attribute">location</span> test/&#123;  </span><br><span class="line">    <span class="attribute">proxy_pass</span> http://test_svr;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>upstream 每个设备的状态:  </p>
+<blockquote>
+<ul>
+<li>down 表示单前的server暂时不参与负载  </li>
+<li>weight  默认为1.weight越大，负载的权重就越大。  </li>
+<li>max_fails ：允许请求失败的次数默认为1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误  </li>
+<li>fail_timeout:max_fails 次失败后，暂停的时间。  </li>
+<li>backup： 其它所有的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。  </li>
+</ul>
+</blockquote>
+</li>
+<li><p>IP Hash 均衡  </p>
+<blockquote>
+<p>ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化。<br><img src="http://jbcdn2.b0.upaiyun.com/2012/07/Parse-nginx-load-balancing6.jpg" alt="Alt text">  </p>
+ <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> backend &#123;</span><br><span class="line">  <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> ;</span><br><span class="line">  <span class="attribute">server</span> <span class="number">127.0.0.1:8081</span> ;</span><br><span class="line">   ip_hash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p><strong><code>[引用]</code></strong>hash值既与ip有关又与后端机器的数量有关。经过测试，上述算法可以连续产生1045个互异的value，<br>这是该算法的硬限制。对此nginx使用了保护机制，当经过20次hash仍然找不到可用的机器时，算法退化成轮询。<br>因此，从本质上说，ip hash算法是一种变相的轮询算法，如果两个ip的初始hash值恰好相同，那么来自这两个<br>ip的请求将永远落在同一台服务器上，这为均衡性埋下了很深的隐患。  </p>
+</blockquote>
+<p><code>另外，使用IP hash需要注意的是，如果nginx不是最前端，那么可能经过前端的一个代理过来，再到nginx时此时客户端的ip
+永远都是前端代理的ip，所以ip_hash将没有效果。可以考虑使用第三方模块的url_hash。</code></p>
+</li>
+<li><p>fair  </p>
+<blockquote>
+<p>fair策略是扩展策略，默认不被编译进nginx内核。其原理是根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此要慎用。 </p>
+</blockquote>
+</li>
+<li><p>通用hash、一致性hash </p>
+<blockquote>
+<p>这两种也是扩展策略，在具体的实现上有些差别，通用hash比较简单，可以以nginx内置的变量为key进行hash，一致性hash采用了nginx内置的一致性hash环，可以支持memcache。  </p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">然后在lua业务代码中：  </span><br><span class="line"> <span class="keyword">local</span> ret=ngx.location.capture(<span class="string">"/test/"</span>);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

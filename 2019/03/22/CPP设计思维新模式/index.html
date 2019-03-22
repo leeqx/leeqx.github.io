@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CPP设计思维新模式===  系统架构的一个主要基本原则是以设计实现某些原则   特化    1234template &amp;lt;class T,class U&amp;gt; class Tt&amp;#123;&amp;#125;; 特化其中一个参数  123template &amp;lt;class U&amp;gt; class Tt&amp;lt;widget w&amp;gt;&amp;#123;&amp;#125;;    关于protected 析构">
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/CPP设计思维新模式/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="CPP设计思维新模式===  系统架构的一个主要基本原则是以设计实现某些原则   特化    1234template &amp;lt;class T,class U&amp;gt; class Tt&amp;#123;&amp;#125;; 特化其中一个参数  123template &amp;lt;class U&amp;gt; class Tt&amp;lt;widget w&amp;gt;&amp;#123;&amp;#125;;    关于protected 析构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T02:37:35.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+<meta name="twitter:description" content="CPP设计思维新模式===  系统架构的一个主要基本原则是以设计实现某些原则   特化    1234template &amp;lt;class T,class U&amp;gt; class Tt&amp;#123;&amp;#125;; 特化其中一个参数  123template &amp;lt;class U&amp;gt; class Tt&amp;lt;widget w&amp;gt;&amp;#123;&amp;#125;;    关于protected 析构">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/CPP设计思维新模式/">
+
+
+
+
+
+  <title> | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/CPP设计思维新模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/CPP设计思维新模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/CPP设计思维新模式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CPP设计思维新模式"><a href="#CPP设计思维新模式" class="headerlink" title="CPP设计思维新模式"></a>CPP设计思维新模式</h1><p>===</p>
+<ol start="0">
+<li><p>系统架构的一个主要基本原则是以设计实现某些原则 </p>
+</li>
+<li><p>特化   </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">class</span> <span class="title">U</span>&gt; </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Tt</span>&#123;</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>特化其中一个参数 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt; </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Tt</span>&lt;widget w&gt;&#123;</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="0">
+<li><p>关于protected 析构 </p>
+<p> 采用proected 权限的析构目的是使得当删除基类指针时（该指针指向了派生类对象），<br> 使其不调用派生类的析构（因为权限问题，无法访问派生类的析构方法）；<br> 这样做如果该类中不存在其他virtual类型的方法，将避免增加vptr 导致性能得到降低。<br> 当然如果希望delete基类指针时能够调用派生类的析构，那么基类的析构需要声明为<br> virtual，同时这不可避免的导致内存性能下降问题。   </p>
+</li>
+<li><p>关于private、protected 的构造方法 </p>
+<p>对于这两种权限的构造方法，由于无法在外部调用所以将导致在类外无法构建对象。<br>但是protected在其子类中可以构造。所以如果存在场景只允许其派生类构造对象那么<br>可以将构造方法声明为protected。如果是private 那么只能在该类内部使用。例子：   </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"></span><br><span class="line">A()&#123;  &#125; </span><br><span class="line"></span><br><span class="line">~A()&#123; &#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Instance</span><span class="params">()</span><span class="comment">//类A的内部的一个函数 </span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line">A a; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面的代码是能通过编译的。上面代码里的Instance函数就是类A的内部的一个函数。<br>Instance函数体里就构建了一个A的对象。<br>但是，这个Instance函数还是不能够被外面调用的。为什么呢？<br>如果要调用Instance函数，必须有一个对象被构造出来。但是构造函数被声明为private<br>的了。外部不能直接构造一个对象出来。   </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A aObj; <span class="comment">// 编译通不过 </span></span><br><span class="line">aObj.Instance();</span><br></pre></td></tr></table></figure>
+<p>但是，如果Instance是一个static静态函数的话，就可以不需要通过一个对象，而可以直接被调用。如下： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"></span><br><span class="line">A():data(<span class="number">10</span>)&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"A"</span> &lt;&lt; <span class="built_in">endl</span>; &#125; </span><br><span class="line"></span><br><span class="line">~A()&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"~A"</span> &lt;&lt; <span class="built_in">endl</span>; &#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> A&amp; <span class="title">Instance</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> A a; </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> a; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; data &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"><span class="keyword">int</span> data; </span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line">A&amp; ra = A::Instance(); </span><br><span class="line"></span><br><span class="line">ra.Print();</span><br></pre></td></tr></table></figure>
+<p>或者如下： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span></span><br><span class="line"><span class="class"> </span></span><br><span class="line"><span class="class"> &#123;</span> </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">private</span>: </span><br><span class="line"> </span><br><span class="line"> A()&#123;  &#125; </span><br><span class="line"> </span><br><span class="line"> ~A()&#123; &#125; </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span>: </span><br><span class="line"> </span><br><span class="line"> <span class="function">Static A* <span class="title">Instance</span><span class="params">()</span><span class="comment">//类A的内部的一个函数 </span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"> </span>&#123; </span><br><span class="line"> </span><br><span class="line"> Return <span class="keyword">new</span> A; </span><br><span class="line"> </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> &#125;; </span><br><span class="line">A* pA = A::Instance();</span><br></pre></td></tr></table></figure>
+<p>同时采用这种技术，可以将operator= 声明为private 但是没有具体实现，<br>这样子可以禁止一个类的外部用户对这个类的对象进行复制动作。   </p>
+</li>
+<li><p>智能指针   </p>
+<ol start="0">
+<li>拷贝、赋值是摧毁式拷贝   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">SmartPtr</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>： </span><br><span class="line"></span><br><span class="line">   SmartPtr(SmartPtr &amp;src) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>-&gt;ptr = src.ptr; </span><br><span class="line"></span><br><span class="line">  src.ptr = <span class="literal">NULL</span>;<span class="comment">// 摧毁 </span></span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">    SmartPtr&amp; <span class="keyword">operator</span>=(SmartPtr &amp;src) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">If(<span class="keyword">this</span> != &amp;src) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">This-&gt;ptr = src.ptr; </span><br><span class="line"></span><br><span class="line">Src.ptr = <span class="literal">NULL</span>; <span class="comment">// 摧毁 </span></span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>： </span><br><span class="line"></span><br><span class="line">T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="0">
+<li><p>取址操作符 </p>
+<p>其目的是为了smartpoint 能够跟 dumb pointers 尽可能相似 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line"> T** <span class="keyword">operator</span>&amp;() </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return &amp;ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Private: </span><br><span class="line"></span><br><span class="line">T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 有了取址操作符之后下面的运作就会成立： </span></span><br><span class="line"></span><br><span class="line"><span class="function">Void <span class="title">Fun</span><span class="params">(Widget** pW)</span></span>; </span><br><span class="line"></span><br><span class="line">SmartPtr&lt;Widget&gt; spW(<span class="keyword">new</span> Widget()); </span><br><span class="line"></span><br><span class="line">Fun(&amp;spW);</span><br></pre></td></tr></table></figure>
+<p>但是不建议重载operator&amp; </p>
+</li>
+</ol>
+<ol start="0">
+<li><p>隐式转换 至原始指针 </p>
+<p>用户自定义转换符重载，该符号重载不能写明返回类型，其返回采用operator 后面的类型，<br>格式如下：TYPE为用户自定义类型 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">TYPE</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"> </span>&#123; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>例如：  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Class c </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Operator <span class="keyword">bool</span>（） </span><br><span class="line"></span><br><span class="line">｛ </span><br><span class="line">Return  <span class="literal">true</span>; </span><br><span class="line">｝ </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>为了能够使得我们自定义的数据自行转换，我们需要重载转换符。 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> T*() </span><br><span class="line"></span><br><span class="line">   &#123; </span><br><span class="line"></span><br><span class="line">Return ptr; </span><br><span class="line"></span><br><span class="line">   &#125; </span><br><span class="line"></span><br><span class="line">   <span class="comment">//… </span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>: </span><br><span class="line"></span><br><span class="line">        T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>有了该转换之后，下面的代码就可以编译： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Void  <span class="title">Fun</span><span class="params">(Widget  *pw)</span></span>; </span><br><span class="line">SmartPtr&lt;Widget&gt; sp(<span class="keyword">new</span> Widget()); </span><br><span class="line">Fun(sp);</span><br></pre></td></tr></table></figure>
+<p>但是与此同时也引入了新问题：外部直接对智能指针进行delete操作，那么我们的职能指针久形同虚设<br>所以为了避免这个问题，我们采用歧义性，使得对delete的操作编译无法通过，便可达到目的：   </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">Operator T*() </span><br><span class="line"></span><br><span class="line">&#123;  </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Operator <span class="keyword">void</span>*() </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return ptr; </span><br><span class="line"></span><br><span class="line">     &#125; </span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">Private: </span><br><span class="line"></span><br><span class="line">   T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">SmartPtr&lt;Widget&gt; sp(<span class="keyword">new</span> Widget()); </span><br><span class="line">Delete sp; <span class="comment">//compile error</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>相等性 不等性<br>最好的方法，完整、可靠的方法：采用完全一致的做法，分别为每个操作法定义一份重载： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Public: </span><br><span class="line"></span><br><span class="line"> <span class="keyword">bool</span> <span class="keyword">operator</span> !() <span class="keyword">const</span> <span class="comment">// Enable "if (!sp) …" </span></span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> ptr== <span class="literal">NULL</span>; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> SmartPtr&lt;T&gt; &amp;lhr, <span class="keyword">const</span> T* rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> lhs.ptr == rhs; </span><br><span class="line"></span><br><span class="line"> &#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == ( <span class="keyword">const</span> T* lhs, <span class="keyword">const</span> SmartPtr&lt;T&gt; &amp;rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> lhs == rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> != (<span class="keyword">const</span> SmartPtr&lt;T&gt; &amp;lhr,<span class="keyword">const</span> T* rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> lhs.ptr != rhs; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> != (<span class="keyword">const</span> T* lhs,<span class="keyword">const</span> SmartPtr&lt;T&gt; &amp; rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line">Return lhs != rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>下面的代码就可以运作了： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">SmartPtr &lt;Widget&gt; sp1,sp2; </span><br><span class="line">Widget *p; </span><br><span class="line"></span><br><span class="line">If(sp1) </span><br><span class="line">..</span><br><span class="line"></span><br><span class="line">If(!sp1) </span><br><span class="line">.. </span><br><span class="line"></span><br><span class="line">If(sp1==<span class="literal">NULL</span>) </span><br><span class="line"></span><br><span class="line">.. </span><br><span class="line"></span><br><span class="line">If (sp1==sp2) </span><br><span class="line"></span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">If(sp1==p) </span><br><span class="line"></span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">If(p==sp1)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>  但至此还还不完美，如果提供一个“转型之ptr 型别”的自动转换式，还是存在歧义<br>  。假设一个Base class 以及一个从base 继承而来的Derive class 那么下面的代码还存在歧义性：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SmartPtr&lt;Base&gt; sp; </span><br><span class="line"></span><br><span class="line">Derived *p; </span><br><span class="line"></span><br><span class="line">If(sp==p) <span class="comment">//以上重载方法，存在的歧义：（Base*)sp == (Base*)p   and operator == (sp,(Base*)p) </span></span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>  为此我们需要的对上面重载的比较方法添加template版本 </p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">        …<span class="comment">//同上（非template版本） </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt; </span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> SmartPtr&lt;U&gt; &amp;lhr,<span class="keyword">const</span> U* rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return lhs.ptr == rhs; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Template &lt;<span class="keyword">typename</span> U&gt; </span><br><span class="line"></span><br><span class="line"> <span class="keyword">inline</span> <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> U*lhs,<span class="keyword">const</span> SmartPtr&lt;U&gt;&amp;rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return lhs == rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">…其他的类似 </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>  但是至此依然不完美：<br>  因为：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SmartPtr&lt;Apple&gt; sp1; </span><br><span class="line"></span><br><span class="line">SmartPtr &lt;Oragne&gt;sp2; </span><br><span class="line">If( sp1==sp2)   <span class="comment">//存在歧义</span></span><br></pre></td></tr></table></figure></p>
+<p>  为了消除该歧义，我们还要：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Template &lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">        … 同上…… </span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line"> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> SmartPtr&lt;U&gt; &amp;rhs) <span class="keyword">const</span> </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ptr == rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">…其他的操作符于此类似…. </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/Iptables/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/共享内存操作/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CPP设计思维新模式"><span class="nav-number">1.</span> <span class="nav-text">CPP设计思维新模式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

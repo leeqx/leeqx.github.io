@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="linux 进程死锁定位 最近定位一个服务问题时发现telnet某个端口，无法链接。无奈之下只能一步步排查。     端口是否存在ss -l|grep LISTEN|grep 9999   如果端口存在那么可以观察该端口上的recv-q send-q 如果是发生死锁一般情况下这两个队列只会增加（当然当服务处理过慢时也会导致包堆积）  12345678910111213Recv-Q Send-Q">
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/linux_进程死锁定位_端口无法连接/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="linux 进程死锁定位 最近定位一个服务问题时发现telnet某个端口，无法链接。无奈之下只能一步步排查。     端口是否存在ss -l|grep LISTEN|grep 9999   如果端口存在那么可以观察该端口上的recv-q send-q 如果是发生死锁一般情况下这两个队列只会增加（当然当服务处理过慢时也会导致包堆积）  12345678910111213Recv-Q Send-Q">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T02:37:35.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+<meta name="twitter:description" content="linux 进程死锁定位 最近定位一个服务问题时发现telnet某个端口，无法链接。无奈之下只能一步步排查。     端口是否存在ss -l|grep LISTEN|grep 9999   如果端口存在那么可以观察该端口上的recv-q send-q 如果是发生死锁一般情况下这两个队列只会增加（当然当服务处理过慢时也会导致包堆积）  12345678910111213Recv-Q Send-Q">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/linux_进程死锁定位_端口无法连接/">
+
+
+
+
+
+  <title> | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/linux_进程死锁定位_端口无法连接/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/linux_进程死锁定位_端口无法连接/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/linux_进程死锁定位_端口无法连接/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="linux-进程死锁定位"><a href="#linux-进程死锁定位" class="headerlink" title="linux 进程死锁定位"></a>linux 进程死锁定位</h2><blockquote>
+<p>最近定位一个服务问题时发现telnet某个端口，无法链接。无奈之下只能一步步排查。  </p>
+</blockquote>
+<ol start="0">
+<li>端口是否存在<br>ss -l|grep LISTEN|grep 9999  </li>
+<li>如果端口存在那么可以观察该端口上的recv-q send-q 如果是发生死锁一般情况下这两个队列只会增加（当然当服务处理过慢时也会导致包堆积）  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Recv-Q Send-Q           Local Address:Port               Peer Address:Port   </span><br><span class="line">0      1024              *:5200                         *:*       </span><br><span class="line">```  </span><br><span class="line">0. 另外可以通过一下命令统计各类socket 状态的数据  </span><br><span class="line">  ```shell</span><br><span class="line">ss |awk 'BEGIN&#123;arr[""]=0&#125;&#123;arr[$1]++&#125;END&#123;for(i in arr) print i,arr[i]&#125;'</span><br><span class="line">LAST-ACK 1305</span><br><span class="line">ESTAB 341643</span><br><span class="line">State 1</span><br><span class="line">FIN-WAIT-1 7553</span><br><span class="line">CLOSING 3</span><br><span class="line">FIN-WAIT-2 908</span><br><span class="line">CLOSE-WAIT 60067</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果你的服务是多个进程那么，如果只是一个进程死锁，那么很容易就可以看出来该进程的cpu消耗时间应该小于其他进程，当然这个取决于进程的运行时间。下面的进程中，id=1903的进程就是疑似死锁问题。  </p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root      1901     1  0 11:09 ?        00:00:00 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1902  1901 15 11:09 ?        00:31:55 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1903  1901  1 11:09 ?        00:02:25 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1904  1901 15 11:09 ?        00:31:19 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1905  1901 15 11:09 ?        00:31:17 ./client -f ../conf/client.ini -d</span><br></pre></td></tr></table></figure>
+<ol start="0">
+<li>定位哪里死锁<br>经过一步步盘查之后，怀疑进程死锁，ok。最好的定位方法就是attach到进程，然后bt一下既可以看到进程hang在哪里。。。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">gdb attach 1903</span></span><br><span class="line"><span class="meta">#</span><span class="bash">0  0x00007f105892105e <span class="keyword">in</span> __lll_lock_wait_private () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">1  0x00007f10588c6cad <span class="keyword">in</span> _L_lock_2164 () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">2  0x00007f10588c6a67 <span class="keyword">in</span> __tz_convert () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">3  0x00007f105890da5d <span class="keyword">in</span> __vsyslog_chk () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">4  0x00007f105889948e <span class="keyword">in</span> __libc_message () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">5  0x00007f105889ee66 <span class="keyword">in</span> malloc_printerr () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">6  0x00007f10588c6909 <span class="keyword">in</span> tzset_internal () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">7  0x00007f10588c6a89 <span class="keyword">in</span> __tz_convert () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">8  0x00000000004c0917 <span class="keyword">in</span> shift_fd (lvl=1, fmt=0x55e308 <span class="string">"[%s][%d][%s]: [server] recv SIGSEGV.pid:%d!\n"</span>) at ../src/log_xx.cpp:95</span></span><br><span class="line"><span class="meta">#</span><span class="bash">9  write_log (lvl=1, fmt=0x55e308 <span class="string">"[%s][%d][%s]: [server] recv SIGSEGV.pid:%d!\n"</span>) at ../src/log_xx.cpp:138</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上面这个问题导致是因为进程抛出了SEGV信号之后，在处理信号的方法中使用了非线程安全的localtime，而该方法中会枷锁。 </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/vim简单入门操作/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/unix__网络编程/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-进程死锁定位"><span class="nav-number">1.</span> <span class="nav-text">linux 进程死锁定位</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

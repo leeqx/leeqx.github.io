@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第二章  传输层 TCP套接字各个状态解释说明      CLOSED: 这个没什么好说的了，表示初始状态。LISTEN: 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处 于监听状态，可以接受连接了。SYN_RCVD: 这个状态表示接受到了SYN报 文，在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netsta">
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/unix__网络编程/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="第二章  传输层 TCP套接字各个状态解释说明      CLOSED: 这个没什么好说的了，表示初始状态。LISTEN: 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处 于监听状态，可以接受连接了。SYN_RCVD: 这个状态表示接受到了SYN报 文，在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netsta">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T02:37:35.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+<meta name="twitter:description" content="第二章  传输层 TCP套接字各个状态解释说明      CLOSED: 这个没什么好说的了，表示初始状态。LISTEN: 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处 于监听状态，可以接受连接了。SYN_RCVD: 这个状态表示接受到了SYN报 文，在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netsta">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/unix__网络编程/">
+
+
+
+
+
+  <title> | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/unix__网络编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/unix__网络编程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/unix__网络编程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第二章-传输层"><a href="#第二章-传输层" class="headerlink" title="第二章  传输层"></a>第二章  传输层</h3><ol start="0">
+<li><p>TCP套接字各个状态解释说明    </p>
+<blockquote>
+<p>CLOSED: 这个没什么好说的了，表示初始状态。<br>LISTEN: 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处 于监听状态，可以接受连接了。<br>SYN_RCVD: 这个状态表示接受到了SYN报 文，在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netstat你是很难看到这种状态的，除非你特意写了一个客户端测试程序，故意将三次TCP握手 过程中最后一个ACK报文不予发送。因此这种状态时，当收到客户端的ACK报文 后，它会进入到ESTABLISHED状态。<br>SYN_SENT: 这个状态与SYN_RCVD遥想呼应，当客户端SOCKET执行CONNECT连接时，它首先发送SYN报文，因此也随即它会进入到了SYN_SENT状态，并等待服务端的发送三次握手中的第2个报文。SYN_SENT状态表示客户端已发送SYN报文。<br>ESTABLISHED：这个容易理解了，表示连接已经建立了。<br>FIN_WAIT_1: 这个状态要好好解释一下，其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报 文。而这两种状态的区别是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况 下，无论对方何种情况下，都应该马上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。<br>FIN_WAIT_2：上面已经详细解释了这种状态，实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点 数据需要传送给你，稍后再关闭连接。<br>TIME_WAIT: 表示收到了对方的FIN报 文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FIN_WAIT_1状态下，收到了对方同时带FIN标 志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。<br>CLOSING: 这种状态比较特殊，实际情况中应该是很少见，属于一种比较罕见的例外状态。正常情况下，当你发 送FIN报文后，按理来说是应该先收到（或同时收到）对方的ACK报 文，再收到对方的FIN报文。但是CLOSING状态表示你发送FIN报文后，并没有收到对方的ACK报 文，反而却也收到了对方的FIN报文。什么情况下会出现此种情况呢？其实细想一下，也不难得出结论：那就是如果双方几乎在同时close一 个SOCKET的话，那么就出现了双方同时发送FIN报文的情况，也即会出现CLOSING状态，表示双方都正在关闭SOCKET连接。<br>CLOSE_WAIT: 这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方close一 个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文 给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话， 那么你也就可以close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。<br>LAST_ACK: 这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报 文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。    </p>
+</blockquote>
+</li>
+</ol>
+<h3 id="第三、四章-TCP套接字编程"><a href="#第三、四章-TCP套接字编程" class="headerlink" title="第三、四章 TCP套接字编程"></a>第三、四章 TCP套接字编程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">socket connect bind listen accept close getsockname getpeername</span><br><span class="line">`inet_aton inet_addr inet_ntoa`</span><br><span class="line">`inet_pton inet_ntop`</span><br><span class="line">sock_ntop</span><br><span class="line">readn writen readline</span><br></pre></td></tr></table></figure>
+<h3 id="第五章-SIGCHLD、SIGPIPIE-等异常情况分析"><a href="#第五章-SIGCHLD、SIGPIPIE-等异常情况分析" class="headerlink" title="第五章 SIGCHLD、SIGPIPIE 等异常情况分析"></a>第五章 SIGCHLD、SIGPIPIE 等异常情况分析</h3><h3 id="第六章-I-O复用-：select-poll"><a href="#第六章-I-O复用-：select-poll" class="headerlink" title="第六章 I/O复用 ：select poll"></a>第六章 I/O复用 ：select poll</h3><h3 id="第七章-套接字选项"><a href="#第七章-套接字选项" class="headerlink" title="第七章 套接字选项"></a>第七章 套接字选项</h3><ol start="0">
+<li><p>以下套接字是由TCP已经连接的套接字从监听套接字继承来  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SO_DEBUG SO_DONTROUTE SO_KEEPALIVE SO_LINGER SO_OOBINLINE </span><br><span class="line">SO_RCVBUF SO_RCVLOWAT SO_SNDBUF SO_SNDLOWAT </span><br><span class="line">TCP_MAXSEG TCP_NODELAY</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>SO_BROADCAST  </p>
+<blockquote>
+<p>开启或者关闭进程的广播消息能力注意仅适用与UDP，并且还必须是支持广播消息的网络上比如：以太网、令牌环网等</p>
+</blockquote>
+</li>
+<li><p>SO_DEBUG  </p>
+<blockquote>
+<p>仅支持TCP，开启本选项时TCP在该套接字发送接收的所有分组保留详细跟踪信息。信息保存在内核的某个环形缓冲区。</p>
+</blockquote>
+</li>
+<li><p>SO_DONTROUTE  </p>
+<blockquote>
+<p>本选项规定外出的分组将绕过底层协议的正常路由机制</p>
+</blockquote>
+</li>
+<li><p>SO_ERROR<br>N/A</p>
+</li>
+<li><p>SO_KEEPALIVE  </p>
+<blockquote>
+<p>给以他tcp套接字设置保活选项后，如果在两个小时内该套接字任一方向都没有数据交换，tcp就自动给对端发送一个保持存活探测分节，这个是对端必须响应的tcp分节,它会导致一下三种情况之一：  </p>
+<ol start="0">
+<li>对端以期望的ACK响应  </li>
+<li>对端以RST响应，它告知本端TCP：对端已经崩溃且已经重启。该套接字的待处理错误置为ECONNRESET，套接字本身则被关闭  </li>
+<li>对端对保持存活探测分节没有任何响应。 如果根本没有响应该套接字的待处理错误置为ETIMEOUT套接字本身则被关闭<br>另外可能还需要结合一下选项设置间隔、次数：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> keepAlive = <span class="number">1</span>;</span><br><span class="line">Setsockopt(listenfd, SOL_SOCKET, SO_KEEPALIVE, (<span class="keyword">void</span>*)&amp;keepAlive, <span class="keyword">sizeof</span>(keepAlive));  <span class="comment">//打开自动探测</span></span><br><span class="line"><span class="keyword">int</span>                 keepIdle = <span class="number">1000</span>;  </span><br><span class="line"><span class="keyword">int</span>                 keepInterval = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span>                 keepCount = <span class="number">10</span>;</span><br><span class="line">Setsockopt(listenfd, SOL_TCP, TCP_KEEPIDLE, (<span class="keyword">void</span> *)&amp;keepIdle, <span class="keyword">sizeof</span>(keepIdle));        <span class="comment">//首次探测需要空闲多久才探测</span></span><br><span class="line">Setsockopt(listenfd, SOL_TCP,TCP_KEEPINTVL, (<span class="keyword">void</span> *)&amp;keepInterval, <span class="keyword">sizeof</span>(keepInterval));<span class="comment">//两次探测时间间隔</span></span><br><span class="line">Setsockopt(listenfd,SOL_TCP, TCP_KEEPCNT, (<span class="keyword">void</span> *)&amp;keepCount, <span class="keyword">sizeof</span>(keepCount));        <span class="comment">//发送几次探测</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+</li>
+<li><p>SO_LINGER  </p>
+<blockquote>
+<p>本选项制定close函数对面向链接的协议如何操作。默认的操作是立即返回（l_onoff=0);如果l_onoff != 0 &amp;&amp; l_linger!=0 那么将会等待数据和FIN的确认后close才返回（至于等待多久由l_linger 指定，如果该值指定的时间太短，那么close将会返回-1且errno将会被设置成EWOULDBLOCK）<br>本选项设置后close返回只是告诉我们先前发送的数据和FIN已由对端TCP确认，而不能告诉我们对端应用进程是否已经读取数据。如果没有设置该选项，那么我们连对端TCP是否确认了数据都不能知道  </p>
+</blockquote>
+</li>
+<li><p>SO_OOBINLINE  </p>
+<blockquote>
+<p>开启本选项带外数据将被留在正常的输入队列中，这种情况下接收函数指定量MSG_OOB标志不能用来读取带外数据。  </p>
+</blockquote>
+</li>
+<li><p>SO_RCVBUF SO_SNDBUF  </p>
+<blockquote>
+<p>这两个选项用来设置TCP、UDP套接字接收、发送缓冲区大小。在设置这两个选项时函数调用顺序需要注意：<br>`TCP是在建立连接时通过SYN分节与对端互换得到的，对于客户端SO_RCVBUF必须在connect之前设置;对于服务器则必须在调用listen之前设置，因为accept知道TCP三次握手完成之后才会创建并返回已连接套接字。套接字缓冲区大小总是有新建的已连接的套接字从监听套接字继承而来。建议设置缓冲区大小为相应连接的MSS值4倍·[这点可以一句TCP快速恢复算法的工作机制：TCP发送端使用3个重复确认来检测某个分节是否丢失，如果发现分节丢失，接收端将给新收到的每个分节发送一个重复的确认，如果窗口大小不足以存放4个这样的分节那么就不可能连发三个重复确认，从而无法激活快速恢复算法]  </p>
+</blockquote>
+</li>
+<li><p>SO_RCVLOWAT SO_SNDLOWAT  </p>
+<blockquote>
+<p>接收低水位 发送低水位 ：TCP UDP SCTP接收低水位默认为1;TCP 发送低水位默认位2048。UDP页使用发送低水位，由于UDP套接字的发送缓冲区中可用的字节数从不改变（因为UDP并不为进程传递给它的数据保留副本),只要一个UDP套接字的发送缓冲区大小大于该套接字的低水位是UDP套接字总是可写的。</p>
+</blockquote>
+</li>
+<li><p>SO_RCVTIMEO SO_SNDTIMEO  </p>
+<blockquote>
+<p>套接字接收、发送超时设置  </p>
+</blockquote>
+</li>
+<li><p>SO_REUSEADDR  </p>
+<blockquote>
+<p>它允许启动一个监听服务其并且捆绑在其众所周知的端口，即使以前建立的该端口用作他们的本地端口<br>它允许在同一端口上启动同一服务器（单个进程)的多个实例，只要每个实例绑定一个不同的本地ip地址即可<br>对于TCP我们绝不可能启动捆绑相同IP地址和相同端口的多个服务器，也就是说我们不能在启动198.69.10.2:80 的服务器后又在启动198.69.10.2：80的另外一个服务器,解释我们设置量SO_REUSEADDR也不行。<br>该选项需要在bind之前设置  </p>
+</blockquote>
+</li>
+<li><p>SO_REUSEPORT  </p>
+<blockquote>
+<p>本选项允许完全重复的绑定不过只有在想要捆绑同一个ip和端口的每个套接字都指定量本套接字选项才行</p>
+</blockquote>
+</li>
+<li><p>SO_TYPE  </p>
+<blockquote>
+<p>本选项返回的是套接字的类型（整数值）,例如：SOCK_STREAM SOCK_DGRAM。该选项通常由启动是继承了套接字的进程使用  </p>
+</blockquote>
+</li>
+<li><p>SO_USELOOPBACK  </p>
+<blockquote>
+<p>本选项仅用于AF_ROUTE（路由域）的套接字他的默认设置为打开（<code>这是唯一一个默认值位打开而不是关闭的SO_xx二元套接字选项</code>).<br>开启本选项相应的套接字将接收在其上发送的任何数据报的一个副本  </p>
+</blockquote>
+</li>
+<li><p>IP_HDRINCL  </p>
+<blockquote>
+<p>它是给一个原始的IP套接字设置的那么我们必须位所有在该原始套接字删该法送的数据包构造自己的IP首部（一般情况下该首部是有内核构造的不过类似traceroute需要自己构造，以取代IP置于该首部中的某些字段）<br>以下字段存在例外：</p>
+<ol start="0">
+<li>IP总是计算并存储IP首部校验和</li>
+<li>如果我们将IP标识字段置为0，内核将设置该字段</li>
+<li>如果源IP地址是INADDR_ANY，IP将把它设置位外出接口的主IP地址</li>
+<li>IP首部中有的字段必须以主机字节序填写，有些字段必须以网络字节序填写</li>
+</ol>
+</blockquote>
+</li>
+<li><p>IP_OPTIONS  </p>
+<blockquote>
+<p>设置本选项将允许我们设置IPv4首部中设置IP选项  </p>
+</blockquote>
+</li>
+<li><p>IP_RECVDSTADDR  </p>
+<blockquote>
+<p>该选项导致所有接收UDP数据包的目的IP地址由recvmsg函数作为服务数据返回  </p>
+</blockquote>
+</li>
+<li><p>IP_RECVIF  </p>
+<blockquote>
+<p>该选项导致所有接收UDP数据包的接收接口由recvmsg函数作为服务数据返回  </p>
+</blockquote>
+</li>
+<li><p>IP_TOS  </p>
+<blockquote>
+<p>该选项允许TCP UDP SCTP 套接字设置IP首部中的服务类型字段</p>
+</blockquote>
+</li>
+<li><p>IP_TTL  </p>
+<blockquote>
+<p>本选项允许设置获取系统用在从某个给定套接字发送的单播组上的默认TTL值(多播由IP_MULTICAST_TTL选项设置)</p>
+</blockquote>
+</li>
+<li><p>TCP_MAXSEG  </p>
+<blockquote>
+<p>本选项允许我们获取或者设置TCP链接的最大分节大小（MSS)，返回值是我们的TCP可以发送给对端的最大数据量，它通常是由对端使用SYN分节通告MSS，除非我们的TCP选项使用一个比对端通告的MSS小的值。  </p>
+</blockquote>
+</li>
+<li><p>TCP_NODELAY  </p>
+<blockquote>
+<p>开启本选项监会禁止TCP Nagle算法，默认情况下该算法是启动的。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="第八章-UDP套接字编程"><a href="#第八章-UDP套接字编程" class="headerlink" title="第八章 UDP套接字编程"></a>第八章 UDP套接字编程</h3><ol start="0">
+<li><p>UDP的connect函数   </p>
+<blockquote>
+<p>UDP socket也可以调用connect，然而虽然调用了connect但是它不会跟TCP一样进行三次握手。内核只是检查<br>是否存在立即可知的错误(例如目的不可达)和记录对端的IP地址和端口号<br>注意通过socket创建的UDP默认是位连接的;同时已链接的UDP套接字仅仅与一个IP地址交换数据报，因为connect到广播或者多播地址也是可能的。<br>对于已经链接的UDP有以下特点：  </p>
+<ol start="0">
+<li>再也不能给该UDP套接字输出操作指定目的IP地址和端口号，也就是是我们使用sendto时第五个参数（套接字地址接口指针）必须为NULL，第六个参数必须为0（套接字地址结构大小）;或者直接使用write、send、sendmsg进行输出    </li>
+<li>同时也不必使用recvfrom来获取数据报的发送者，而改用read、write或者recvmsg  </li>
+<li>已链接的UPD套接字引发的异步错误会返回给他们所在的进程，而未连接的UDP套接字不接受任何异步错误。<br>对于已经连接的UDP可以调用多次connect（指定新的ip地址和端口号)，这点与TCP不同，tcp套接字只允许调用依次connect<br>如何断开UPD链接？ 再次调用connect此时sin_family 指定为AF_UNSPEC 这样就会断开已经链接的套接字，可能会返回EAFNOSUPPORT，不过没有关系。<br>链接与未链接的UDP套解字性能如何呢？<br>对于未链接的UDP套解字每次发送数据时呢和暂时链接该套接字发送数据，然后断开。  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">      <span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/socket.h&gt;    </span></span></span><br><span class="line">    <span class="number">1</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">    <span class="number">2</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line">    <span class="number">3</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line">    <span class="number">4</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line">    <span class="number">5</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line">    <span class="number">6</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line">    <span class="number">7</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line">    <span class="number">8</span></span><br><span class="line">    <span class="number">9</span> <span class="meta">#<span class="meta-keyword">define</span> LOG(fmt,...) printf(<span class="meta-string">"%s %s %d:"</span> fmt,__FILE__,__func__,__LINE__,__VA_ARGS__)</span></span><br><span class="line">   <span class="number">10</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">   11 </span>&#123;</span><br><span class="line">   <span class="number">12</span>     <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">addr</span>;</span></span><br><span class="line">   <span class="number">13</span>     bzero(&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">14</span>     addr.sin_family = AF_INET;</span><br><span class="line">   <span class="number">15</span>     addr.sin_port   = htons(<span class="number">80</span>);</span><br><span class="line">   <span class="number">16</span>     inet_pton(AF_INET,<span class="string">"127.0.0.1"</span>,&amp;addr.sin_addr);</span><br><span class="line">   <span class="number">17</span></span><br><span class="line">   <span class="number">18</span>     <span class="keyword">int</span> sock = socket(AF_INET,SOCK_DGRAM,<span class="number">0</span>);</span><br><span class="line">   <span class="number">19</span>     <span class="keyword">int</span> ret=connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">20</span>     LOG(<span class="string">"connect 1 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">21</span>     ret=connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">22</span>     LOG(<span class="string">"connect 2 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">23</span></span><br><span class="line">   <span class="number">24</span>     addr.sin_port   = htons(<span class="number">8080</span>);</span><br><span class="line">   <span class="number">25</span>     ret=connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">26</span>     LOG(<span class="string">"connect 3 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">27</span>     ret = write(sock,<span class="string">"123"</span>,<span class="number">3</span>);</span><br><span class="line">   <span class="number">28</span>     LOG(<span class="string">"write ret=%d: %s\n"</span>,ret,strerror(errno));</span><br><span class="line">   <span class="number">29</span>     addr.sin_family = AF_UNSPEC;</span><br><span class="line">   <span class="number">30</span>     ret = connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">31</span>     LOG(<span class="string">"connect 4 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">32</span>     ret = write(sock,<span class="string">"123"</span>,<span class="number">3</span>);</span><br><span class="line">   <span class="number">33</span></span><br><span class="line">   <span class="number">34</span>     LOG(<span class="string">"write ret=%d: %s\n"</span>,ret,strerror(errno));</span><br><span class="line">   <span class="number">35</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   <span class="number">36</span> &#125;</span><br><span class="line">output:</span><br><span class="line">   udp_connect.cpp main <span class="number">23</span>:connect <span class="number">1</span> ret=<span class="number">0</span></span><br><span class="line">   udp_connect.cpp main <span class="number">25</span>:connect <span class="number">2</span> ret=<span class="number">0</span></span><br><span class="line">   udp_connect.cpp main <span class="number">29</span>:connect <span class="number">3</span> ret=<span class="number">0</span></span><br><span class="line">   udp_connect.cpp main <span class="number">30</span>:write ret=<span class="number">3</span>: Success</span><br><span class="line">   udp_connect.cpp main <span class="number">33</span>:connect <span class="number">4</span> ret=<span class="number">0</span>  ====&gt;close UPD connect</span><br><span class="line">   udp_connect.cpp main <span class="number">35</span>:write ret=<span class="number">-1</span>: Destination address required</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/linux_进程死锁定位_端口无法连接/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/TCP-IP读书笔记/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-传输层"><span class="nav-number">1.</span> <span class="nav-text">第二章  传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三、四章-TCP套接字编程"><span class="nav-number">2.</span> <span class="nav-text">第三、四章 TCP套接字编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章-SIGCHLD、SIGPIPIE-等异常情况分析"><span class="nav-number">3.</span> <span class="nav-text">第五章 SIGCHLD、SIGPIPIE 等异常情况分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章-I-O复用-：select-poll"><span class="nav-number">4.</span> <span class="nav-text">第六章 I/O复用 ：select poll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七章-套接字选项"><span class="nav-number">5.</span> <span class="nav-text">第七章 套接字选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八章-UDP套接字编程"><span class="nav-number">6.</span> <span class="nav-text">第八章 UDP套接字编程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

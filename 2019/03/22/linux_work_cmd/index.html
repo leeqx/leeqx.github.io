@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="linux 开发常用的命令 性能排查指令   123456789uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1 linux sar sa1 sa2 定位性能问题  perf    perf stat -B -r 10 -p 4623   perf r">
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/2019/03/22/linux_work_cmd/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:description" content="linux 开发常用的命令 性能排查指令   123456789uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1 linux sar sa1 sa2 定位性能问题  perf    perf stat -B -r 10 -p 4623   perf r">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-22T02:37:35.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+<meta name="twitter:description" content="linux 开发常用的命令 性能排查指令   123456789uptimedmesg | tailvmstat 1mpstat -P ALL 1pidstat 1iostat -xz 1free -msar -n DEV 1sar -n TCP,ETCP 1 linux sar sa1 sa2 定位性能问题  perf    perf stat -B -r 10 -p 4623   perf r">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/2019/03/22/linux_work_cmd/">
+
+
+
+
+
+  <title> | linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/linux_work_cmd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/22/linux_work_cmd/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/22/linux_work_cmd/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="linux-开发常用的命令"><a href="#linux-开发常用的命令" class="headerlink" title="linux 开发常用的命令"></a>linux 开发常用的命令</h1><ol>
+<li><p>性能排查指令  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">uptime</span><br><span class="line">dmesg | tail</span><br><span class="line">vmstat 1</span><br><span class="line">mpstat -P ALL 1</span><br><span class="line">pidstat 1</span><br><span class="line">iostat -xz 1</span><br><span class="line">free -m</span><br><span class="line">sar -n DEV 1</span><br><span class="line">sar -n TCP,ETCP 1</span><br></pre></td></tr></table></figure>
+<p><a href="https://zhuanlan.zhihu.com/p/34223218" target="_blank" rel="noopener">linux sar sa1 sa2 定位性能问题</a></p>
+</li>
+<li><p>perf  </p>
+<ul>
+<li>perf stat -B -r 10 -p 4623  </li>
+<li>perf record -e cycles -a -p 4623 -g<br>perf report -g  </li>
+<li>perf top -p 4623 -K    </li>
+</ul>
+</li>
+<li>c\c++文件提示 文件开始处包含了不明中文字符，如果确认没有明文显示的中文类字符，那么可以用vi打开，然后：set nobomb ，保存即可<br>通常这种情况是因为存储是采用了有bomb的utf8</li>
+<li>pmap 内存泄漏调试<br><a href="http://m.blog.csdn.net/article/details?id=50504608" target="_blank" rel="noopener">gdb pmap 内存泄漏检测</a></li>
+<li><p>Epoll事件事件检测  </p>
+<blockquote>
+<p>网络断开常用检测方法<br>1、处理正常网络断开<br>(1) select 捕捉可读事件，read返回0<br>(2) epoll 捕捉可读事件，read返回0<br>(3) 主动 read 返回错误<br>(4) 主动 write 返回错误<br>2、处理异常网络断开<br>(1) 应用层KeepAlive检测<br>在应用层协议加入心跳握手机制，维护服务端跟客户端之间的连通状态，是最普遍最保险的办法。 客户端定时向服务端发送探测包，若服务端回应则说明服务端在线，否则作离线处理；服务端也可对长期未发送探测包的客户端作离线处理。 该方案所有系统都支持，跨平台性好；对端跟自身出现网络故障都能检测到。不足之处在于它需要应用层协议支持，程序内部需要长期维护心跳握手包，相对比较繁琐。<br>(2) 传输层KeepAlive检测<br>除了应用层 KeepAlive 检测机制外，TCP 内部也集成了 KeepAlive 机制，默认关闭，开启它很方便。对端跟自身出现网络故障都能检测到。但不是所有的系统都支持，而且有些系统虽然支持但会影响到所有套接字，消耗额外的宽带和流量，不建议使用。<br>//启用心跳机制，如果您想关闭，将keepAlive置零即可<br>setsockopt(fd,SOL_SOCKET,SO_KEEPALIVE,(void<em>)&amp;keepAlive,sizeof(keepAlive));<br>//启用心跳机制开始到首次心跳侦测包发送之间的空闲时间<br>setsockopt(fd,SOL_TCP,TCP_KEEPIDLE,(void </em>)&amp;start,sizeof(start));<br>//两次心跳侦测包之间的间隔时间<br>setsockopt(fd,SOL_TCP,TCP_KEEPINTVL,(void <em>)&amp;interval,sizeof(interval));<br>//探测次数，即将几次探测失败判定为TCP断开<br>setsockopt(fd,SOL_TCP,TCP_KEEPCNT,(void </em>)&amp;count,sizeof(count));<br>(3) 网络层KeepAlive检测<br>Ping 命令几乎是所有平台的网络连通性检测命令，走网络层 ICMP 协议，这里考虑使用 popen 函数调用系统自带的 Ping 命令来封装网络连通性检测函数。它实际上也是一种网络层的 KeepAlive 机制。<br>int checkConnect(char <em>dst, int cnt)<br>{<br> FILE </em>stream;<br> sprintf(cmdBuf, “ping %s -c %d -i 0.2 | grep time= | wc -l”, dst, cnt);<br> stream = popen(cmdBuf, “r”);<br> fread(recvBuf, sizeof(char), sizeof(recvBuf)-1, stream);<br> pclose(stream);<br> if (atoi(recvBuf) &gt; 0) return 0;<br> return -1;<br>}<br>dst 指定要检测的目的地址，cnt 指定 Ping 尝试的次数，-i 参数指定 Ping 尝试的超时时间。<br>(4) 应用层监控内核消息机制<br>Netlink 是一种特殊的套接字，为2.6.14及更高版本的Linux所特有，通过它，应用层程序可以方便地向内核订制指定消息，如网卡上下线。也可以设置或查询配置，如IP、路由、网络流量信息等。<br>a、创建一个 netlink 套接字：<br>fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);<br>b、绑定路由多播组，监控网卡信息：<br>addr.nl_family = AF_NETLINK;<br>addr.nl_groups = RTNLGRP_LINK; //指定接收路由多播组消息<br>bind(fd, (struct sockaddr<em>)&amp;addr, sizeof(addr));<br>c、监听套接字，一旦可读，解析其内容，实时监控网卡上下线事件。<br>优点：实时性高，使用方便。<br>缺点：跨平台性不佳，只能检测自身网络故障。<br>(5) 应用层网卡信息轮询机制<br>网卡信息轮询机制就是定期调用 ioctl 函数执行如下操作：<br>struct ifconf ifc;<br>struct ifreq ifrcopy;<br>//获取网卡信息列表<br>ioctl(fd, SIOCGIFCONF, (char </em>)&amp;ifc);<br>//获取网卡上下线状态<br>ioctl(fd, SIOCGIFFLAGS, &amp;ifrcopy);<br>//获取 MAC 地址<br>ioctl(fd, SIOCGIFHWADDR, (char <em>)(&amp;ifrcopy);<br>//获取 IP 地址<br>ioctl(fd, SIOCGIFADDR, (char </em>)&amp;ifrcopy);<br>//获取广播地址<br>ioctl(fd, SIOCGIFBRDADDR, &amp;ifrcopy));<br>缺点：<br>a、跨平台性不佳。<br>可以成功移植到 Linux、Android、Windows平台，但由于 iPhone 平台上获取MAC跟IP的参数不同，需特殊处理。<br>b、实时性跟灵活性不高。<br>c、耗费资源，影响性能。<br>d、只能检测自身网络故障  </p>
+</blockquote>
+<p>(<a href="https://my.oschina.net/liangzi1210/blog/160455" target="_blank" rel="noopener">epoll事件检测</a>)  </p>
+</li>
+<li><p>linux 内存  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@server ~]# free -m</span><br><span class="line">total       used       free     shared    buffers     cached</span><br><span class="line">Mem:           249        163         86          0         10         94</span><br><span class="line">-/+ buffers/cache:         58        191</span><br><span class="line">Swap:          511          0        511</span><br><span class="line"></span><br><span class="line">其中:</span><br><span class="line"></span><br><span class="line">total 内存总数</span><br><span class="line"></span><br><span class="line">used 已经使用的内存数</span><br><span class="line"></span><br><span class="line">free 空闲的内存数</span><br><span class="line"></span><br><span class="line">shared 多个进程共享的内存总额</span><br><span class="line"></span><br><span class="line">buffers Buffer Cache和cached Page Cache 磁盘缓存的大小</span><br><span class="line"></span><br><span class="line">-buffers/cache 的内存数:used - buffers - cached</span><br><span class="line"></span><br><span class="line">+buffers/cache 的内存数:free + buffers + cached</span><br><span class="line"></span><br><span class="line">可 用的memory=free memory+buffers+cached</span><br><span class="line"></span><br><span class="line">有了这个基础后,可以得知,我现在used为 163MB,free为86,buffer和cached分别为10,94</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>tcpdump 抓包只输出 data部分（hex）  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"> tcpdump -t tcp -s 0 port 9101 -i any -A -v -nn -c 10 -x 2&gt;/dev/null|grep -v "&gt;"|grep -v TCP|grep 0x|sed "s/0x0000:/####/g"|tr -t "\n" " "|awk  '&#123;a="";for(i=2;i&lt;NF;i++)&#123; if($i=="####")&#123;i=i+39; print a;a=""&#125;else if(substr($i,length($i),1)!=":")&#123; a=a$i&#125;&#125; print "\n"&#125;'|awk '&#123;print substr($1,105)&#125;'  </span><br><span class="line">```  </span><br><span class="line">遇到0x0000: 则是新的一本数据包的开始；  </span><br><span class="line">最后过滤掉前面的105个字节（tcp协议信息）。</span><br><span class="line"></span><br><span class="line">0. out of socket memory </span><br><span class="line">   linux 内核提示这个错误信息（dmesg 查看内核消息），产生这个错误信息的两个原因：</span><br><span class="line">   0. orphan socket 太多（孤儿）</span><br><span class="line">   0. tcp socket memory用尽了</span><br><span class="line">   </span><br><span class="line">   *查看内存页面大小*  </span><br><span class="line"><span class="meta">   &gt;</span><span class="bash"> $ getconf PAGESIZE  </span></span><br><span class="line">    4096</span><br><span class="line"></span><br><span class="line">   *查看孤儿socket配置*  </span><br><span class="line"><span class="meta">   &gt;</span><span class="bash">$ cat /proc/sys/net/ipv4/tcp_max_orphans  </span></span><br><span class="line"></span><br><span class="line">   *查看系统分配给tcp的内存*  </span><br><span class="line"><span class="meta">   &gt;</span><span class="bash">$ cat /proc/sys/net/ipv4/tcp_mem  </span></span><br><span class="line">     69618   92825   139236  </span><br><span class="line">    第一个数字表示，当 tcp 使用的 page 少于 69618 时，kernel 不对其进行任何的干预</span><br><span class="line">    第二个数字表示，当 tcp 使用了超过 92825 的 pages 时，kernel 会进入 “memory pressure” </span><br><span class="line">    第三个数字表示，当 tcp 使用的 pages 超过 139236 时，我们就会看到题目中显示的信息</span><br><span class="line"></span><br><span class="line">   *查看socket实际链接等情况*  </span><br><span class="line"><span class="meta">   &gt;</span><span class="bash">$ cat /proc/net/sockstat</span></span><br><span class="line">     sockets: used 116</span><br><span class="line">     TCP: inuse 3 orphan 0 tw 4 alloc 4 mem 110</span><br><span class="line">     UDP: inuse 1 mem 1</span><br><span class="line">     UDPLITE: inuse 0</span><br><span class="line">     RAW: inuse 0</span><br><span class="line">     FRAG: inuse 0 memory 0</span><br><span class="line"> 可以看到，实际使用的 mem(110) 远远小于 69618，所以，“Out of socket memory”的错误是由于第一种情况引起的。</span><br><span class="line"></span><br><span class="line">0. vmstat 查看系统虚拟内存等使用情况</span><br><span class="line">   vmstat 2 3 #没两秒采集一次采集3次</span><br><span class="line">0. linux /proc/pid/syscall</span><br><span class="line">  /proc/pid/syscall可以协助定位系统调用的问题  </span><br><span class="line"></span><br><span class="line">```shell</span><br><span class="line"> ubuntu:~ # cat /proc/8443/syscall</span><br><span class="line">  0 0x7 0x70f000 0x1000 0x0 0x7f33e1532e80 0x7f33e1532ed8 0x7fff3a6b8718 0x7f33e128cf00</span><br><span class="line">```  </span><br><span class="line">第一个数字是系统调用号，后面是参数。不同的系统调用所需的参数个数不同。这里的字段数是按最大参数数量来的，所以不一定每个参数字段都有价值。那么怎么知道系统调用号对应哪个系统调用呢？在头文件 /usr/include/asm/unistd_64.h 中都有定义。也可以用个小脚本来快速查找：  </span><br><span class="line">```shell</span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> usage: whichsyscall &lt;syscall_nr&gt;</span></span><br><span class="line">nr="$1"</span><br><span class="line">file="/usr/include/asm/unistd_64.h"</span><br><span class="line">gawk '$1=="#define" &amp;&amp; $3=="'$nr'" &#123;sub("^__NR_","",$2);print $2&#125;' "$file"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vim 删除空行:g/^$//d</p>
+</li>
+<li><p>linux 查看网卡统计信息<br>-n参数很有用，他有6个不同的开关：<code>DEV | EDEV | NFS | NFSD | SOCK | ALL</code> 。DEV显示网络接口信息，EDEV显示关于网络错误的统计数据，NFS统计活动的NFS客户端的信息，NFSD统计NFS服务器的信息，SOCK显示套 接字信息，ALL显示所有5个开关。它们可以单独或者一起使用。我们现在要用的就是-n DEV了。-u显示cpu统计信息；-q 查看平均负荷；-r 查看内存信息；-W 查看页面交换情况；-b查看I/O和传送率</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入命令：sar –n DEV 1 4 // 每秒钟采集一次，共4次</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git 删除远程分支</p>
+<ol start="0">
+<li>首先在本地分支：<code>git branch -D branchname</code></li>
+<li>然后 <code>git push origin :branchname</code> <code>注意：origin 与: 之间的空格是必须的</code></li>
+</ol>
+</li>
+<li><p>mysqldump innodb   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump备份不锁表:加上--lock-tables=false参数,如果是innodb,则加上--single-transcation比较好。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql 表结构同步</p>
+<ol>
+<li>导出结构不导出数据<br>mysqldump　–opt　-d　数据库名　-u　root　-p　&gt;　xxx.sql　　  </li>
+<li><p>导出数据不导出结构<br>mysqldump　-t　数据库名　-uroot　-p　&gt;　xxx.sql　</p>
+</li>
+<li><p>导出数据和表结构<br>mysqldump　数据库名　-uroot　-p　&gt;　xxx.sql　</p>
+</li>
+<li><p>导出特定表的结构<br>mysqldump　-uroot　-p　-B　数据库名　–table　表名　&gt;　xxx.sql　</p>
+</li>
+<li>schemasync 同步表结构：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">schemasync [options] &lt;source&gt; &lt;target&gt;</span><br><span class="line"></span><br><span class="line"># source/target 格式: mysql://user:pass@host:port/database</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>mysql 快速dump数据  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sample: mydumper -u root -S /tmp/mysql.sock.3306 -o /usr/local/backup/3306  --less-locking </span><br><span class="line"></span><br><span class="line">-B  database</span><br><span class="line">-T  tables</span><br><span class="line">-h  host</span><br><span class="line">-p  passwd</span><br><span class="line">-S  sockefile</span><br><span class="line">--less-locking    Minimize locking time on InnoDB tables.</span><br><span class="line">````  </span><br><span class="line">load数据：  </span><br><span class="line">  ```shell</span><br><span class="line">/myloader -u root -p 'xxxxx' -B test -d /home/mysql/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>高并发ｔｃｐ配置<br> /etc/sysctl.conf : </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = 0</span><br><span class="line">net.ipv4.conf.default.rp_filter = 1</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_max_orphans = 102400</span><br><span class="line">net.ipv4.tcp_fin_timeout = 10</span><br><span class="line">net.ipv4.tcp_timestamps = 0</span><br><span class="line">net.ipv4.tcp_tw_recycle = 1(慎用）</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1（慎用）</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 30000</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 8192 </span><br><span class="line">net.ipv4.tcp_keepalive_time = 60</span><br><span class="line">net.ipv4.tcp_keepalive_intvl = 15 </span><br><span class="line">net.ipv4.tcp_keepalive_probes = 3</span><br><span class="line">net.ipv4.ip_local_port_range = 1024    65000</span><br><span class="line">net.ipv4.netfilter.ip_conntrack_tcp_timeout_established = 1800</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> sock 优化</span></span><br><span class="line">more /proc/sys/net/core/somaxconn</span><br><span class="line">echo 50000 &gt; /proc/sys/net/core/somaxconn</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 加快TCP回收</span></span><br><span class="line">cat /proc/sys/net/ipv4/tcp_tw_recycle # 默认值0：不自动回收，谨慎使用，会再某些特殊场景下（NAT）如果时间戳不对会导致连接连不上</span><br><span class="line">echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_recycle </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 空的TCP回收利用</span></span><br><span class="line">cat /proc/sys/net/ipv4/tcp_tw_reuse</span><br><span class="line">echo 1 &gt; /proc/sys/net/ipv4/tcp_tw_reuse</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 不做洪水抵御</span></span><br><span class="line">cat /proc/sys/net/ipv4/tcp_syncookies</span><br><span class="line">echo 0 &gt; /proc/sys/net/ipv4/tcp_syncookies</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑 vim /etc/sysctl.conf 文件永久优化</span></span><br><span class="line">vm.swappiness = 0</span><br><span class="line">net.ipv4.neigh.default.gc_stale_time=120</span><br><span class="line">net.ipv4.conf.all.rp_filter=0</span><br><span class="line">net.ipv4.conf.default.rp_filter=0</span><br><span class="line">net.ipv4.conf.default.arp_announce = 2</span><br><span class="line">net.ipv4.conf.all.arp_announce=2</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line">net.ipv4.tcp_syncookies = 0            # SYN等待队列溢出时，启用cookies来处理 0关闭1启用</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 10240   # 表示未收到客户端确认信息的连接（SYN消息）最大长度</span><br><span class="line">net.ipv4.tcp_synack_retries = 2        # 重试次数</span><br><span class="line">net.ipv4.conf.lo.arp_announce=2</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1              # 空的TCP回收利用 0关闭 1启用</span><br><span class="line">net.ipv4.tcp_tw_recycle = 1            # 加快TCP回收 0关闭 1启用</span><br><span class="line">net.core.somaxconn = 262144            # 限制监听(LISTEN)队列最大数据包的数量</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 立即生效</span></span><br><span class="line">sysctl -p /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>高并发 /proc/sys/net/core/somaxconn<br>修改somaxconn，该内核参数默认值一般是128，对于负载很大的服务程序来说大大的不够。一般会将它修改为2048或者更大。  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 2048 &gt;   /proc/sys/net/core/somaxconn    但是这样系统重启后保存不了</span><br></pre></td></tr></table></figure>
+<p>在/etc/sysctl.conf中添加如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.core.somaxconn = 2048</span><br></pre></td></tr></table></figure>
+<p>然后在终端中执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>shell中字符串命令<br>比如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmd="ls -lh"</span><br><span class="line"><span class="meta">$</span><span class="bash">cmd  <span class="comment">#错误</span></span></span><br></pre></td></tr></table></figure>
+<p>那么要执行这个cmd那么应该采用下面的方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmd="ls -lh"</span><br><span class="line">eval $cmd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>awk 两个文件关联处理：<br>比如输出a 文件第一列，与b文件种第二列相等的数据：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   awk 'NR==FNR&#123;a[$1]=$2;next&#125; &#123;if(a[$2])&#123;print $2"\t"a[$2];&#125;&#125;' a b   </span><br><span class="line">```  </span><br><span class="line">  解释一下这个命令：当NR==FNR时，即读取第一个文件的时候，先用循环把1.txt中的信息存到数组a中；当NR不等于FNR时，即读取第二个文件的时候，此时$2对应与b中user列，若数组a中有对应与当前行user的记录，则打印user(即$2)和passwd(即a[$2])。</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">其实在处理单个文件时，NR与FNR都一样，表示当前读取的行号，如执行awk <span class="string">'&#123;print NR&#125;'</span> a 和执行 awk <span class="string">'&#123;print FNR&#125;'</span> a，结果都一样，均为</span></span><br><span class="line">  ```c</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+<p>但是当处理两个文件时，awk先读取第一个文件，此时NR与FNR相等，但是当读取第二个文件时，FNR从新开始计数，而NR继续增长，此时就不相等了<br>执行awk ‘{print NR”\t”FNR}’ 1.txt 2,txt 结果如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">3</span> <span class="number">3</span></span><br><span class="line"><span class="number">4</span> <span class="number">1</span></span><br><span class="line"><span class="number">5</span> <span class="number">2</span></span><br><span class="line"><span class="number">6</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>awk 使用ｓｈｅｌｌ变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -vnvar="$var" '&#123;print nvar&#125;'</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mysql 查看未提交的事务 </p>
+</li>
+<li><strong>mysql thread stack overrun</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Last_Error: Error &apos;Thread stack overrun:  164768 bytes used of a 196608 byte stack, and 32000 bytes needed</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>原因是thread statck 太小了，木人的是192kb，可以通过调整mysql.cnf配置  </p>
+<ol start="0">
+<li><p><strong>nginx upstream</strong><br>  nginx upstream 到后端服务时，如果uri正确，但是却返回404。但是<code>curl “http://test.reg/test/reg&quot;</code><br>  又是正常的，那么请确认一下，upstream的server端是否配置了多个配置使用同一个端口，同一个端口的请求，<br>  nginx会根据server_name（http header) 将请求分发到对应的服务，否则服务区分请求是发给谁的。 </p>
+<ol start="0">
+<li><p>test1.conf </p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> test.reg;</span><br><span class="line">  ...</span><br><span class="line">  <span class="attribute">location</span> =/ &#123;</span><br><span class="line">  ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>test2.conf </p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> test2.reg;</span><br><span class="line">  ...</span><br><span class="line">  <span class="attribute">location</span> =/ &#123;</span><br><span class="line">  ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果是，那么需要在配置文件中配置一下host：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   <span class="attribute">upstream</span> test_svr</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attribute">server</span> test.reg fail_timeout=<span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="attribute">location</span> = /test &#123;</span><br><span class="line">          <span class="attribute">proxy_connect_timeout</span> <span class="number">3s</span>;</span><br><span class="line">          <span class="attribute">proxy_read_timeout</span> <span class="number">3s</span>;</span><br><span class="line">          <span class="attribute">proxy_send_timeout</span> <span class="number">3s</span>;</span><br><span class="line">          <span class="attribute">proxy_pass</span> http://test_svr/<span class="variable">$args</span>;</span><br><span class="line">          <span class="attribute">proxy_set_header</span> Host <span class="string">"test.reg"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>排查网络问题</strong><br>当出现连接不到服务时，首先登陆上服务器，然后<code>telnet ip 端口</code> 或者<code>telnet localhost 端口</code>,<br>而<code>telnet 域名 端口</code>如果此时能够连接，那么可以怀疑DNS出现问题，或者网络出现问题.</p>
+<p>如果以上都无法连接，而且ping ip/域名偶尔有问题（ping sendmsg operation not permitted)，  </p>
+<ol start="0">
+<li>有可能是系统防火墙限制可以检查（<code>iptable -L</code> 或 <code>/etc/sysctl/iptables</code>).</li>
+<li>有可能是配置的打开文件数少了：<code>ulimit -n</code>查看，或者查看系统级打开最大文件数的限制：<code>/proc/sys/fs/file-max</code></li>
+<li><p>有可能是系统内核限制</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">可以通过/etc/sysctl.conf控制和配置Linux内核及网络设置。</span><br><span class="line"></span><br><span class="line"># 避免放大攻击</span><br><span class="line">net.ipv4.icmp_echo_ignore_broadcasts = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 开启恶意icmp错误消息保护</span><br><span class="line">net.ipv4.icmp_ignore_bogus_error_responses = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 开启SYN洪水攻击保护</span><br><span class="line">net.ipv4.tcp_syncookies = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 开启并记录欺骗，源路由和重定向包</span><br><span class="line">net.ipv4.conf.all.log_martians = <span class="number">1</span></span><br><span class="line">net.ipv4.conf.<span class="keyword">default</span>.log_martians = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 处理无源路由的包</span><br><span class="line">net.ipv4.conf.all.accept_source_route = <span class="number">0</span></span><br><span class="line">net.ipv4.conf.<span class="keyword">default</span>.accept_source_route = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 开启反向路径过滤</span><br><span class="line">net.ipv4.conf.all.rp_filter = <span class="number">1</span></span><br><span class="line">net.ipv4.conf.<span class="keyword">default</span>.rp_filter = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 确保无人能修改路由表</span><br><span class="line">net.ipv4.conf.all.accept_redirects = <span class="number">0</span></span><br><span class="line">net.ipv4.conf.<span class="keyword">default</span>.accept_redirects = <span class="number">0</span></span><br><span class="line">net.ipv4.conf.all.secure_redirects = <span class="number">0</span></span><br><span class="line">net.ipv4.conf.<span class="keyword">default</span>.secure_redirects = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 不充当路由器</span><br><span class="line">net.ipv4.ip_forward = <span class="number">0</span></span><br><span class="line">net.ipv4.conf.all.send_redirects = <span class="number">0</span></span><br><span class="line">net.ipv4.conf.<span class="keyword">default</span>.send_redirects = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"># 开启execshild</span><br><span class="line">kernel.exec-shield = <span class="number">1</span></span><br><span class="line">kernel.randomize_va_space = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># IPv6设置</span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.router_solicitations = <span class="number">0</span></span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.accept_ra_rtr_pref = <span class="number">0</span></span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.accept_ra_pinfo = <span class="number">0</span></span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.accept_ra_defrtr = <span class="number">0</span></span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.autoconf = <span class="number">0</span></span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.dad_transmits = <span class="number">0</span></span><br><span class="line">net.ipv6.conf.<span class="keyword">default</span>.max_addresses = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"># 优化LB使用的端口</span><br><span class="line"></span><br><span class="line"># 增加系统文件描述符限制</span><br><span class="line">fs.file-max = <span class="number">65535</span></span><br><span class="line"></span><br><span class="line"># 允许更多的PIDs (减少滚动翻转问题); may <span class="keyword">break</span> some programs <span class="number">32768</span></span><br><span class="line">kernel.pid_max = <span class="number">65536</span></span><br><span class="line"></span><br><span class="line"># 增加系统IP端口限制</span><br><span class="line">net.ipv4.ip_local_port_range = <span class="number">2000</span> <span class="number">65000</span></span><br><span class="line"></span><br><span class="line"># 增加TCP最大缓冲区大小</span><br><span class="line">net.ipv4.tcp_rmem = <span class="number">4096</span> <span class="number">87380</span> <span class="number">8388608</span></span><br><span class="line">net.ipv4.tcp_wmem = <span class="number">4096</span> <span class="number">87380</span> <span class="number">8388608</span></span><br><span class="line"></span><br><span class="line"># 增加Linux自动调整TCP缓冲区限制</span><br><span class="line"># 最小，默认和最大可使用的字节数</span><br><span class="line"># 最大值不低于<span class="number">4</span>MB，如果你使用非常高的BDP路径可以设置得更高</span><br><span class="line"></span><br><span class="line"># Tcp窗口等</span><br><span class="line">net.core.rmem_max = <span class="number">8388608</span></span><br><span class="line">net.core.wmem_max = <span class="number">8388608</span></span><br><span class="line">net.core.netdev_max_backlog = <span class="number">5000</span></span><br><span class="line">net.ipv4.tcp_window_scaling = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>mysql 连接<br>当mysql连接采用localhost连接是，那么将会采用mysql.sock 即用UNIX域协议进行连接，这种情况下通过命令行指定的<br>的端口号将不起作用，同时<code>netstat -lnt</code>命令也看不到对应的连接；但是连接上mysql 通过<code></code>show processlist命令可以<br>看到对应的localhost的连接。</p>
+</li>
+<li><p>file  链接库文件名<br>查看链接库的版本  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@DELL-200 ms_ma]# file /lib64/libncurses.so.5.7</span><br><span class="line">/lib64/libncurses.so.5.7: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, stripped</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ldd 可执行文件<br>查看该进程中使用到得所有链接库的文件已经状态  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@DELL-200 ms_ma]# ldd ms_ma</span><br><span class="line">linux-gate.so.1 =&gt;  (0x00976000)</span><br><span class="line">libpthread.so.0 =&gt; /lib/libpthread.so.0 (0x007de000)</span><br><span class="line">libnsl.so.1 =&gt; /lib/libnsl.so.1 (0x007b6000)</span><br><span class="line">librt.so.1 =&gt; /lib/librt.so.1 (0x00b00000)</span><br><span class="line">libncurses.so.5 =&gt; not found</span><br><span class="line">libdl.so.2 =&gt; /lib/libdl.so.2 (0x00a8d000)</span><br><span class="line">libstdc++.so.5 =&gt; /usr/lib/libstdc++.so.5 (0x00110000)</span><br><span class="line">libm.so.6 =&gt; /lib/libm.so.6 (0x00bf0000)</span><br><span class="line">libgcc_s.so.1 =&gt; /lib/libgcc_s.so.1 (0x001c9000)</span><br><span class="line">libc.so.6 =&gt; /lib/libc.so.6 (0x00499000)</span><br><span class="line">/lib/ld-linux.so.2 (0x00477000)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>netstat   -anp   |   grep  portno     查看端口是否被占用  </p>
+</li>
+<li>telnet 127.0.0.1 19119  查看端口是否正常<br>0.以root身份登录抓包: /usr/sbin/tcpdump -s 0 -w filename.cap port 223 tcp -c 100 -nn<br><code>-c 指定包个数
+ -nn显示真实端口、ip
+ tcp 只过滤tcp包</code></li>
+<li>查看文件的版本位数（32bit 或者 64bit）<br><code>$ file 文件名</code></li>
+<li>查看可执行文件使用了那些库文件（静态库和动态库）：<br><code>$ ldd 文件名</code></li>
+<li>查看系统版本位数：<br><code>$ cat /proc/version
+ 或者
+ $ uname -a</code></li>
+<li>查看系统中使用的端口号<br><code>$ netstat -anp</code></li>
+<li>rsyslog 启动命令<br><code>$ /sbin/rsyslogd -i /var/run/syslogd.pid -c 4
+ 其相应的配置文件/etc/rsyslog.conf
+ 或者：
+ $  /etc/init.d/rsyslog start      # 启用新的 rsyslog</code></li>
+<li>激活linux使其生成 core dump 文件：<br>`<pre><code>ulimit -c unlimited
+sysctl -p
+</code></pre>`</li>
+<li>查看系统默认服务是否打开或者关闭：<br><code>chkconfig --list</code></li>
+<li><p>文件传输  </p>
+<ol start="0">
+<li><code>scp root@10.48.32.52:/vob/275.1/objs/monitor/mon/nms_monitor ./</code>  </li>
+<li>采用nc进行传输：<br>在需要接收文件的server:10.10.10.2上执行<br>   <code>nc -l 8888|tar -xvzf -</code><br>在发送文件的server上执行：<br>  <code>tar -cvzf - test.txt|nc 10.10.10.2 888</code> </li>
+</ol>
+</li>
+<li><p>awk  </p>
+<ol start="0">
+<li>NF 分割后字段数目  </li>
+<li>打印所有字段<br><code>awk &#39;{print $0}&#39;</code><br>0.打印每个字段并且每个字段一行：<br><code>awk &#39;{for(i=1;i&lt;=NF;i++)print $i;print &#39;\n&#39;}&#39;</code></li>
+<li>以指定的分割符划分(默认的分隔符为空格)<br><code>awk -F &#39;/&#39; &#39;{print $0}&#39;</code></li>
+<li>awk 统计某个字段 出现的频率<br><code>awk &#39;{aa[$1]++} END{for(i in a) print i,a[i]}&#39;</code></li>
+</ol>
+</li>
+<li>set -o vi<br>linux 命令行模式下，ESC 进入vi模式，可对当前命令行进行编辑（快捷键同vi）</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持奖鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/payimages/WechatIMG6.jpeg" alt="Qinglin Li 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/22/linux_内核研究/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/22/结构体对齐/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux-开发常用的命令"><span class="nav-number">1.</span> <span class="nav-text">linux 开发常用的命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'leeqx',
+            repo: 'https://github.com/blog-gitment',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'c2fc3f763bebdde5b429226682ed6cd04db3b47c',
+            
+                client_id: '916551a1de826c4bc2f7'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

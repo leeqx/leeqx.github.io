@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="Linux Programs">
+<meta property="og:type" content="website">
+<meta property="og:title" content="linux programer">
+<meta property="og:url" content="http://leeqx.github.io/page/4/index.html">
+<meta property="og:site_name" content="linux programer">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux programer">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeqx.github.io/page/4/">
+
+
+
+
+
+  <title>linux programer</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?true";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">linux programer</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不吝赐教</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/基于linux-汇编深入理解c程序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/基于linux-汇编深入理解c程序/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一个简单的入门实例"><a href="#一个简单的入门实例" class="headerlink" title="一个简单的入门实例"></a>一个简单的入门实例</h2><p>  实现一个简单的exit(0);<br>  exit.s<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">  # 数据段的开始</span><br><span class="line">  .section .data</span><br><span class="line">  # 代码段开始（存放程序指令的部分）</span><br><span class="line">  .section .text</span><br><span class="line">  #注意这里的.globl 表示汇编程序不应在汇编之后废弃次符号（_start) ,因为连接  </span><br><span class="line">  # 器需要它。_start 是个特殊的符号，总是用.global 来标记，因为它标记了该程序的开始位置。</span><br><span class="line">  .globl _start</span><br><span class="line">  #定义_start 标签（符号)的值，该标签后面的：告诉汇编程序，以该符号的只作为下一条指令或者下一个数据元素的位置</span><br><span class="line">  _start:</span><br><span class="line">     # 用于退出linux 内核命令号（系统调用)</span><br><span class="line">     movl $1,%eax</span><br><span class="line">     # 将0 作为退出码,echo $? 可以看到该值</span><br><span class="line">     movl $0,%ebx</span><br><span class="line">     #调用系统0x80号中断（唤醒内核运行退出命令)</span><br><span class="line">     int $0x80  </span><br><span class="line">   ``` </span><br><span class="line">  编译运行方法：  </span><br><span class="line">  ```sh</span><br><span class="line">   as exit.s -o exit.o</span><br><span class="line">   ld exit.o -o exit</span><br><span class="line">  ``` </span><br><span class="line">## 寄存器  </span><br><span class="line">  通用寄存器：</span><br><span class="line">  ```asm</span><br><span class="line">  %eax</span><br><span class="line">  %ebx</span><br><span class="line">  %ecx</span><br><span class="line">  %edx</span><br><span class="line">  %edi</span><br><span class="line">  %esi</span><br></pre></td></tr></table></figure></p>
+<p>专用寄存器：<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  %ebp（栈基址)</span><br><span class="line">  %esp(栈顶）</span><br><span class="line">  %eip（指令寄存器)</span><br><span class="line">  %eflags</span><br><span class="line">``` </span><br><span class="line">## 寻址方式  </span><br><span class="line">  内存地址引用的通用格式如下：</span><br><span class="line">  ```asm</span><br><span class="line">  地址或者偏移(%基址寄存器,%索引寄存器,比例因子)</span><br></pre></td></tr></table></figure></p>
+<p>  所有字段都是可选的，要计算地址可以按照下面公式进行计算：<br>  结果地址 = 地址或者偏移 + %基址或者偏移量寄存器 + 比例因子 * %索引寄存器<br>  其中地址或者偏移量 以及比例因子都必须是常量，其余的两个必须是寄存器。如果要省略任何一项，那么等式可以将0代替该项。 </p>
+<ol start="0">
+<li><p>直接寻址方式<br> 此模式可以通过使用<code>地址或者偏移</code>部分实现：（即上面公式中%基址或者偏移量寄存器 和 %索引寄存器都是0）   </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movl ADDRESS, %eax</span><br></pre></td></tr></table></figure>
+<p> 以上指定将内存地址ADDRESS 加载到%eax  </p>
+</li>
+<li><p>索引寻址方式<br> 这种模式将通过使用·地址<code>者偏移量以及%索引寄存器</code>部分实现（%索引寄存器可以是任何通用寄存器）。  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    movl string_start(,%ecx,1), %eax  </span><br><span class="line">    ```  </span><br><span class="line">    该指令从string_start 处开始，将改地址与1*%ecx 相加，并将所得值加载到 %eax   </span><br><span class="line"></span><br><span class="line">0. 间接寻址方式  </span><br><span class="line">    间接寻址方式从寄存器从寄存器指定的地址加载值例如：如果%eax 保存着一个地址，我们可以通通过下面的方式将该地址中的值移入到%ebx</span><br><span class="line">    ```asm</span><br><span class="line">     movl (%eax), %ebx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基址寻址方式<br> 基址寻址方式与间接寻址方式类似，不同之处在于它将一个常量值与寄存器中的地址相加。例如：<br> 如果已有一个记录，其中年龄值位于记录起始地址后4个字节处，该记录的起始地址在%eax中，那么<br> 下面的指令将年龄提取到%ebx中：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movl 4(%eax), %ebx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>立即寻址方式<br> 用于直接将值加载到寄存器或者存储位置.数字前面加$表示是立即数，否则表示的是将位于存储位置12中的值而不是12 加载到%eax   </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movl $12, %eax</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄存器寻址方式<br> 寄存器寻址方式仅仅是将数据移入或者移出寄存器</p>
+</li>
+</ol>
+<p><code>注意：除了立即寻址方式外的其他寻址方式都可用作源或者目的操作数。而立即寻址方式只能是源操作数</code><br><code>不同的指令操作的数据字节数不同例如movl 移动一个字，movb 移动一个字节大小</code></p>
+<p>下面是%eax寄存器的布局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">|&lt;--------%eax--------&gt;|</span><br><span class="line">[    ][    ][ %ah][%al ]</span><br><span class="line">            |&lt;--%ax---&gt;|</span><br></pre></td></tr></table></figure></p>
+<ol start="0">
+<li><p>实例二<br> 查找最大值</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">.section .data</span><br><span class="line"> data_items:   #数据项存放在数据段</span><br><span class="line">   .long </span><br><span class="line">   </span><br><span class="line">.section .text</span><br><span class="line"></span><br><span class="line">.globl _start</span><br><span class="line">_start:</span><br><span class="line">  movl $0,%edi  $0移入索引寄存器</span><br><span class="line">  movl data_items(,%edi,4), %eax#加载第一个元素到%eax</span><br><span class="line">  movl %eax ,%ebx    #%ebx 存放最大值，由于是第一项所以就是最大值</span><br><span class="line"></span><br><span class="line">start_loop:</span><br><span class="line">  cmpl $0,$eax        #数据中0 作为数据结束的标志</span><br><span class="line">  je loop_exit</span><br><span class="line">  incl %edi           #索引指向下一个元素</span><br><span class="line">  movl data_items(,%edi,4) ,%eax</span><br><span class="line">  cmp %ebx,%eax       #比较当前元素于原有的最大值</span><br><span class="line">  jle start_loop</span><br><span class="line"></span><br><span class="line">  movl %eax,%ebx       #将新的最大值移入%ebx</span><br><span class="line">  jmp  start_loop</span><br><span class="line"></span><br><span class="line">loop_exit:</span><br><span class="line">   movl $1 ,%eax      #1 是exit()系统调用</span><br><span class="line">   int $0x80</span><br></pre></td></tr></table></figure>
+<p> 汇编连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">    as maximum.s -o maximum.o</span><br><span class="line">    ld maximum.o -o maximum</span><br><span class="line">    ./maximum </span><br><span class="line">     $echo $?     #注意这里会打印最大值，因为我们程序计算结果就是保存在%ebx中</span><br><span class="line">    ```   </span><br><span class="line"></span><br><span class="line">***</span><br><span class="line">## 关于函数  </span><br><span class="line">  一个函数一般由一下几个部分：`函数名、函数参数、局部变量、静态变量、全局变量、返回地址、返回值`  </span><br><span class="line">  约定函数参数从又到左入栈。</span><br><span class="line"></span><br><span class="line">  ```asm</span><br><span class="line">    参数 #N  &lt;----- N*4 + 4(%ebp)    [高地址]</span><br><span class="line">    ...                       </span><br><span class="line">    参数 2   &lt;----- 12(%ebp)</span><br><span class="line">    参数 1   &lt;----- 8(%ebp)</span><br><span class="line">    返回地址  &lt;----- 4(%ebp)</span><br><span class="line">    旧%ebp   &lt;----- (%esp) 和 （%ebp) [低地址]</span><br><span class="line">    局部变量 1 &lt;---- -4(%ebp)</span><br><span class="line">    局部变量 2 &lt;---- -8(%ebp) 和 （%esp)</span><br></pre></td></tr></table></figure>
+<p>从上面可以看出 通过%ebp寄存器可以获取到参数、局部变量<br>如果需要从函数返回，那么需要执行一下指令   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">movl %ebp,%esp</span><br><span class="line">popl %ebp</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>函数示例<br>计算2^3 + 5^2  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"> #主程序中的所有内容都存储在寄存器中，</span><br><span class="line"> #因此数据段不含任何内容</span><br><span class="line"> .section .data</span><br><span class="line"> .section .text</span><br><span class="line"> .globl _start</span><br><span class="line"></span><br><span class="line"> _start:</span><br><span class="line">   pushl $3</span><br><span class="line">   pushl $2</span><br><span class="line">   call power</span><br><span class="line">   addl $8, %esp</span><br><span class="line">   pushl %eax</span><br><span class="line">  </span><br><span class="line">   pushl $2</span><br><span class="line">   pushl $5</span><br><span class="line">   call power</span><br><span class="line">   addl $8, %esp</span><br><span class="line">   </span><br><span class="line">   popl %ebx</span><br><span class="line">  </span><br><span class="line">   addl %eax, %ebx</span><br><span class="line">  </span><br><span class="line">   movl $1, %eax</span><br><span class="line">   int $0x80</span><br><span class="line">.type power,@function   #告诉连接器 factorial 是个函数，处罚法我们需要在别的程序中使用factorial函数，否则这条指令不是必须的。</span><br><span class="line">power:</span><br><span class="line">  pushl %ebp</span><br><span class="line">  movl  %esp,%ebp</span><br><span class="line">  subl  $4,%esp</span><br><span class="line">  movl 8(%ebp),%ebx</span><br><span class="line">  movl 12(%ebp),%ecx</span><br><span class="line"></span><br><span class="line">  movl %ebx, -4(%ebp)</span><br><span class="line">power_loop_start:</span><br><span class="line">  cmpl $1,%ecx</span><br><span class="line">  je end_power</span><br><span class="line">  movl -4(%ebp),%eax</span><br><span class="line">  imull %ebx,%eax</span><br><span class="line">  movl %eax, -4(%ebp)</span><br><span class="line"></span><br><span class="line">  decl %ecx</span><br><span class="line">  jmp power_loop_start</span><br><span class="line"></span><br><span class="line"> end_power:</span><br><span class="line">   movl -4(%ebp),%eax</span><br><span class="line">   movl %ebp,%esp</span><br><span class="line">   popl %ebp</span><br><span class="line">   ret</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>递归调用函数  </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">.section .data</span><br><span class="line">#本程序无全局数据</span><br><span class="line">.section .text</span><br><span class="line"> </span><br><span class="line">.globl _start</span><br><span class="line">.globl factorial #除非我们希望与其他程序共享该函数，否则无需此项</span><br><span class="line">_start:</span><br><span class="line">  pushl $4</span><br><span class="line">  call factorial</span><br><span class="line">  addl $4,%esp</span><br><span class="line">  movl %eax,%ebx</span><br><span class="line"></span><br><span class="line">  movl $1, %eax</span><br><span class="line">  int $0x80</span><br><span class="line">   </span><br><span class="line">  # 这是实际函数的含义</span><br><span class="line">  .type factorial,@function</span><br><span class="line">  factorial:</span><br><span class="line">    pushl %ebp</span><br><span class="line">    movl  %esp,%ebp</span><br><span class="line">    movl 8(%ebp),%eax</span><br><span class="line">    cmpl $1, %eax</span><br><span class="line">    je end_factorial</span><br><span class="line">    decl %eax          #否则就递减</span><br><span class="line">    pushl %eax</span><br><span class="line">    call factorial</span><br><span class="line">    movl 8(%ebp),%ebx</span><br><span class="line"></span><br><span class="line">    imull %ebx,%eax</span><br><span class="line">   </span><br><span class="line">  end_factorial:</span><br><span class="line">    movl %ebp, %esp</span><br><span class="line">    popl %ebp</span><br><span class="line">    ret</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/CPU与内存的那些事/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/CPU与内存的那些事/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol start="0">
+<li><p>HZ、CPU cycles、tick、jiffies<br>HZ：内核每个固定周期发出的timer interupt（IRQ 0）；  </p>
+<pre><code>HZ=1000 表示每秒有1000次的timer interupt  
+</code></pre><p>Tick：是HZ的倒数，意即timer interrupt每发生一次中断的时间。如HZ为250时，tick为4毫秒(millisecond)<br>Jiffies：为Linux核心变数(32位元变数，unsigned long)，它被用来纪录系统自开几以来，已经过多少的tick。每发生一次timer interrupt，</p>
+<pre><code> Jiffies变数会被加一。值得注意的是，Jiffies于系统开机时，并非初始化成零，而是被设为-300*HZ (arch/i386/kernel/time.c)，即
+ 代表系统于开机五分钟后，jiffies便会溢位。那溢位怎么办?事实上，Linux核心定义几个macro(timer_after、time_after_eq、time_before与time_before_eq)，即便是溢位，也能藉由这几个macro正确地取得jiffies的内容。  
+另外，80x86架构定义一个与jiffies相关的变数jiffies_64 ，此变数64位元，要等到此变数溢位可能要好几百万年。因此要等到溢位这刻发生应该很难吧。那如何经由jiffies_64取得jiffies资讯呢?事实上，jiffies被对应至jiffies_64最低的32位元。因此，经由jiffies_64可以完全不理会溢位的问题便能取得jiffies  
+</code></pre></li>
+<li><p>CPU与各个组件之间的延迟：<br>一般情况下大部分指令执行需要一个cpu cycles（1/3 nanoseconds）<br><a href="https://lwn.net/Articles/252125/" target="_blank" rel="noopener">cpu cache</a><br><a href="http://www.oschina.net/translate/what-every-programmer-should-know-about-memory-part1?lang=chs&amp;page=6#" target="_blank" rel="noopener">cpu 与内存的关系</a><br><a href="http://www.cnblogs.com/xkfz007/archive/2012/10/08/2715163.html" target="_blank" rel="noopener">cpu 与内存之间的那些事</a></p>
+</li>
+<li>一般情况下一条tcp链路占用多大内存？<br>socket：3.0K + 0.5K=3.5KB<br>建立了epoll来监听长连接的socket fd。根据epoll的实现，在64位环境下，epoll在内核中需要为每个fd消耗160Bytes[i]。<br>这部分内存可以通过slabtop查看。<br>在网络层中，还需要struct sock数据结构来表示socket。<br>内核中socket相关的内存消耗都是描述socket的数据结构。相关的数据结构都是从内核的slab高速缓冲区中申请和释放的。<br>通过查看系统的slab信息，可以计算得出socket相关数据结构（包括epoll）内核态的消耗为2.7KB（包括epoll的消耗）。再加上SLAB数据结构对齐造成的额外开销，socket相关数据结构总共消耗3KB。<br>进程打开的socket无数据发送时，单个socket消耗3KB，有数据发送时，消耗4KB。因此内核中为每个socket连接需要消耗的内存空间为3+4=7KB。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeqx.github.io/2019/03/22/linux利用进程信息定位内存泄漏采用pmap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qinglin Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/931925?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="linux programer">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/22/linux利用进程信息定位内存泄漏采用pmap/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-22T10:37:35+08:00">
+                2019-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>比如进程id:1381</code><br>由于带有虚拟函数的类实例在new时再内存heap中会有对应的虚函数表，所以我们可以通过这个切入点来分析heap中的各类实例的统计数，然后进一步根据实例的数量判断是否存在内存泄漏。</p>
+<p>gdb attach 1381<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(gdb) shellp pmap 1381</span><br><span class="line">(gdb) set height 0              ----自动，不需要手动</span><br><span class="line">(gdb) set logging on            ----开启调试写日志gdb.txt</span><br><span class="line">Copying output to gdb.txt.</span><br><span class="line">(gdb) x/13087744a 0x0000000001d6b000</span><br></pre></td></tr></table></figure></p>
+<p>13087744a 表示打印13087744个地址，该值是由heap的大小计算出来的：1024*102248/8 (一个64位机器系统上的指针长度)</p>
+<p>参考：<br><a href="http://m.blog.csdn.net/article/details?id=50504608" target="_blank" rel="noopener">利用进程信息gdb pmap进行内存泄漏定位</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars1.githubusercontent.com/u/931925?s=460&v=4" alt="Qinglin Li">
+            
+              <p class="site-author-name" itemprop="name">Qinglin Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/leeqx" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qinglin Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

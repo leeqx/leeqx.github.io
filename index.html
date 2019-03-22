@@ -133,7 +133,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?true";
+      hm.src = "https://hm.baidu.com/hm.js?6d39765d485ea811a3c809f80f6d0bcd";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -383,30 +383,18 @@
       
         
           
-            <h2 id="VI-编辑器使用方法"><a href="#VI-编辑器使用方法" class="headerlink" title="VI 编辑器使用方法"></a>VI 编辑器使用方法</h2><ol>
-<li>新建文件<br>打开终端，然后输入一下命令 $ vi test.py  这时 就表示用vi 来打开test.py 这个文件（如果文件不存在他会自己新建一个文件）</li>
-<li>打开或者关闭左边的窗口<br>在normal 模式下同时按住shift+w 即可打开或者关闭左边的目录窗口</li>
-<li>normal 或者insert 模式<ol start="0">
-<li>normal模式下可以进行上下左右移动， 按h 往左移动，l 往右移动，j往下移动，k往上移动</li>
-<li>insert 模式就是插入，可以在文档里面写入任何东西。</li>
-<li>从insert 模式退回到normal 模式 按左上角的Esc 键即可退出。</li>
-<li>在normal 模式下按 字母 i 就是在光标所在行开始位置插入</li>
-<li>在normal 模式下按 字母  o 就是在光标下一行开始位置插入</li>
-<li>在normal 模式下按 字母 O（大写）就是在光标上一行开始位置插入</li>
-</ol>
-</li>
-<li>保存<br>在normal 模式下 ：w 保存<br>在normal 模式下 ：wq 保存并且退</li>
-<li>跳转到第几行<br>在normal模式下 ： 2  表示跳到第二行开始位置</li>
-<li>删除行<br> 在normal 模式下d2d 删除光标所在行以及下一行（总共删2行）<br> 在normal 模式下dd 删除光标所在行</li>
-<li>删除单个字符<br> 在normal 模式下x 就会删除光标所在的字符</li>
-<li><p>复制行<br>复制跟删除行类是，只不过是把d换成y。<br>在normal模式下复制当前行 yy<br>在normal 模式下复制光标往后2行 y2y</p>
-<p>粘贴：<br>在normal模式下可以按下字母p在当前光标处粘贴</p>
-</li>
-<li>在normal模式下ctrl+w+o最大化当前文档，同时可以恢复。</li>
-<li>normal模式下ctrl+o跳回原来的方，ctrl+i跳回去  </li>
-</ol>
-
-          
+          VI 编辑器使用方法
+新建文件打开终端，然后输入一下命令 $ vi test.py  这时 就表示用vi 来打开test.py 这个文件（如果文件不存在他会自己新建一个文件）
+打开或者关闭左边的窗口在normal 模式下同时按住shift+w 即可打开或者关闭左边的目录窗口
+normal 或者ins
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/vim简单入门操作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -546,20 +534,18 @@
       
         
           
-            <ol start="0">
-<li><p>HZ、CPU cycles、tick、jiffies<br>HZ：内核每个固定周期发出的timer interupt（IRQ 0）；  </p>
-<pre><code>HZ=1000 表示每秒有1000次的timer interupt  
-</code></pre><p>Tick：是HZ的倒数，意即timer interrupt每发生一次中断的时间。如HZ为250时，tick为4毫秒(millisecond)<br>Jiffies：为Linux核心变数(32位元变数，unsigned long)，它被用来纪录系统自开几以来，已经过多少的tick。每发生一次timer interrupt，</p>
-<pre><code> Jiffies变数会被加一。值得注意的是，Jiffies于系统开机时，并非初始化成零，而是被设为-300*HZ (arch/i386/kernel/time.c)，即
- 代表系统于开机五分钟后，jiffies便会溢位。那溢位怎么办?事实上，Linux核心定义几个macro(timer_after、time_after_eq、time_before与time_before_eq)，即便是溢位，也能藉由这几个macro正确地取得jiffies的内容。  
-另外，80x86架构定义一个与jiffies相关的变数jiffies_64 ，此变数64位元，要等到此变数溢位可能要好几百万年。因此要等到溢位这刻发生应该很难吧。那如何经由jiffies_64取得jiffies资讯呢?事实上，jiffies被对应至jiffies_64最低的32位元。因此，经由jiffies_64可以完全不理会溢位的问题便能取得jiffies  
-</code></pre></li>
-<li><p>CPU与各个组件之间的延迟：<br>一般情况下大部分指令执行需要一个cpu cycles（1/3 nanoseconds）<br><a href="https://lwn.net/Articles/252125/" target="_blank" rel="noopener">cpu cache</a><br><a href="http://www.oschina.net/translate/what-every-programmer-should-know-about-memory-part1?lang=chs&amp;page=6#" target="_blank" rel="noopener">cpu 与内存的关系</a><br><a href="http://www.cnblogs.com/xkfz007/archive/2012/10/08/2715163.html" target="_blank" rel="noopener">cpu 与内存之间的那些事</a></p>
-</li>
-<li>一般情况下一条tcp链路占用多大内存？<br>socket：3.0K + 0.5K=3.5KB<br>建立了epoll来监听长连接的socket fd。根据epoll的实现，在64位环境下，epoll在内核中需要为每个fd消耗160Bytes[i]。<br>这部分内存可以通过slabtop查看。<br>在网络层中，还需要struct sock数据结构来表示socket。<br>内核中socket相关的内存消耗都是描述socket的数据结构。相关的数据结构都是从内核的slab高速缓冲区中申请和释放的。<br>通过查看系统的slab信息，可以计算得出socket相关数据结构（包括epoll）内核态的消耗为2.7KB（包括epoll的消耗）。再加上SLAB数据结构对齐造成的额外开销，socket相关数据结构总共消耗3KB。<br>进程打开的socket无数据发送时，单个socket消耗3KB，有数据发送时，消耗4KB。因此内核中为每个socket连接需要消耗的内存空间为3+4=7KB。</li>
-</ol>
-
           
+HZ、CPU cycles、tick、jiffiesHZ：内核每个固定周期发出的timer interupt（IRQ 0）；  
+HZ=1000 表示每秒有1000次的timer interupt  
+Tick：是HZ的倒数，意即timer interrupt每发生一次中断的时间。如HZ为250时
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/CPU与内存的那些事/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -699,18 +685,18 @@
       
         
           
-            <h1 id="iptables-操作"><a href="#iptables-操作" class="headerlink" title="iptables 操作"></a>iptables 操作</h1><ol start="0">
-<li>相应的配置文件在：/etc/sysconfig/iptables  </li>
-<li><p>可通过如下命令查看 iptables配置  </p>
-<figure class="highlight plain"><figcaption><span>-t filter -L```  </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    ````  </span><br><span class="line">        [root@dell sysconfig]# iptables -t filter -L  </span><br><span class="line">        Chain INPUT (policy ACCEPT)</span><br><span class="line">        target     prot opt source               destination        </span><br><span class="line">        RH-Firewall-1-INPUT  all  --  anywhere             anywhere           </span><br><span class="line">        </span><br><span class="line">        Chain FORWARD (policy ACCEPT)</span><br><span class="line">        target     prot opt source               destination        </span><br><span class="line">        RH-Firewall-1-INPUT  all  --  anywhere             anywhere           </span><br><span class="line">        </span><br><span class="line">        Chain OUTPUT (policy ACCEPT)</span><br><span class="line">        target     prot opt source               destination        </span><br><span class="line">        </span><br><span class="line">        Chain RH-Firewall-1-INPUT (2 references)</span><br><span class="line">        target     prot opt source               destination        </span><br><span class="line">        ACCEPT     all  --  anywhere             anywhere           </span><br><span class="line">        ACCEPT     icmp --  anywhere             anywhere            icmp any</span><br><span class="line">        ACCEPT     ipv6-crypt--  anywhere             anywhere           </span><br><span class="line">        ACCEPT     ipv6-auth--  anywhere             anywhere           </span><br><span class="line">        ACCEPT     udp  --  anywhere             224.0.0.251         udp dpt:5353</span><br><span class="line">        ACCEPT     udp  --  anywhere             anywhere            udp dpt:ipp</span><br><span class="line">        ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED</span><br><span class="line">        ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh</span><br><span class="line">        ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:http</span><br><span class="line">        ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ftp</span><br><span class="line">        REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited </span><br><span class="line">    ````    </span><br><span class="line">0. 查看虚拟ip  </span><br><span class="line">```ip -f inet addr</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启iptables<br><code>/etc/init.d/iptables restart</code></p>
-</li>
-<li><p>当一个server ip 能够ping的通，但是telnet对应的端口连不上，且服务器上本地telnet正常，那么很有可能是<br>iptable限制端口的访问</p>
-</li>
-</ol>
-
-          
+          iptables 操作
+相应的配置文件在：/etc/sysconfig/iptables  
+可通过如下命令查看 iptables配置  
+-t filter -L```  123456789101112131415161718192021222324252627282930    ````    
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/Iptables/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -850,45 +836,17 @@
       
         
           
-            <h1 id="Mac-os-docker-安装"><a href="#Mac-os-docker-安装" class="headerlink" title="Mac os docker 安装"></a>Mac os docker 安装</h1><p>docker新兴的虚拟技术，来尝鲜一下，ubuntu上安装很简单，apt-get install docker基本上就可以了。但是mac安装需要折腾一番，毕竟mac<br>系统是unix系列的OS。</p>
-<h2 id="安装、操作步骤："><a href="#安装、操作步骤：" class="headerlink" title="安装、操作步骤："></a>安装、操作步骤：</h2><ol start="0">
-<li>首先安装virtual box,尽可能安装最新版。只需要安装virtual box 不用自己创建虚拟机，后面的步骤会自动装上。  </li>
-<li>下载boot2docker.dmg  </li>
-<li><p>安装完boot2docker之后，启动virtual box，然后在terminal中执行依次执行如下命令：  </p>
-<ol start="0">
-<li>boot2docker -v init (成功的话会自动下载boot2docker.iso，该文件用来创建虚拟机的镜像)</li>
-<li>配置环境变量：<br>由于docker 是通过virtual box中的虚拟机执行docker 容器，所以需要与虚拟机进行通信：  </li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_TLS_VERIFY=1</span><br><span class="line">export DOCKER_HOST=tcp://192.168.59.103:2376</span><br><span class="line">export DOCKER_CERT_PATH=/Users/nano/.boot2docker/certs/boot2docker-vm</span><br></pre></td></tr></table></figure>
-<ol start="0">
-<li>启动virtual box，可以看到里面多了一个boot2docker的系统该系统是没有界面，但是我们不需要手动执行它。而是通过boot2docker来拉起她。boot2docker -v up 或者start 启动docker。至此成功了。  </li>
-<li>使用：  </li>
-</ol>
-<pre><code class="shell">docker images                    #显示已经下载的镜像
-docker pull ubuntu:latest        #下载制定的镜像，这里是ubuntu latest版本
-docker run  -it ubuntu /bin/bash #执行容器
-docker rm  &lt;container id&gt;        #删除容器
-docker mi  &lt;imags id&gt;            #删除image，需要首先删除container
-</code></pre>
-<ol start="0">
-<li>如果需要删除重新安装：boot2docker -v delete  </li>
-</ol>
-</li>
-</ol>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol start="0">
-<li><p>如果出现：hostly create failed 那么可以尝试如下方法：</p>
-<ol start="0">
-<li>方法1：</li>
-</ol>
-<pre><code class="shell">sudo &quot;/Library/Application Support/VirtualBox/LaunchDaemons/VirtualBoxStart.sh restart
-</code></pre>
-<ol start="0">
-<li>方法2:<br> virtualbox安装不正确，需要重新安装</li>
-</ol>
-</li>
-</ol>
-
-          
+          Mac os docker 安装docker新兴的虚拟技术，来尝鲜一下，ubuntu上安装很简单，apt-get install docker基本上就可以了。但是mac安装需要折腾一番，毕竟mac系统是unix系列的OS。
+安装、操作步骤：
+首先安装virtual box,尽可能安装最新版。只需要安
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/Mac-os-Docker-安装使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1028,49 +986,15 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
       
         
           
-            <h1 id="Nginx负载均衡处理后端链接"><a href="#Nginx负载均衡处理后端链接" class="headerlink" title="Nginx负载均衡处理后端链接"></a>Nginx负载均衡处理后端链接</h1><p><a href="http://nginx.org/" target="_blank" rel="noopener">Nginx</a> 不仅可以满足作为web 服务端的需求，同时也可以作为负载均衡。<br>对于现在的大并发的情况，单节点已经无法满足我们大用户量的并发并发请求，这个时候往往我们需要<br>多部署几台server以满足需求。可以考虑用LVS来实现这个需求，LVS有三种模式：NET/TUN/DR。<br>其中DR模式是应用比较广的模式，该模式下用户的请求到达LVS调度器，LVS修改MAC转发到realserver，<br>realserver处理完直接返回给客户端，而不需要经过调度器。<br>     这里主要讨论Nginx负载均衡，在开发过程中比如我们采用http_lua_module 并结合nginx处理业务逻辑，<br>有时候避免不了要在自己的模块中请求后端服务，那么我们可以充分利用nginx 负载均衡功能。首先可以使<br>用Upstream，将请求发送到上游服务端。Nginx 负载均衡有四种模式：  </p>
-<ol start="0">
-<li><p>轮询均衡  </p>
-<blockquote>
-<p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除。<br><img src="http://jbcdn2.b0.upaiyun.com/2012/07/Parse-nginx-load-balancing1.jpg" alt="Alt text">  </p>
- <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> test_svr &#123;   </span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:9090</span> down;</span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> weight=<span class="number">2</span>;</span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:6060</span>;</span><br><span class="line"> <span class="attribute">server</span> <span class="number">127.0.0.1:7070</span> backup;</span><br><span class="line">&#125;</span><br><span class="line"> ....</span><br><span class="line"> <span class="attribute">location</span> test/&#123;  </span><br><span class="line">    <span class="attribute">proxy_pass</span> http://test_svr;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>upstream 每个设备的状态:  </p>
-<blockquote>
-<ul>
-<li>down 表示单前的server暂时不参与负载  </li>
-<li>weight  默认为1.weight越大，负载的权重就越大。  </li>
-<li>max_fails ：允许请求失败的次数默认为1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误  </li>
-<li>fail_timeout:max_fails 次失败后，暂停的时间。  </li>
-<li>backup： 其它所有的非backup机器down或者忙的时候，请求backup机器。所以这台机器压力会最轻。  </li>
-</ul>
-</blockquote>
-</li>
-<li><p>IP Hash 均衡  </p>
-<blockquote>
-<p>ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化。<br><img src="http://jbcdn2.b0.upaiyun.com/2012/07/Parse-nginx-load-balancing6.jpg" alt="Alt text">  </p>
- <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">upstream</span> backend &#123;</span><br><span class="line">  <span class="attribute">server</span> <span class="number">127.0.0.1:8080</span> ;</span><br><span class="line">  <span class="attribute">server</span> <span class="number">127.0.0.1:8081</span> ;</span><br><span class="line">   ip_hash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><strong><code>[引用]</code></strong>hash值既与ip有关又与后端机器的数量有关。经过测试，上述算法可以连续产生1045个互异的value，<br>这是该算法的硬限制。对此nginx使用了保护机制，当经过20次hash仍然找不到可用的机器时，算法退化成轮询。<br>因此，从本质上说，ip hash算法是一种变相的轮询算法，如果两个ip的初始hash值恰好相同，那么来自这两个<br>ip的请求将永远落在同一台服务器上，这为均衡性埋下了很深的隐患。  </p>
-</blockquote>
-<p><code>另外，使用IP hash需要注意的是，如果nginx不是最前端，那么可能经过前端的一个代理过来，再到nginx时此时客户端的ip
-永远都是前端代理的ip，所以ip_hash将没有效果。可以考虑使用第三方模块的url_hash。</code></p>
-</li>
-<li><p>fair  </p>
-<blockquote>
-<p>fair策略是扩展策略，默认不被编译进nginx内核。其原理是根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此要慎用。 </p>
-</blockquote>
-</li>
-<li><p>通用hash、一致性hash </p>
-<blockquote>
-<p>这两种也是扩展策略，在具体的实现上有些差别，通用hash比较简单，可以以nginx内置的变量为key进行hash，一致性hash采用了nginx内置的一致性hash环，可以支持memcache。  </p>
-</blockquote>
-</li>
-</ol>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">然后在lua业务代码中：  </span><br><span class="line"> <span class="keyword">local</span> ret=ngx.location.capture(<span class="string">"/test/"</span>);</span><br></pre></td></tr></table></figure>
-
-          
+          Nginx负载均衡处理后端链接Nginx 不仅可以满足作为web 服务端的需求，同时也可以作为负载均衡。对于现在的大并发的情况，单节点已经无法满足我们大用户量的并发并发请求，这个时候往往我们需要多部署几台server以满足需求。可以考虑用LVS来实现这个需求，LVS有三种模式：NET/TUN/DR。
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/Nginx负载均衡处理后端链接/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1210,10 +1134,15 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
       
         
           
-            <h2 id="Redis-命令处理流程"><a href="#Redis-命令处理流程" class="headerlink" title="Redis 命令处理流程"></a>Redis 命令处理流程</h2><p>   在上一篇redis的文章中，大致解释了redis 网络处理流程。[redis网络模型] (<a href="https://github.com/leeqx/leeqx.github.io/wiki/Redis-%E7%BD%91%E7%BB%9C%E4%BA%8B%E4%BB%B6" target="_blank" rel="noopener">https://github.com/leeqx/leeqx.github.io/wiki/Redis-%E7%BD%91%E7%BB%9C%E4%BA%8B%E4%BB%B6</a>)<br>   本章主要梳理一下redis 受到request的整个处理流程。<br>   在redis.c 上篇中看到了，网络接受完成之后调用<code>processInputBuffer</code>处理业务逻辑。在该方法中掉会对单条命令和多条命令区分处理：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processInputBuffer</span><span class="params">(redisClient *c)</span> </span>&#123;</span><br><span class="line">   ....</span><br><span class="line">        <span class="keyword">if</span> (c-&gt;reqtype == REDIS_REQ_INLINE)   &#123;</span><br><span class="line">            <span class="keyword">if</span> (processInlineBuffer(c) != REDIS_OK)  <span class="keyword">break</span>;</span><br><span class="line">         &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c-&gt;reqtype == REDIS_REQ_MULTIBULK) &#123;</span><br><span class="line">            <span class="keyword">if</span> (processMultibulkBuffer(c) != REDIS_OK) <span class="keyword">break</span>;</span><br><span class="line">         &#125; <span class="keyword">else</span> &#123;           </span><br><span class="line">            redisPanic(<span class="string">"Unknown request type"</span>);</span><br><span class="line">         &#125;</span><br><span class="line">        <span class="comment">/* Multibulk processing could see a &lt;= 0 length. */</span></span><br><span class="line">        <span class="keyword">if</span> (c-&gt;argc == <span class="number">0</span>)  &#123;</span><br><span class="line">            resetClient(c);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">/* Only reset the client when the command was executed. */</span></span><br><span class="line">           <span class="keyword">if</span> (processCommand(c) == REDIS_OK)  &#123; </span><br><span class="line">                resetClient(c);</span><br><span class="line">           &#125;</span><br><span class="line">        &#125; </span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">processCommand</span><span class="params">(redisClient *c)</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">    c-&gt;cmd = c-&gt;lastcmd = lookupCommand(c-&gt;argv[<span class="number">0</span>]-&gt;ptr); </span><br><span class="line">...</span><br><span class="line">     <span class="comment">/* Exec the command */</span></span><br><span class="line">   <span class="keyword">if</span> (c-&gt;flags &amp; REDIS_MULTI &amp;&amp; </span><br><span class="line">       c-&gt;cmd-&gt;proc != execCommand &amp;&amp;     </span><br><span class="line">       c-&gt;cmd-&gt;proc != discardCommand &amp;&amp;</span><br><span class="line">       c-&gt;cmd-&gt;proc != multiCommand &amp;&amp;</span><br><span class="line">       c-&gt;cmd-&gt;proc != watchCommand)  &#123;</span><br><span class="line">           queueMultiCommand(c);</span><br><span class="line">           addReply(c,shared.queued);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;   </span><br><span class="line">          call(c,REDIS_CALL_FULL); <span class="comment">//调用命令处理方法</span></span><br><span class="line">          c-&gt;woff = server.master_repl_offset;</span><br><span class="line">          <span class="keyword">if</span> (listLength(server.ready_keys))handleClientsBlockedOnLists();</span><br><span class="line">       &#125;   </span><br><span class="line">  &#125;</span><br><span class="line">```    </span><br><span class="line"> 肯定很好奇call 这里调用的是什么方法？ 其实稍微简单想一下其实这里就是调用每个redis命令相关的回调方法。比如<span class="built_in">set</span> 这个命令，我们在  redis.c 可以看到每个命令都配置这一个对应的回调方法，`lookupCommand() `  就是获取对应命令的回调方法，在call中将会调用  `c-&gt;cmd-&gt;proc `(即使对应的配置的回调方法) .比如下面的：`getCommand setCommand`。</span><br><span class="line">  ```c</span><br><span class="line">     <span class="class"><span class="keyword">struct</span> <span class="title">redisCommand</span> <span class="title">redisCommandTable</span>[] = &#123;</span>    </span><br><span class="line">            &#123;<span class="string">"get"</span>,getCommand,<span class="number">2</span>,<span class="string">"rF"</span>,<span class="number">0</span>,<span class="literal">NULL</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;,</span><br><span class="line">            &#123;<span class="string">"set"</span>,setCommand,<span class="number">-3</span>,<span class="string">"wm"</span>,<span class="number">0</span>,<span class="literal">NULL</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>&#125;, </span><br><span class="line">         .....</span><br><span class="line">     &#125;;</span><br></pre></td></tr></table></figure></p>
-<p>另外在call()方法中不光调用回调方法，还会根据对应的命令是否需要触发写aof、或者是否需要同步到slave等逻辑。</p>
-
-          
+          Redis 命令处理流程   在上一篇redis的文章中，大致解释了redis 网络处理流程。[redis网络模型] (https://github.com/leeqx/leeqx.github.io/wiki/Redis-%E7%BD%91%E7%BB%9C%E4%BA%8B%E4%BB%B6) 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/Redis-命令处理流程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1353,17 +1282,24 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
       
         
           
-            <p>##TCP/IP 读书笔记</p>
-<ol start="0">
-<li>创建一个socket 内核中将会将以下三个结构体分配然后链接起来：<ol start="0">
-<li>一个DTYPE_SOCKET类型的file结构</li>
-<li>一个socket结构</li>
-<li>一个inpcb结构</li>
-</ol>
-</li>
-</ol>
+          ##TCP/IP 读书笔记
+
+创建一个socket 内核中将会将以下三个结构体分配然后链接起来：
+一个DTYPE_SOCKET类型的file结构
+一个socket结构
+一个inpcb结构
+
+
+
 
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/TCP-IP读书笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1503,52 +1439,20 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
       
         
           
-            <h1 id="GDB-调试技巧"><a href="#GDB-调试技巧" class="headerlink" title="GDB 调试技巧"></a>GDB 调试技巧</h1><p><code>约定：$开始的行为shell下的命令</code>  </p>
-<ol start="0">
-<li><p>在linux中可以中可以通过：<br>  <code>$ gdb   file_name   --core=core.222</code> </p>
-<p><strong>注意： </strong>   </p>
-<pre><code>这里的`file_name`是一个可执行文件比如：`/usr/local/rss/bin/nms_monitor`
-然后使用`where` 或者`bt`或者`info stack` 或者`backtrace` 即可看到调用堆栈;
-`frame n` 查看具体的那个调用堆栈` up （down）`进行前进或者后退
-</code></pre></li>
-<li>在其他机器上可以使用<br>  <code>$ pstack core.22</code></li>
-<li>gdb在某个文件设定断点  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) b test.cpp:2234</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>2234为需要设置断点的行数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（gdb）b test.cpp:snmp_modify_table</span><br></pre></td></tr></table></figure></p>
-<p>在test.cpp文件的<code>snmp_modify_table</code>函数入口处设置断点  </p>
-<ol start="0">
-<li>在类成员函数设置断点：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) b A::print_log</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>如果不知道类成员可以通过以下方法查看类成员：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（gdb）b A::&lt;tab&gt;</span><br></pre></td></tr></table></figure></p>
-<ol start="0">
-<li><p>gdb查看断点情况：  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（gdb）info break</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>取消断点dis + 断点编号  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（gdb）dis  1</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看类的某个成员：（前面是字母L）  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（gdb）l A::print_log</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>回车继续翻页  </p>
-<ol start="0">
-<li><p>打印当前变量值  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（gdb）print 变量名</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看函数调用栈，函数调用情况  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) bt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看进程内存映像<br>（gdb)info proc mappings</p>
-</li>
-<li>查看进程镜像中heap的内容 ：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> (gdb)set height 0        #设置高位为0，打印日志时可以持续输出  </span><br><span class="line"> (gdb)set logging on      #打开日志  </span><br><span class="line">（gdb)x/10a 0x0009123</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>输入的日志在gdb.txt 可以结合c++filt 分析heap中的内容，如果类对象有虚函数，那么new的对象如果没有free掉将会在heap中保留<br>根据该特点可以用于分析内存泄漏。  </p>
+          GDB 调试技巧约定：$开始的行为shell下的命令  
 
-          
+在linux中可以中可以通过：  $ gdb   file_name   --core=core.222 
+注意：    
+这里的`file_name`是一个可执行文件比如：`/usr/local/rss/bin/nms_monitor`
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/gdb_调试/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1688,30 +1592,15 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
       
         
           
-            <h1 id="linux-内存模型"><a href="#linux-内存模型" class="headerlink" title="linux 内存模型"></a>linux 内存模型</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">【kernel <span class="keyword">virtual</span> memory                  】</span><br><span class="line">【user stack (向下)                      】</span><br><span class="line">【memory-<span class="built_in">map</span>/share-memory(向上)          】  </span><br><span class="line">【running heap(向上)                     】</span><br><span class="line">【read/write segment(.data .bss)         】</span><br><span class="line">【read_only segment(.init .text .rodata) 】</span><br></pre></td></tr></table></figure>
-<p><strong>说明: </strong>  </p>
-<blockquote>
-<p>已初始化的全局变量存储在.dada数据段;为初始化的全局变量位于.bss为初始化数据段。<br>静态全局变量也在.data数据段<br>局部变量在栈上，静态局部变量，并不是在调用函数时分配，并不是在函数返回时释放，<br>其跟全局变量一样静态分配，在.data数据段，但作用域只在函数中 const 修饰的变量在<br>.rodata只读段，只读段与.text在同一个segment。</p>
-</blockquote>
-<ol start="0">
-<li>代码段：代码段（code segment/text segment）通常是指用来存放程序执行代码的一块内存区域。<br>这部分区域的大小在程序运行前就已经确定，并且内存区域通常属于只读, 某些架构也允许代码段<br>为可写，即允许修改程序。在代码段中，也有可能包含一些只读的常数变量，例如字符串常量等。<br>程序在被载入内存后，会被分为很多小的区（section），有一个rodata区（也就是常量区），<br>常量区的数据内存中的位置为代码段，存放的数据为字符串、const修饰的常量（全局的或是静态的，<br>odata区，而这个字符串的地址也就是指针s存放在数据段中（程序载入内存中为.data区）。<br>再如，static char *const s=”hello,world”;那么这时候不仅”hello，world”字符串存放在rodata区，<br>指针s也同样。   </li>
-<li>数据段：数据段（data segment）通常是指用来存放程序中已初始化的全局变量或者静态变量的<br>一块内存区域。数据段属于静态内存分配。原则上数据段所对应的内存区数据是可以改变的。<br>这里没有提到局部变量，这是因为局部变量一般都存放在栈中。局部变量不管是否有const修饰<br>都存放在栈中，例如char *const lcp=”999”;字符窜”999”存放在代码段的rodata区，这个没有说的，<br>而它对应的地址lcp指针存放在栈中; </li>
-<li>BSS段：BSS段（bss segment）通常是指用来存放程序中未初始化的全局变量的一块内存区域。<br>BSS是英文Block Started by Symbol的简称。BSS段属于静态内存分配。例如全局变量int i;<br>静态变量static int si;都存放在这里面。 </li>
-<li>堆（heap）：堆是用于存放进程运行中被动态分配的内存段，它的大小并不固定，可动态扩张或缩减。<br>当进程调用malloc等函数分配内存时，新分配的内存就被动态添加到堆上（堆被扩张）；<br>当利用free等函数释放内存时，被释放的内存从堆中被剔除（堆被缩减），要注意的是，<br>当分配的数据大小操作内核的限制时，内核采用匿名映射的方式实现而不是从堆中分配内存。 </li>
-<li>栈(stack)：栈又称堆栈， 是用户存放程序临时创建的局部变量，也就是说我们函数括弧“{}”<br>中定义的变量（但不包括static声明的变量，static意味着在数据段或代码段中存放变量）。<br>除此以外，在函数被调用时，其参数也会被压入发起调用的进程栈中，并且待到调用结束后，<br>函数的返回值也会被存放回栈中。由于栈的先进先出特点，所以栈特别方便用来保存/恢复调用现场。<br>从这个意义上讲，我们可以把堆栈看成一个寄存、交换临时数据的内存区。 </li>
-</ol>
-<p>在进程被载入内存中时，基本上被分裂成许多小的节（section）。我们比较关注的是几个主要的节：  </p>
-<ol start="0">
-<li>.text 节<br>.text 节基本上相当于二进制可执行文件的.text部分，它包含了完成程序任务的机器指令。<br>该节标记为只读，如果发生写操作，会造成segmentation fault。在进程最初被加载到内存中开始，该节的大小就被固定。 </li>
-<li>.data 节<br>.data节用来存储初始化过的变量，如：全局int a =0 ; 该节的大小在运行时固定的。 </li>
-<li>.bss 节<br>栈下节（below stack section ,即.bss）用来存储为初始化的变量，如：int a; 该节的大小在运行时固定的。 </li>
-<li> 堆节<br>堆节（heap section）用来存储动态分配的变量，位置从内存的低地址向高地址增长。内存的分配和释放通过malloc() 和 free() 函数控制。 </li>
-<li> 栈节<br>栈节（stack section）用来跟踪函数调用（可能是递归的），在大多数系统上从内存的高地址向低地址增长。<br>同时，栈这种增长方式，导致了缓冲区溢出的可能性。 </li>
-<li>.rodata节<br>常量区，全局或静态const变量、指针存放区。  </li>
-<li>环境/参数节<br>环境/参数节（environment/arguments section）用来存储系统环境变量的一份复制文件，<br>进程在运行时可能需要。例如，运行中的进程，可以通过环境变量来访问路径、shell 名称、主机名等信息。<br>该节是可写的，因此在格式串（format string）和缓冲区溢出（buffer overflow）攻击中都可以使用该节。<br>另外，命令行参数也保持在该区域中。</li>
-</ol>
-
-          
+          linux 内存模型123456【kernel virtual memory                  】【user stack (向下)                      】【memory-map/share-memory(向上)          】  【running heap
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/linux-程序内存分布/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1851,15 +1740,17 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
       
         
           
-            <h2 id="linux-内核研究"><a href="#linux-内核研究" class="headerlink" title="linux 内核研究"></a>linux 内核研究</h2><h3 id="linux创建进程的方法：fork-、exec系列"><a href="#linux创建进程的方法：fork-、exec系列" class="headerlink" title="linux创建进程的方法：fork 、exec系列"></a>linux创建进程的方法：fork 、exec系列</h3><ol start="0">
-<li>linux 中fork 相当于当前进程的一份拷贝，linux中fork采用进程内存写时（父进程或者子进程往内存写）拷贝，避免了在没有写数据的情况下也对进程内存进行内存拷贝。  </li>
-<li>exec是将新的程序内容拷贝到内存中，旧的内存页将被刷出，其内容将换成新的数据，进行执行。  </li>
-</ol>
-<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><ol start="0">
-<li>同一进程的线程共享进程的数据、资源，只是可能执行不同的代码</li>
-</ol>
-
-          
+          linux 内核研究linux创建进程的方法：fork 、exec系列
+linux 中fork 相当于当前进程的一份拷贝，linux中fork采用进程内存写时（父进程或者子进程往内存写）拷贝，避免了在没有写数据的情况下也对进程内存进行内存拷贝。  
+exec是将新的程序内容拷贝到内存中，旧的内存页将
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/linux_内核研究/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1967,7 +1858,7 @@ docker mi  &lt;imags id&gt;            #删除image，需要首先删除containe
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

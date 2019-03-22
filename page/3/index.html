@@ -133,7 +133,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?true";
+      hm.src = "https://hm.baidu.com/hm.js?6d39765d485ea811a3c809f80f6d0bcd";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -383,45 +383,19 @@
       
         
           
-            <h1 id="大端模式和小端模式"><a href="#大端模式和小端模式" class="headerlink" title="大端模式和小端模式"></a>大端模式和小端模式</h1><ol start="0">
-<li><p>什么是大端和小端<br>Big-Endian和Little-Endian的定义如下：   </p>
-<ol start="0">
-<li>Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。 </li>
-<li>Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。<br>举一个例子，比如数字0x12 34 56 78在内存中的表示形式为：  <ol start="0">
-<li>大端模式：<br>低地址 —————–&gt; 高地址 0x12 | 0x34 | 0x56 | 0x78</li>
-<li>小端模式：<br>低地址 ——————&gt; 高地址 0x78 | 0x56 | 0x34 | 0x12<br>可见，大端模式和字符串的存储模式类似。  </li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>下面是两个具体例子：<br>16bit宽的数0x1234在Little-endian模式（以及Big-endian模式）CPU内存中的存放方式（假设从地址0x4000开始存放）为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">内存地址    小端模式存放内容    大端模式存放内容</span><br><span class="line"><span class="number">0x4000</span>     	<span class="number">0x34</span>                 	<span class="number">0x12</span></span><br><span class="line"><span class="number">0x4001</span>     	<span class="number">0x12</span>                	<span class="number">0x34</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>32bit宽的数0x12345678在Little-endian模式以及Big-endian模式）CPU内存中的存放方式（假设从地址0x4000开始存放）为：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">内存地址	小端模式存放内容	大端模式存放内容</span><br><span class="line"><span class="number">0x4000</span>	<span class="number">0x78</span>	<span class="number">0x12</span></span><br><span class="line"><span class="number">0x4001</span>	<span class="number">0x56</span>	<span class="number">0x34</span></span><br><span class="line"><span class="number">0x4002</span>	<span class="number">0x34</span>	<span class="number">0x56</span></span><br><span class="line"><span class="number">0x4003</span>	<span class="number">0x12</span>	<span class="number">0x78</span></span><br></pre></td></tr></table></figure></p>
-<ol start="0">
-<li><p>大端小端没有谁优谁劣，各自优势便是对方劣势：</p>
-<p> 小端模式 ：强制转换数据不需要调整字节内容，1、2、4字节的存储方式一样。<br> 大端模式 ：符号位的判定固定为第一个字节，容易判断正负。</p>
-</li>
-<li><p>数组在大端小端情况下的存储：<br>　　以unsigned int value = 0x12345678为例，分别看看在两种字节序下其存储情况，<br>我们可以用unsigned char buf[4]来表示value： </p>
- <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Big-Endian: </span><br><span class="line">低地址存放高位，如下：   </span><br><span class="line">高地址  </span><br><span class="line">  buf[<span class="number">3</span>] (<span class="number">0x78</span>) -- 低位   </span><br><span class="line">  buf[<span class="number">2</span>] (<span class="number">0x56</span>)  </span><br><span class="line">  buf[<span class="number">1</span>] (<span class="number">0x34</span>)   </span><br><span class="line">  buf[<span class="number">0</span>] (<span class="number">0x12</span>) -- 高位   </span><br><span class="line">低地址 </span><br><span class="line">ittle-Endian: 低地址存放低位，如下： </span><br><span class="line">高地址 </span><br><span class="line">  buf[<span class="number">3</span>] (<span class="number">0x12</span>) -- 高位 </span><br><span class="line">  buf[<span class="number">2</span>] (<span class="number">0x34</span>) </span><br><span class="line">  buf[<span class="number">1</span>] (<span class="number">0x56</span>) </span><br><span class="line">  buf[<span class="number">0</span>] (<span class="number">0x78</span>) -- 低位 </span><br><span class="line">低地址</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>为什么会有大小端模式之分呢？</p>
-<p> 这是因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为8bit。<br> 但是在C语言中除了8bit的char之外，还有16bit的short型，32bit的long型（要看具体的编译器），<br> 另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，<br> 那么必然存在着一个如果将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。<br> 例如一个16bit的short型x，<br> 在内存中的地址为0x0010，x的值为0x1122，那么0x11为高字节，0x22为低字节。<br> 对于大端模式，就将0x11放在低地址中，即0x0010中，0x22放在高地址中，即0x0011中。<br> 小端模式，刚好相反。我们常用的X86结构是小端模式，而KEIL C51则为大端模式。<br> 很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。</p>
-</li>
-<li><p>如何判断机器的字节序<br>可以编写一个小的测试程序来判断机器的字节序：<br>[cpp] view plaincopyprint?</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">IsBigEndian</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0x1234</span>;</span><br><span class="line"><span class="keyword">char</span> b = *(<span class="keyword">char</span> *)&amp;a; <span class="comment">//通过将int强制类型转换成char单字节，通过判断起始存储位置。即等于 取b等于a的低地址部分</span></span><br><span class="line"><span class="keyword">if</span>( b == <span class="number">0x12</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>联合体union的存放顺序是所有成员都从低地址开始存放，利用该特性可以轻松地获得了CPU对内存采用Little-endian还是Big-endian模式读写：<br>[cpp] view plaincopyprint?<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">IsBigEndian</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">union</span> NUM</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">char</span> b;</span><br><span class="line">&#125;num;</span><br><span class="line">num.a = <span class="number">0x1234</span>;</span><br><span class="line"><span class="keyword">if</span>( num.b == <span class="number">0x12</span> )</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="0">
-<li>常见的字节序<br>一般操作系统都是小端，而通讯协议是大端的。    <ol start="0">
-<li>常见CPU的字节序<br>Big Endian : PowerPC、IBM、Sun Little Endian : x86、DEC ARM既可以工作在大端模式，也可以工作在小端模式。  </li>
-</ol>
-</li>
-</ol>
+          大端模式和小端模式
+什么是大端和小端Big-Endian和Little-Endian的定义如下：   
 
-          
+Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。 
+Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。举一个例子，比如
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/大端模式和小端模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -561,19 +535,16 @@
       
         
           
-            <h1 id="服务切换方案"><a href="#服务切换方案" class="headerlink" title="服务切换方案"></a>服务切换方案</h1><p>   在服务维护过程中，经常会遇到服务器故障（磁盘崩盘，好吧，是否考虑优化log输出？）、或者DB故障，悲催的我们，需要做服务迁移。那么我们怎么达到在不影响服务的情况下进行迁移呢？本篇幅主要针对DB故障。  </p>
-<p>假定服务A 有两个数据库：<code>M（master）----------&gt;S(slave)</code> </p>
-<ol start="0">
-<li>master 切换到slave<br>服务往M中写，此时M发生故障了，需要切换到S，那么如果你的db是采用域名进行管理，那么需要将域名指向S，如果你的服务有自动重连机制，那么此时你的服务也不需要重启。注意需要检查A是否有权限访问S。<br>此时是否万事大吉？有没有注意到切换到slave 服务是单点DB，风险很大，一旦出问题那么全部崩盘。 所以我们需要做一个S的slave出来使得：<br><code>S（master)----&gt;NS(slave)</code><br>好，slave NS做好了，由于服务器负载问题，NS性能会好一些，所以考虑将服务切换到NS。那么此时我们又该如何处理？  </li>
-<li>master—–&gt;slave  <ol start="0">
-<li>首先重新将域名指向NS，（如果服务没有重连机制，那么需要重启服务）。  </li>
-<li>查看master——&gt;slave 数据是否延迟，可以在master 插入一条数据，再查询slave（NS）上的db是否有该数据  </li>
-<li>第二步正常那么此时可以切断S–&gt;NS（因为S现在基本上是作废了，没有数据从NS同步到S）  </li>
-</ol>
-</li>
-</ol>
-
-          
+          服务切换方案   在服务维护过程中，经常会遇到服务器故障（磁盘崩盘，好吧，是否考虑优化log输出？）、或者DB故障，悲催的我们，需要做服务迁移。那么我们怎么达到在不影响服务的情况下进行迁移呢？本篇幅主要针对DB故障。  
+假定服务A 有两个数据库：M（master）----------&gt;S(s
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/服务切换方案/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -713,41 +684,16 @@
       
         
           
-            <h1 id="父子进程的继承关系"><a href="#父子进程的继承关系" class="headerlink" title="父子进程的继承关系"></a>父子进程的继承关系</h1><h2 id="子进程的特征："><a href="#子进程的特征：" class="headerlink" title="子进程的特征："></a>子进程的特征：</h2><blockquote>
-<p>子进程在自己的虚拟地址空间中执行，空间包括栈、堆和数据空间<br>– 子进程从父进程继承很多属性<br>– 子进程有自己唯一的进程ID<br>– 子进程的父进程ID是它的父进程的ID<br>– 子进程拥有父进程打开文件描述符的拷贝<br>– 子进程逝去处理器时间(elapsed processor)设为0<br>– 子进程的未决信号(pending signals)集合被清除<br>– 子进程继承它的阻塞信号的掩码(mask of blocked signals)和信号动作<br>(signal actions)  </p>
-</blockquote>
-<h2 id="由子进程自父进程继承到："><a href="#由子进程自父进程继承到：" class="headerlink" title="由子进程自父进程继承到："></a>由子进程自父进程继承到：</h2><blockquote>
-<ol start="0">
-<li>进程的资格(真实(real)/有效(effective)/已保存(saved) 用户号(UIDs)和组号(GIDs))</li>
-<li>环境(environment)</li>
-<li>堆栈</li>
-<li>内存</li>
-<li>打开文件的描述符(注意对应的文件的位置由父子进程共享，这会引起含糊情况)<br>执行时关闭(close-on-exec) 标志 (译者注：close-on-exec标志可通过fnctl()对文件描述符设置，<br>POSIX.1要求所有目录流都必须在exec函数调用时关闭。更详细说明， 参见《UNIX环境高级编程》<br>W. R. Stevens, 1993, 尤晋元等译(以下简称《高级编程》), 3.13节和8.9节)  </li>
-<li>信号(signal)控制设定  </li>
-<li>nice值 (译者注：nice值由nice函数设定，该值表示进程的优先级，数值越小，优先级越高)<br>进程调度类别(scheduler class) (译者注：进程调度类别指进程在系统中被调度时所属的类别，<br>不同类别有不同优先级，根据进程调度类别和nice值，<br>进程调度程序可计算出每个进程的全局优先级(Global process prority)，优先级高的进程优先执行)  </li>
-<li>进程组号</li>
-<li>对话期ID(Session ID) (译者注：译文取自《高级编程》，指：进程所属的对话期 (session)ID，<br>一个对话期包括一个或多个进程组， 更详细说明参见《高级编程》 9.5节)    </li>
-<li>当前工作目录  </li>
-<li>根目录 (译者注：根目录不一定是“/”，它可由chroot函数改变)  </li>
-<li>文件方式创建屏蔽字(file mode creation mask (umask)) (译者注：译文取自《高级编程》，<br>指：创建新文件的缺省屏蔽字)  </li>
-<li>资源限制  </li>
-<li>控制终端  </li>
-</ol>
-</blockquote>
-<h2 id="子进程所独有："><a href="#子进程所独有：" class="headerlink" title="子进程所独有："></a>子进程所独有：</h2><blockquote>
-<ol start="0">
-<li>进程号<br>不同的父进程号(译者注：即子进程的父进程号与父进程的父进程号不同， 父进程号可由getppid函数得到)</li>
-<li>自己的文件描述符和目录流的拷贝(译者注：目录流由opendir函数创建，因其为顺序读取，顾称“目录流”)</li>
-<li>子进程不继承父进程的进程，正文(text)，数据和其它锁定内存(memory locks)<br>(译者注：锁定内存指被锁定的虚拟内存页，锁定后， 不允许内核将其在必要时换出(page out)，<br>详细说明参见《The GNU C Library Reference Manual》 2.2版， 1999, 3.4.2节)</li>
-<li>在tms结构中的系统时间(译者注：tms结构可由times函数获得，它保存四个数据用于记录进程使用<br>中央处理器 (CPU：Central Processing Unit)的时间，包括：用户时间，系统时间，用户各子进程合<br>计时间，系统各子进程合计时间)  </li>
-<li>资源使用(resource utilizations)设定为0</li>
-<li>阻塞信号集初始化为空集(译者注：原文此处不明确，译文根据fork函数手册页稍做修改)</li>
-<li>不继承由timer_create函数创建的计时器</li>
-<li>不继承异步输入和输出</li>
-</ol>
-</blockquote>
-
-          
+          父子进程的继承关系子进程的特征：
+子进程在自己的虚拟地址空间中执行，空间包括栈、堆和数据空间– 子进程从父进程继承很多属性– 子进程有自己唯一的进程ID– 子进程的父进程ID是它的父进程的ID– 子进程拥有父进程打开文件描述符的拷贝– 子进程逝去处理器时间(elapsed processor)设为0
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/父子进程的继承关系/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -887,55 +833,20 @@
       
         
           
-            <h1 id="程序员的自我修养-链接、装载与库读书笔记"><a href="#程序员的自我修养-链接、装载与库读书笔记" class="headerlink" title="程序员的自我修养-链接、装载与库读书笔记"></a>程序员的自我修养-链接、装载与库读书笔记</h1><hr>
-<p><strong>目录</strong><br>  <a href="#温故而知新"><strong>第一章</strong> 温故而知新</a><br>  <a href="#目标文件里有什么"><strong>第二章</strong> 目标文件里有什么</a>  </p>
-<hr>
-<h2 id="温故而知新"><a href="#温故而知新" class="headerlink" title="温故而知新"></a><h2 id="1">温故而知新</h2></h2><ol start="0">
-<li><p>为什么系统内存分段、分页？<br>  直接将物理内存分配给进程使用存在三个问题：</p>
-<pre><code>* 地址空间不隔离 所有程序都直接访问物理地址，程序所使用的内存空间不是相互隔离的，恶意程序会撰改其他程序的内存数据达到破坏的目的  
-* 内存使用效率低  
-* 程序运行的地址不确定  
-</code></pre><p>  解决上面存在的问题采用了一种间接访问地址的方法：<strong>虚拟地址</strong>  </p>
-<blockquote>
-<p><strong>分段</strong>：把一段程序所需要的内存空间大小的虚拟空间映射到某个地址空间。这样可以达到程序与地址空间隔离不会访问别的程序的内存。</p>
-<pre><code>同时也解决程序运行地址不确定问题但是这样子会有一个问题，当内存不够用时被换入换出到磁盘的都是整个程序势必会降低效率。
-所以我们需要进行粒度更小的换入换出。
-</code></pre></blockquote>
-<blockquote>
-<p><strong>分页</strong>：分页就是解决分段的大粒度问题。把地址空间认为的等分成固定大小的页，每一页的大小有硬件决定，或者硬件支持多种大小 </p>
-<pre><code>的页，由操作系统选择决定页的大小。但同一时刻只能选择一种大小，所以对与整个操作系统来说页就是固定的。
-</code></pre></blockquote>
-</li>
-<li><p>什么是线程？  </p>
-<blockquote>
-<p><strong>线程</strong> 有时被称为轻量级进程，是程序执行的最小单元。一个标准的线程有线程ID、当前指令指针（PC）、寄存器集合、堆栈组成。 </p>
-<pre><code>同一个进程的所有线程之间共享程序的内存空间（包括代码段、数据段、堆等)及一些进程级的字段（如打开的文件、信号)。  
-线程页拥有自己的私有存储空间  
-   *  栈，一般情况下认为私有的数据  
-   *  线程局部存储  （TLS）  
-   *  寄存器（包括PC）  
-</code></pre></blockquote>
-<p>|线程私有|线程之间共享|<br>|——-|———|<br>|局部变量|全局变量|<br>|函数参数|堆上的数据|<br>|TLS    |函数里的静态变量|<br>|       |程序代码任何线程都有权利读取并执行任何代码|<br>|       |打开的文件，A线程打开的文件可以由B线程读写|  </p>
-</li>
-<li><p>同步与锁  </p>
-<p>|类型|说明|适用场合|<br>|—|—-|——|<br>|二元信号量|最简单的锁，只有两种状态：占用与非占用;|适合被唯一一个线程独占访问的地资源|<br>|多元信号量|简称信号量（semaphore)|允许有多个线程访问|<br>|互斥量(Mutex)|与二次元类似，但是信号量可以被系统中的一个线程获取之后由另外一个线程释放;而互斥量，要求谁获取就是负责释放|资源近同时允许一个线程访问|<br>|临界区（critical section）|比互斥量更为严格的同步手段;一个进程创建了一个互斥量或者信号量，另一个进程试图区获取该锁是合法的|仅限于本进程，其他进程无法获取该锁|<br>|读写锁（read-write lock)|有两种获取方式：共享、独占||<br>|条件变量(condition variable)|一个条件变量可以被多个线程等待;线程可以唤醒条件变量，此时所有等待条件变量的线程都会被唤醒||</p>
-</li>
-</ol>
-<h2 id="目标文件里有什么"><a href="#目标文件里有什么" class="headerlink" title="目标文件里有什么"></a><h2 id="2">目标文件里有什么</h2></h2><ol start="0">
-<li><p>目标文件<br>程序编译完成之后主要分为两种段：程序指令和程序数据</p>
-<ol start="0">
-<li>一般而言c编译的可行语句都编译成机器代码保存在<code>.text</code>段 （<code>程序指令</code>）</li>
-<li>已初始化的全局变量和局部静态变量都保存在<code>.data</code>段（虽然位初始化的全局变量、局部静态变量默认值都是0，没必要放在这里浪费内存）（<code>程序数据</code>）</li>
-<li>未初始化的全局变量和局部静态变量一般存放在<code>.bss</code>段（只是未这些变量预留位置而已，所以在文件中不占据空间（<code>程序数据</code>）</li>
-<li><p>C/C++中，编译器默认为函数和初始化了的全局变量为强符号，未初始化的全局变量为弱符号。  </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__attribute__((week))</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> ext;</span><br><span class="line"><span class="keyword">int</span> weak;</span><br><span class="line"><span class="keyword">int</span> strong=<span class="number">1</span>;</span><br><span class="line">__attribute__((weak)) weak2=<span class="number">2</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
+          程序员的自我修养-链接、装载与库读书笔记
+目录  第一章 温故而知新  第二章 目标文件里有什么  
 
-          
+温故而知新
+为什么系统内存分段、分页？  直接将物理内存分配给进程使用存在三个问题：
+* 地址空间不隔离 所有程序都直接访问物理地址，程序所使用的内存空间不是相互隔离的，恶意程序会撰改其他程序的内
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/程序员的自我修养-链接、装载与库读书笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1075,26 +986,18 @@
       
         
           
-            <h1 id="linux-32平台下默认对齐方式为："><a href="#linux-32平台下默认对齐方式为：" class="headerlink" title="linux 32平台下默认对齐方式为："></a>linux 32平台下默认对齐方式为：</h1><ol start="0">
-<li>char 按照字节对齐2. short 按照2字节对齐  </li>
-<li>int,long等其他基本类型按照4字节对齐   </li>
-<li><p>为了让结构体数组中的每一个结构体内部元素都保持对齐，编译器会在结构体的末尾插入gap以满足结构体内部元素的对齐要求。结构体的地址对齐按照结构体中包含的最大字节数元素对齐，以满足结构体数组的对齐要求。<br>或者根据原理:  </p>
-<blockquote>
-<p>pack pragma<br>pack pragma设置了struct、union或class中各成员的对齐方式，结构成员对齐指的是成员相对于起始地址的偏移量。该指令基本用法如下： </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> pack(n)  </span></span><br><span class="line">``` </span><br><span class="line">    它指定了结构成员按n（<span class="number">1</span>，<span class="number">2</span>，<span class="number">4</span>，<span class="number">8</span>，<span class="number">16</span>)(alignment must be a small power of <span class="number">2</span>)字节对齐，如果未指定n，则恢复成默认值。需要注意的是，它并不是指结构体中的每个成员都要按n对齐，而是 按照每个成员的大小和n相比较小的值对齐。下面引用MSDN中C++ Preprocessor Reference部分关于pack指令的说明：   </span><br><span class="line">n (optional)   </span><br><span class="line">Specifies the value, in bytes, to be used <span class="keyword">for</span> packing. The <span class="keyword">default</span> value <span class="keyword">for</span> n is <span class="number">8.</span> Valid values are <span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="keyword">and</span> <span class="number">16.</span> The alignment of a member will be on a boundary that is either a multiple of n <span class="keyword">or</span> a multiple of the size of the member, whichever is smaller.   </span><br><span class="line">即成员member的对齐值   </span><br><span class="line">align of member = min( pack setting value, <span class="keyword">sizeof</span>(member type) )   </span><br><span class="line">    &gt;  </span><br><span class="line">    这里的pack是编译器结构体对齐的字节数，默认是<span class="number">4</span>字节，可以通过#pargma  pack(n)   </span><br><span class="line">进行调整（#pargma unpack() 回复到原来)，boxsize 也就是每个成员对齐的盒子大小，  </span><br><span class="line">计算时成员所占内存大小必须是这个boxsize的整数倍，    </span><br><span class="line">`box_size=min&#123;pack，max&#123;<span class="keyword">sizeof</span>(member type)&#125; &#125; `注意这里的<span class="keyword">sizeof</span>(memeber type) 是成员的基本类型比如：<span class="keyword">char</span> a[<span class="number">10</span>]，应该是<span class="keyword">sizeof</span>(<span class="keyword">char</span>) 而不是<span class="keyword">sizeof</span>(a[<span class="number">10</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   编译器每次只取一个盒子大小的内存，如果当前盒子不够又会在再取一个盒子的大小：</span><br><span class="line">    ```c</span><br><span class="line">struct A</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> a;</span><br><span class="line">  <span class="keyword">int</span> b;</span><br><span class="line">  <span class="keyword">short</span> s;</span><br><span class="line">  <span class="keyword">char</span> c;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">sizeof</span>(A)=<span class="number">12</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>分析：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">box_size=min&#123;pack(<span class="number">4</span>),max(<span class="keyword">sizeof</span>(member))&#125;</span><br><span class="line">        =min&#123;<span class="number">4</span>,<span class="number">4</span>&#125;</span><br><span class="line">        =<span class="number">4</span></span><br></pre></td></tr></table></figure>
-<p>因为编译器先取一个盒子放a，刚好用完已取内存接着再拿一个盒子大小的内存放b也刚好用完，接着再取一个，发现存放s之后还有2个字节，接着与c大小比较，结果也能够存储c。所以size=12。所以我们应该尽量将不能是box_size大小的成员放在一起，以节省内存。<br>上面的例子如果调换一下b和s的位置那么sizeof=16  </p>
-</li>
-<li><p>例子   </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line">&#125;; <span class="comment">//sizeof ch = 1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof ch =%d\n"</span>,<span class="keyword">sizeof</span> (ch));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch2</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span> c;</span><br><span class="line">  <span class="keyword">char</span> cc;</span><br><span class="line">&#125;;<span class="comment">//sizeof ch2 = 2</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof ch2 =%d\n"</span>,<span class="keyword">sizeof</span> (ch2));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">short</span> s;</span><br><span class="line">&#125;; <span class="comment">//sizeof size = 4</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size1=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="keyword">short</span> s;</span><br><span class="line">&#125;;<span class="comment">//sizeof size = 4</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size2=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"> <span class="keyword">char</span> c;</span><br><span class="line"> <span class="keyword">short</span> s;</span><br><span class="line"> <span class="keyword">char</span> cc;</span><br><span class="line">&#125;;<span class="comment">//sizeof size = 6</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size3=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="keyword">int</span>   i;</span><br><span class="line">&#125;;<span class="comment">//sizeof size = 8</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size4 =%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">int</span>   i;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line">&#125;; <span class="comment">//sizeof size = 12</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof  size5=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch</span> <span class="title">ich</span>;</span></span><br><span class="line">&#125;;<span class="comment">//sizeof size = 12</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size6=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">size</span>&#123;</span></span><br><span class="line"><span class="keyword">char</span> c;</span><br><span class="line"><span class="keyword">char</span> cc;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ch</span> <span class="title">ich</span>;</span></span><br><span class="line"><span class="keyword">int</span> i;</span><br><span class="line">&#125;;<span class="keyword">sizeof</span> size = <span class="number">8</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"Sizeof size7=%d\n"</span>,<span class="keyword">sizeof</span> (size));</span><br></pre></td></tr></table></figure>
-<p>运行结果：<br>   Sizeof ch =1<br>   Sizeof ch2 =2<br>   Sizeof size1=4<br>   Sizeof size2=4<br>   Sizeof size3=6<br>   Sizeof size4 =8<br>   Sizeof  size5=12<br>   Sizeof size6=12<br>   Sizeof size7=8  </p>
-</li>
-</ol>
-<p>当结构体中出现结构体类型的数据成员是，不会将嵌套的结构体类型的整体长度参与到对齐计算中，而是以嵌套定义的结构体锁使用的对齐值进行对齐。<br>eg:</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagOne</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">char</span> cChar;</span><br><span class="line"><span class="keyword">char</span> cArray[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">short</span> sShort;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagTwo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">int</span> nInt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tagOne</span> <span class="title">to</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line">虽然tagOne占据量<span class="number">8</span>字节大小，但由于其对齐值为min&#123;pack，max&#123;<span class="keyword">sizeof</span>(member type)&#125;&#125; = <span class="number">2</span></span><br><span class="line">所以tagTwo的对齐值应该为 min&#123;pack，max&#123;sizeofmember type&#125;&#125; = <span class="number">4</span></span><br></pre></td></tr></table></figure>
-          
+          linux 32平台下默认对齐方式为：
+char 按照字节对齐2. short 按照2字节对齐  
+int,long等其他基本类型按照4字节对齐   
+为了让结构体数组中的每一个结构体内部元素都保持对齐，编译器会在结构体的末尾插入gap以满足结构体内部元素的对齐要求。结构体的地址对齐按照结构体中包含
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/结构体对齐/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1234,16 +1137,17 @@
       
         
           
-            <h1 id="设计模式读书笔记"><a href="#设计模式读书笔记" class="headerlink" title="设计模式读书笔记"></a>设计模式读书笔记</h1><ol start="0">
-<li><p>重新设计和解决问题的对应模式</p>
-<p>需求|设计模式|说明<br>—|——-|—<br>通过显示指定一个类来创建对象|abstract factory，factory method，prototype|<br>对特殊操作的依赖|chain of resposibility，command|<br>对硬件平台和软件平台的依赖|abstract factory，bridge|<br>对对象表示或者实现的依赖|abstract factory，bridge，memento，proxy|<br>算法依赖|builder，iterator，strategy，template method|<br>紧耦合|abstract factory，command，facade，mediator， observer，chain of resposibility|<br>通过生成子类来扩展功能|bridge，chain of resposibility，composite，decorator，observer，strategy|<br>不能方便的对类进行修改|adapter，decorator，visitor|</p>
-</li>
-<li><p>创建型模型</p>
-<p>模式 | 意图| 适用性|<br>—–|—-|——|<br>Abstract factory| 提供一个创建一系列相关或相互依赖对象的接口，而无需指定他们具体的类|0. 一个系统要独立于他的产品的创建、组合、表示时  0. 一个系统要由多个产品系列中的一个来配置时 0. 当你要强调一系列相关的产品对象的设计以便进行联合使用时。 0. 当你提供一个产品类库，而只想显示他们的接口而不是实现时|<br>Builder|将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示|0. 当创建复杂对象的算法应该独立于该对象的组成部分以及他们的装配方式时。 0. 当构造过程必须允许被构造的对象有部不同的表示时。|<br>Factory method|定义一个用于创建对象的接口，让子类决定实例化哪一个类，factory method使一个类的实例化延迟到其子类。|0. 当一个类不知道它所必须创建的对象类的时候 0. 当一个类希望由它的子类来指定它所创建的对象的时候  0.当类将创建对象的职责委托给多个帮助子类中的某一个，并且向将哪一个帮助子类是代理者这一信息局部化的时候|  </p>
-</li>
-</ol>
-
-          
+          设计模式读书笔记
+重新设计和解决问题的对应模式
+需求|设计模式|说明—|——-|—通过显示指定一个类来创建对象|abstract factory，factory method，prototype|对特殊操作的依赖|chain of resposibility，command|对硬件平台和软件平台的依
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/设计模式读书笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1383,71 +1287,22 @@
       
         
           
-            <h1 id="CPP设计思维新模式"><a href="#CPP设计思维新模式" class="headerlink" title="CPP设计思维新模式"></a>CPP设计思维新模式</h1><p>===</p>
-<ol start="0">
-<li><p>系统架构的一个主要基本原则是以设计实现某些原则 </p>
-</li>
-<li><p>特化   </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>,<span class="title">class</span> <span class="title">U</span>&gt; </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Tt</span>&#123;</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>特化其中一个参数 </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> <span class="title">U</span>&gt; </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">class</span> <span class="title">Tt</span>&lt;widget w&gt;&#123;</span>&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="0">
-<li><p>关于protected 析构 </p>
-<p> 采用proected 权限的析构目的是使得当删除基类指针时（该指针指向了派生类对象），<br> 使其不调用派生类的析构（因为权限问题，无法访问派生类的析构方法）；<br> 这样做如果该类中不存在其他virtual类型的方法，将避免增加vptr 导致性能得到降低。<br> 当然如果希望delete基类指针时能够调用派生类的析构，那么基类的析构需要声明为<br> virtual，同时这不可避免的导致内存性能下降问题。   </p>
-</li>
-<li><p>关于private、protected 的构造方法 </p>
-<p>对于这两种权限的构造方法，由于无法在外部调用所以将导致在类外无法构建对象。<br>但是protected在其子类中可以构造。所以如果存在场景只允许其派生类构造对象那么<br>可以将构造方法声明为protected。如果是private 那么只能在该类内部使用。例子：   </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"></span><br><span class="line">A()&#123;  &#125; </span><br><span class="line"></span><br><span class="line">~A()&#123; &#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Instance</span><span class="params">()</span><span class="comment">//类A的内部的一个函数 </span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line">A a; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>上面的代码是能通过编译的。上面代码里的Instance函数就是类A的内部的一个函数。<br>Instance函数体里就构建了一个A的对象。<br>但是，这个Instance函数还是不能够被外面调用的。为什么呢？<br>如果要调用Instance函数，必须有一个对象被构造出来。但是构造函数被声明为private<br>的了。外部不能直接构造一个对象出来。   </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A aObj; <span class="comment">// 编译通不过 </span></span><br><span class="line">aObj.Instance();</span><br></pre></td></tr></table></figure>
-<p>但是，如果Instance是一个static静态函数的话，就可以不需要通过一个对象，而可以直接被调用。如下： </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"></span><br><span class="line">A():data(<span class="number">10</span>)&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"A"</span> &lt;&lt; <span class="built_in">endl</span>; &#125; </span><br><span class="line"></span><br><span class="line">~A()&#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"~A"</span> &lt;&lt; <span class="built_in">endl</span>; &#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> A&amp; <span class="title">Instance</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> A a; </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> a; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; data &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">private</span>: </span><br><span class="line"><span class="keyword">int</span> data; </span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line">A&amp; ra = A::Instance(); </span><br><span class="line"></span><br><span class="line">ra.Print();</span><br></pre></td></tr></table></figure>
-<p>或者如下： </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span></span><br><span class="line"><span class="class"> </span></span><br><span class="line"><span class="class"> &#123;</span> </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">private</span>: </span><br><span class="line"> </span><br><span class="line"> A()&#123;  &#125; </span><br><span class="line"> </span><br><span class="line"> ~A()&#123; &#125; </span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span>: </span><br><span class="line"> </span><br><span class="line"> <span class="function">Static A* <span class="title">Instance</span><span class="params">()</span><span class="comment">//类A的内部的一个函数 </span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"> </span>&#123; </span><br><span class="line"> </span><br><span class="line"> Return <span class="keyword">new</span> A; </span><br><span class="line"> </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"> &#125;; </span><br><span class="line">A* pA = A::Instance();</span><br></pre></td></tr></table></figure>
-<p>同时采用这种技术，可以将operator= 声明为private 但是没有具体实现，<br>这样子可以禁止一个类的外部用户对这个类的对象进行复制动作。   </p>
-</li>
-<li><p>智能指针   </p>
-<ol start="0">
-<li>拷贝、赋值是摧毁式拷贝   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">SmartPtr</span> </span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>： </span><br><span class="line"></span><br><span class="line">   SmartPtr(SmartPtr &amp;src) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>-&gt;ptr = src.ptr; </span><br><span class="line"></span><br><span class="line">  src.ptr = <span class="literal">NULL</span>;<span class="comment">// 摧毁 </span></span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">    SmartPtr&amp; <span class="keyword">operator</span>=(SmartPtr &amp;src) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">If(<span class="keyword">this</span> != &amp;src) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">This-&gt;ptr = src.ptr; </span><br><span class="line"></span><br><span class="line">Src.ptr = <span class="literal">NULL</span>; <span class="comment">// 摧毁 </span></span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>： </span><br><span class="line"></span><br><span class="line">T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<ol start="0">
-<li><p>取址操作符 </p>
-<p>其目的是为了smartpoint 能够跟 dumb pointers 尽可能相似 </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line"> T** <span class="keyword">operator</span>&amp;() </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return &amp;ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Private: </span><br><span class="line"></span><br><span class="line">T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 有了取址操作符之后下面的运作就会成立： </span></span><br><span class="line"></span><br><span class="line"><span class="function">Void <span class="title">Fun</span><span class="params">(Widget** pW)</span></span>; </span><br><span class="line"></span><br><span class="line">SmartPtr&lt;Widget&gt; spW(<span class="keyword">new</span> Widget()); </span><br><span class="line"></span><br><span class="line">Fun(&amp;spW);</span><br></pre></td></tr></table></figure>
-<p>但是不建议重载operator&amp; </p>
-</li>
-</ol>
-<ol start="0">
-<li><p>隐式转换 至原始指针 </p>
-<p>用户自定义转换符重载，该符号重载不能写明返回类型，其返回采用operator 后面的类型，<br>格式如下：TYPE为用户自定义类型 </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">TYPE</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"> </span>&#123; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>例如：  </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Class c </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Operator <span class="keyword">bool</span>（） </span><br><span class="line"></span><br><span class="line">｛ </span><br><span class="line">Return  <span class="literal">true</span>; </span><br><span class="line">｝ </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>为了能够使得我们自定义的数据自行转换，我们需要重载转换符。 </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> T*() </span><br><span class="line"></span><br><span class="line">   &#123; </span><br><span class="line"></span><br><span class="line">Return ptr; </span><br><span class="line"></span><br><span class="line">   &#125; </span><br><span class="line"></span><br><span class="line">   <span class="comment">//… </span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span>: </span><br><span class="line"></span><br><span class="line">        T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>有了该转换之后，下面的代码就可以编译： </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Void  <span class="title">Fun</span><span class="params">(Widget  *pw)</span></span>; </span><br><span class="line">SmartPtr&lt;Widget&gt; sp(<span class="keyword">new</span> Widget()); </span><br><span class="line">Fun(sp);</span><br></pre></td></tr></table></figure>
-<p>但是与此同时也引入了新问题：外部直接对智能指针进行delete操作，那么我们的职能指针久形同虚设<br>所以为了避免这个问题，我们采用歧义性，使得对delete的操作编译无法通过，便可达到目的：   </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">Operator T*() </span><br><span class="line"></span><br><span class="line">&#123;  </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Operator <span class="keyword">void</span>*() </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return ptr; </span><br><span class="line"></span><br><span class="line">     &#125; </span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">Private: </span><br><span class="line"></span><br><span class="line">   T* ptr; </span><br><span class="line"></span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">SmartPtr&lt;Widget&gt; sp(<span class="keyword">new</span> Widget()); </span><br><span class="line">Delete sp; <span class="comment">//compile error</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>相等性 不等性<br>最好的方法，完整、可靠的方法：采用完全一致的做法，分别为每个操作法定义一份重载： </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Public: </span><br><span class="line"></span><br><span class="line"> <span class="keyword">bool</span> <span class="keyword">operator</span> !() <span class="keyword">const</span> <span class="comment">// Enable "if (!sp) …" </span></span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> ptr== <span class="literal">NULL</span>; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> SmartPtr&lt;T&gt; &amp;lhr, <span class="keyword">const</span> T* rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> lhs.ptr == rhs; </span><br><span class="line"></span><br><span class="line"> &#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == ( <span class="keyword">const</span> T* lhs, <span class="keyword">const</span> SmartPtr&lt;T&gt; &amp;rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> lhs == rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> != (<span class="keyword">const</span> SmartPtr&lt;T&gt; &amp;lhr,<span class="keyword">const</span> T* rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> lhs.ptr != rhs; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line">Inline <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> != (<span class="keyword">const</span> T* lhs,<span class="keyword">const</span> SmartPtr&lt;T&gt; &amp; rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line">Return lhs != rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>下面的代码就可以运作了： </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">SmartPtr &lt;Widget&gt; sp1,sp2; </span><br><span class="line">Widget *p; </span><br><span class="line"></span><br><span class="line">If(sp1) </span><br><span class="line">..</span><br><span class="line"></span><br><span class="line">If(!sp1) </span><br><span class="line">.. </span><br><span class="line"></span><br><span class="line">If(sp1==<span class="literal">NULL</span>) </span><br><span class="line"></span><br><span class="line">.. </span><br><span class="line"></span><br><span class="line">If (sp1==sp2) </span><br><span class="line"></span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">If(sp1==p) </span><br><span class="line"></span><br><span class="line">… </span><br><span class="line"></span><br><span class="line">If(p==sp1)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>  但至此还还不完美，如果提供一个“转型之ptr 型别”的自动转换式，还是存在歧义<br>  。假设一个Base class 以及一个从base 继承而来的Derive class 那么下面的代码还存在歧义性：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SmartPtr&lt;Base&gt; sp; </span><br><span class="line"></span><br><span class="line">Derived *p; </span><br><span class="line"></span><br><span class="line">If(sp==p) <span class="comment">//以上重载方法，存在的歧义：（Base*)sp == (Base*)p   and operator == (sp,(Base*)p) </span></span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>  为此我们需要的对上面重载的比较方法添加template版本 </p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Template&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">        …<span class="comment">//同上（非template版本） </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt; </span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> SmartPtr&lt;U&gt; &amp;lhr,<span class="keyword">const</span> U* rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return lhs.ptr == rhs; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Template &lt;<span class="keyword">typename</span> U&gt; </span><br><span class="line"></span><br><span class="line"> <span class="keyword">inline</span> <span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> U*lhs,<span class="keyword">const</span> SmartPtr&lt;U&gt;&amp;rhs) </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">Return lhs == rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">…其他的类似 </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>  但是至此依然不完美：<br>  因为：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SmartPtr&lt;Apple&gt; sp1; </span><br><span class="line"></span><br><span class="line">SmartPtr &lt;Oragne&gt;sp2; </span><br><span class="line">If( sp1==sp2)   <span class="comment">//存在歧义</span></span><br></pre></td></tr></table></figure></p>
-<p>  为了消除该歧义，我们还要：<br>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Template &lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line">Class SmartPtr </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span>: </span><br><span class="line"></span><br><span class="line">        … 同上…… </span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; </span><br><span class="line"></span><br><span class="line"> <span class="keyword">bool</span> <span class="keyword">operator</span> == (<span class="keyword">const</span> SmartPtr&lt;U&gt; &amp;rhs) <span class="keyword">const</span> </span><br><span class="line"></span><br><span class="line">&#123; </span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> ptr == rhs.ptr; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">…其他的操作符于此类似…. </span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+          CPP设计思维新模式===
 
-          
+系统架构的一个主要基本原则是以设计实现某些原则 
+
+特化   
+1234template &lt;class T,class U&gt; class Tt&#123;&#125;;
+特化其中一个参数 
+123template &lt;class U&gt; class 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/CPP设计思维新模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1587,18 +1442,16 @@
       
         
           
-            <h2 id="Redis-网络模型"><a href="#Redis-网络模型" class="headerlink" title="Redis 网络模型"></a>Redis 网络模型</h2><p>  redis 在main方法中调用了initServer 方法,在该方法中调用了aeCreateFileEvent方法来绑定文件socket的回调方法。<br>  下面将acceptTcpHandler绑定到监听的socket：  </p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; server.ipfd_count; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (aeCreateFileEvent(server.el, server.ipfd[j], AE_READABLE,</span><br><span class="line">        acceptTcpHandler,<span class="literal">NULL</span>) == AE_ERR)</span><br><span class="line">        &#123;</span><br><span class="line">            redisPanic(</span><br><span class="line">                <span class="string">"Unrecoverable error creating server.ipfd file event."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在main中调用aeMain 方法循环处理网络事件。在aeMain中调用了aeProcessEvents来真正处理网络事件。以下是redis的网络核心代码：  </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">aeProcessEvents</span><span class="params">(aeEventLoop *eventLoop, <span class="keyword">int</span> flags)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> processed = <span class="number">0</span>, numevents;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Nothing to do? return ASAP */</span></span><br><span class="line">    <span class="keyword">if</span> (!(flags &amp; AE_TIME_EVENTS) &amp;&amp; !(flags &amp; AE_FILE_EVENTS)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Note that we want call select() even if there are no</span></span><br><span class="line"><span class="comment">     * file events to process as long as we want to process time</span></span><br><span class="line"><span class="comment">     * events, in order to sleep until the next time event is ready</span></span><br><span class="line"><span class="comment">     * to fire. */</span></span><br><span class="line">    <span class="keyword">if</span> (eventLoop-&gt;maxfd != <span class="number">-1</span> ||</span><br><span class="line">        ((flags &amp; AE_TIME_EVENTS) &amp;&amp; !(flags &amp; AE_DONT_WAIT))) &#123;</span><br><span class="line">        <span class="keyword">int</span> j;</span><br><span class="line">        aeTimeEvent *shortest = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">tv</span>, *<span class="title">tvp</span>;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (flags &amp; AE_TIME_EVENTS &amp;&amp; !(flags &amp; AE_DONT_WAIT))</span><br><span class="line">            shortest = aeSearchNearestTimer(eventLoop);</span><br><span class="line">        <span class="keyword">if</span> (shortest) &#123;</span><br><span class="line">            <span class="keyword">long</span> now_sec, now_ms;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Calculate the time missing for the nearest</span></span><br><span class="line"><span class="comment">             * timer to fire. */</span></span><br><span class="line">            aeGetTime(&amp;now_sec, &amp;now_ms);</span><br><span class="line">            tvp = &amp;tv;</span><br><span class="line">            tvp-&gt;tv_sec = shortest-&gt;when_sec - now_sec;</span><br><span class="line">            <span class="keyword">if</span> (shortest-&gt;when_ms &lt; now_ms) &#123;</span><br><span class="line">                tvp-&gt;tv_usec = ((shortest-&gt;when_ms+<span class="number">1000</span>) - now_ms)*<span class="number">1000</span>;</span><br><span class="line">                tvp-&gt;tv_sec --;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                tvp-&gt;tv_usec = (shortest-&gt;when_ms - now_ms)*<span class="number">1000</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (tvp-&gt;tv_sec &lt; <span class="number">0</span>) tvp-&gt;tv_sec = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (tvp-&gt;tv_usec &lt; <span class="number">0</span>) tvp-&gt;tv_usec = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">/* If we have to check for events but need to return</span></span><br><span class="line"><span class="comment">             * ASAP because of AE_DONT_WAIT we need to set the timeout</span></span><br><span class="line"><span class="comment">             * to zero */</span></span><br><span class="line">            <span class="keyword">if</span> (flags &amp; AE_DONT_WAIT) &#123;</span><br><span class="line">                tv.tv_sec = tv.tv_usec = <span class="number">0</span>;</span><br><span class="line">                tvp = &amp;tv;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">/* Otherwise we can block */</span></span><br><span class="line">                tvp = <span class="literal">NULL</span>; <span class="comment">/* wait forever */</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        numevents = aeApiPoll(eventLoop, tvp);</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; numevents; j++) &#123;</span><br><span class="line">            aeFileEvent *fe = &amp;eventLoop-&gt;events[eventLoop-&gt;fired[j].fd];</span><br><span class="line">            <span class="keyword">int</span> mask = eventLoop-&gt;fired[j].mask;</span><br><span class="line">            <span class="keyword">int</span> fd = eventLoop-&gt;fired[j].fd;</span><br><span class="line">            <span class="keyword">int</span> rfired = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	    <span class="comment">/* note the fe-&gt;mask &amp; mask &amp; ... code: maybe an already processed</span></span><br><span class="line"><span class="comment">             * event removed an element that fired and we still didn't</span></span><br><span class="line"><span class="comment">             * processed, so we check if the event is still valid. */</span></span><br><span class="line">            <span class="keyword">if</span> (fe-&gt;mask &amp; mask &amp; AE_READABLE) &#123;</span><br><span class="line">                rfired = <span class="number">1</span>;</span><br><span class="line">                fe-&gt;rfileProc(eventLoop,fd,fe-&gt;clientData,mask);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (fe-&gt;mask &amp; mask &amp; AE_WRITABLE) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!rfired || fe-&gt;wfileProc != fe-&gt;rfileProc)</span><br><span class="line">                    fe-&gt;wfileProc(eventLoop,fd,fe-&gt;clientData,mask);</span><br><span class="line">            &#125;</span><br><span class="line">            processed++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* Check time events */</span></span><br><span class="line">    <span class="keyword">if</span> (flags &amp; AE_TIME_EVENTS)</span><br><span class="line">        processed += processTimeEvents(eventLoop);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> processed; <span class="comment">/* return the number of processed file/time events */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在上面的方法中可以看到有定时器时间处理，同时也看到了在调用对应的rfileProc 函数指针，对于监听的socket其对应的是：acceptTcpHandler；对于客户端socket其对应的是：readQueryFromClient。具体在哪里设置readQueryFromClient，在后面的章节中会讲到。<br>在acceptTcpHandler方法中会与客户端建立连接：</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">acceptTcpHandler</span><span class="params">(aeEventLoop *el, <span class="keyword">int</span> fd, <span class="keyword">void</span> *privdata, <span class="keyword">int</span> mask)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cport, cfd, max = MAX_ACCEPTS_PER_CALL;</span><br><span class="line">    <span class="keyword">char</span> cip[REDIS_IP_STR_LEN];</span><br><span class="line">    REDIS_NOTUSED(el);</span><br><span class="line">    REDIS_NOTUSED(mask);</span><br><span class="line">    REDIS_NOTUSED(privdata);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(max--) &#123;</span><br><span class="line">        cfd = anetTcpAccept(server.neterr, fd, cip, <span class="keyword">sizeof</span>(cip), &amp;cport);</span><br><span class="line">        <span class="keyword">if</span> (cfd == ANET_ERR) &#123;</span><br><span class="line">            <span class="keyword">if</span> (errno != EWOULDBLOCK)</span><br><span class="line">                redisLog(REDIS_WARNING,</span><br><span class="line">                    <span class="string">"Accepting client connection: %s"</span>, server.neterr);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        redisLog(REDIS_VERBOSE,<span class="string">"Accepted %s:%d"</span>, cip, cport);</span><br><span class="line">        acceptCommonHandler(cfd,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>并且通过调用acceptCommonHandler方法将调用createClient将客户端连接添加到epoll事件中，同时将readQueryFromClient方法绑定到rfileProc和wfileProc<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">redisClient *<span class="title">createClient</span><span class="params">(<span class="keyword">int</span> fd)</span> </span>&#123;</span><br><span class="line">    redisClient *c = zmalloc(<span class="keyword">sizeof</span>(redisClient));</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* passing -1 as fd it is possible to create a non connected client.</span></span><br><span class="line"><span class="comment">     * This is useful since all the Redis commands needs to be executed</span></span><br><span class="line"><span class="comment">     * in the context of a client. When commands are executed in other</span></span><br><span class="line"><span class="comment">     * contexts (for instance a Lua script) we need a non connected client. */</span></span><br><span class="line">    <span class="keyword">if</span> (fd != <span class="number">-1</span>) &#123;</span><br><span class="line">        anetNonBlock(<span class="literal">NULL</span>,fd);</span><br><span class="line">        anetEnableTcpNoDelay(<span class="literal">NULL</span>,fd);</span><br><span class="line">        <span class="keyword">if</span> (server.tcpkeepalive)</span><br><span class="line">            anetKeepAlive(<span class="literal">NULL</span>,fd,server.tcpkeepalive);</span><br><span class="line">        <span class="keyword">if</span> (aeCreateFileEvent(server.el,fd,AE_READABLE,</span><br><span class="line">            readQueryFromClient, c) == AE_ERR)</span><br><span class="line">        &#123;</span><br><span class="line">            close(fd);</span><br><span class="line">            zfree(c);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    selectDb(c,<span class="number">0</span>);</span><br><span class="line">    c-&gt;id = server.next_client_id++;</span><br><span class="line">    c-&gt;fd = fd;</span><br><span class="line">    c-&gt;name = <span class="literal">NULL</span>;</span><br><span class="line">    c-&gt;bufpos = <span class="number">0</span>;</span><br><span class="line">    c-&gt;querybuf = sdsempty();</span><br><span class="line">    c-&gt;querybuf_peak = <span class="number">0</span>;</span><br><span class="line">    c-&gt;reqtype = <span class="number">0</span>;</span><br><span class="line">    c-&gt;argc = <span class="number">0</span>;</span><br><span class="line">    c-&gt;argv = <span class="literal">NULL</span>;</span><br><span class="line">    c-&gt;cmd = c-&gt;lastcmd = <span class="literal">NULL</span>;</span><br><span class="line">    c-&gt;multibulklen = <span class="number">0</span>;</span><br><span class="line">    c-&gt;bulklen = <span class="number">-1</span>;</span><br><span class="line">    c-&gt;sentlen = <span class="number">0</span>;</span><br><span class="line">    c-&gt;flags = <span class="number">0</span>;</span><br><span class="line">    c-&gt;ctime = c-&gt;lastinteraction = server.unixtime;</span><br><span class="line">    c-&gt;authenticated = <span class="number">0</span>;</span><br><span class="line">    c-&gt;replstate = REDIS_REPL_NONE;</span><br><span class="line">    c-&gt;repl_put_online_on_ack = <span class="number">0</span>;</span><br><span class="line">    c-&gt;reploff = <span class="number">0</span>;</span><br><span class="line">    c-&gt;repl_ack_off = <span class="number">0</span>;</span><br><span class="line">    c-&gt;repl_ack_time = <span class="number">0</span>;</span><br><span class="line">    c-&gt;slave_listening_port = <span class="number">0</span>;</span><br><span class="line">    c-&gt;reply = listCreate();</span><br><span class="line">    c-&gt;reply_bytes = <span class="number">0</span>;</span><br><span class="line">    c-&gt;obuf_soft_limit_reached_time = <span class="number">0</span>;</span><br><span class="line">    listSetFreeMethod(c-&gt;reply,decrRefCountVoid);</span><br><span class="line">    listSetDupMethod(c-&gt;reply,dupClientReplyValue);</span><br><span class="line">    c-&gt;btype = REDIS_BLOCKED_NONE;</span><br><span class="line">    c-&gt;bpop.timeout = <span class="number">0</span>;</span><br><span class="line">    c-&gt;bpop.keys = dictCreate(&amp;setDictType,<span class="literal">NULL</span>);</span><br><span class="line">    c-&gt;bpop.target = <span class="literal">NULL</span>;</span><br><span class="line">    c-&gt;bpop.numreplicas = <span class="number">0</span>;</span><br><span class="line">    c-&gt;bpop.reploffset = <span class="number">0</span>;</span><br><span class="line">    c-&gt;woff = <span class="number">0</span>;</span><br><span class="line">    c-&gt;watched_keys = listCreate();</span><br><span class="line">    c-&gt;pubsub_channels = dictCreate(&amp;setDictType,<span class="literal">NULL</span>);</span><br><span class="line">    c-&gt;pubsub_patterns = listCreate();</span><br><span class="line">    c-&gt;peerid = <span class="literal">NULL</span>;</span><br><span class="line">    listSetFreeMethod(c-&gt;pubsub_patterns,decrRefCountVoid);</span><br><span class="line">    listSetMatchMethod(c-&gt;pubsub_patterns,listMatchObjects);</span><br><span class="line">    <span class="keyword">if</span> (fd != <span class="number">-1</span>) listAddNodeTail(server.clients,c);</span><br><span class="line">    initClientMultiState(c);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">readQueryFromClient</span><span class="params">(aeEventLoop *el, <span class="keyword">int</span> fd, <span class="keyword">void</span> *privdata, <span class="keyword">int</span> mask)</span> </span>&#123;</span><br><span class="line">    redisClient *c = (redisClient*) privdata;</span><br><span class="line">    <span class="keyword">int</span> nread, readlen;</span><br><span class="line">    <span class="keyword">size_t</span> qblen;</span><br><span class="line">    REDIS_NOTUSED(el);</span><br><span class="line">    REDIS_NOTUSED(mask);</span><br><span class="line"></span><br><span class="line">    server.current_client = c;</span><br><span class="line">    readlen = REDIS_IOBUF_LEN;</span><br><span class="line">    <span class="comment">/* If this is a multi bulk request, and we are processing a bulk reply</span></span><br><span class="line"><span class="comment">     * that is large enough, try to maximize the probability that the query</span></span><br><span class="line"><span class="comment">     * buffer contains exactly the SDS string representing the object, even</span></span><br><span class="line"><span class="comment">     * at the risk of requiring more read(2) calls. This way the function</span></span><br><span class="line"><span class="comment">     * processMultiBulkBuffer() can avoid copying buffers to create the</span></span><br><span class="line"><span class="comment">     * Redis Object representing the argument. */</span></span><br><span class="line">    <span class="keyword">if</span> (c-&gt;reqtype == REDIS_REQ_MULTIBULK &amp;&amp; c-&gt;multibulklen &amp;&amp; c-&gt;bulklen != <span class="number">-1</span></span><br><span class="line">        &amp;&amp; c-&gt;bulklen &gt;= REDIS_MBULK_BIG_ARG)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> remaining = (<span class="keyword">unsigned</span>)(c-&gt;bulklen+<span class="number">2</span>)-sdslen(c-&gt;querybuf);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (remaining &lt; readlen) readlen = remaining;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    qblen = sdslen(c-&gt;querybuf);</span><br><span class="line">    <span class="keyword">if</span> (c-&gt;querybuf_peak &lt; qblen) c-&gt;querybuf_peak = qblen;</span><br><span class="line">    c-&gt;querybuf = sdsMakeRoomFor(c-&gt;querybuf, readlen);</span><br><span class="line">    nread = read(fd, c-&gt;querybuf+qblen, readlen);</span><br><span class="line">    <span class="keyword">if</span> (nread == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (errno == EAGAIN) &#123;</span><br><span class="line">            nread = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            redisLog(REDIS_VERBOSE, <span class="string">"Reading from client: %s"</span>,strerror(errno));</span><br><span class="line">            freeClient(c);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nread == <span class="number">0</span>) &#123;</span><br><span class="line">        redisLog(REDIS_VERBOSE, <span class="string">"Client closed connection"</span>);</span><br><span class="line">        freeClient(c);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nread) &#123;</span><br><span class="line">        sdsIncrLen(c-&gt;querybuf,nread);</span><br><span class="line">        c-&gt;lastinteraction = server.unixtime;</span><br><span class="line">        <span class="keyword">if</span> (c-&gt;flags &amp; REDIS_MASTER) c-&gt;reploff += nread;</span><br><span class="line">        server.stat_net_input_bytes += nread;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        server.current_client = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (sdslen(c-&gt;querybuf) &gt; server.client_max_querybuf_len) &#123;</span><br><span class="line">        sds ci = catClientInfoString(sdsempty(),c), bytes = sdsempty();</span><br><span class="line"></span><br><span class="line">        bytes = sdscatrepr(bytes,c-&gt;querybuf,<span class="number">64</span>);</span><br><span class="line">        redisLog(REDIS_WARNING,<span class="string">"Closing client that reached max query buffer length: %s (qbuf initial bytes: %s)"</span>, ci, bytes);</span><br><span class="line">        sdsfree(ci);</span><br><span class="line">        sdsfree(bytes);</span><br><span class="line">        freeClient(c);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    processInputBuffer(c);</span><br><span class="line">    server.current_client = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过以上代码片段我们可以看到，收完数据之后将会调用processInputBuffer处理客户端的请求。</p>
-<p>还有疑惑的就是wfileProc是关联的什么方法？答案即将揭晓。<br>我们很容易就能想到对于该函数指针自然就是在需要发送应答包的时候了，如下所示在：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addReply</span><span class="params">(redisClient *c, robj *obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (prepareClientToWrite(c) != REDIS_OK) <span class="keyword">return</span>;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">prepareClientToWrite</span><span class="params">(redisClient *c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (c-&gt;flags &amp; REDIS_LUA_CLIENT) <span class="keyword">return</span> REDIS_OK;</span><br><span class="line">    <span class="keyword">if</span> ((c-&gt;flags &amp; REDIS_MASTER) &amp;&amp;</span><br><span class="line">        !(c-&gt;flags &amp; REDIS_MASTER_FORCE_REPLY)) <span class="keyword">return</span> REDIS_ERR;</span><br><span class="line">    <span class="keyword">if</span> (c-&gt;fd &lt;= <span class="number">0</span>) <span class="keyword">return</span> REDIS_ERR; <span class="comment">/* Fake client */</span></span><br><span class="line">    <span class="keyword">if</span> (c-&gt;bufpos == <span class="number">0</span> &amp;&amp; listLength(c-&gt;reply) == <span class="number">0</span> &amp;&amp;</span><br><span class="line">        (c-&gt;replstate == REDIS_REPL_NONE ||</span><br><span class="line">         c-&gt;replstate == REDIS_REPL_ONLINE) &amp;&amp;</span><br><span class="line">        aeCreateFileEvent(server.el, c-&gt;fd, AE_WRITABLE,</span><br><span class="line">        sendReplyToClient, c) == AE_ERR) <span class="keyword">return</span> REDIS_ERR;</span><br><span class="line">    <span class="keyword">return</span> REDIS_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>看到没同样是通过aeCreateFileEvent方法将sendReplyToClient关联到wfileProc.</p>
-
-          
+          Redis 网络模型  redis 在main方法中调用了initServer 方法,在该方法中调用了aeCreateFileEvent方法来绑定文件socket的回调方法。  下面将acceptTcpHandler绑定到监听的socket：  
+  12345678  for (j = 0; j 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/Redis-网络事件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1738,123 +1591,20 @@
       
         
           
-            <h1 id="TCP-IP-编程读书笔记"><a href="#TCP-IP-编程读书笔记" class="headerlink" title="TCP/IP 编程读书笔记"></a>TCP/IP 编程读书笔记</h1><hr>
-<ol start="0">
-<li>**TCP/IPd定时器种类、个数<br><code>4种定时器、7个</code><br>重传计时器：Retransmission Timer<br>坚持计时器：Persistent Timer<br>保活计时器：Keeplive Timer<br>时间等待计时器：Time_Wait Timer  </li>
-<li><p><strong>TCP/IP是一种流协议</strong>  </p>
-<blockquote>
-<p> 意味着数据是以字节流的形式传递给接收者，没有固定的“报文”或者“报文边界”。<br>Send函数只是将数据复制到发送端的协议栈中，然后就返回。至于要发送多少数据由TCP决定（前提是tcpsocket）。<br>尽管数据是以IP分组的形式传输的，但是分组中的数据量与send调用中传递的TCP多少数据并没有直接关系。而且程序中<br>没有什么可靠的方法是可以判断数据是如何分组的，因为在连词recv调用之间可能会有多个分组到来。TCP会记录它发送<br>多少字节以及确认的字节，但它不会记录这些字节是如何分组的。实际上分组重传丢失的分组的时候传送的数据可能比原来<br>的多一些或者少一些。</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">主机A---M2-----M1-----主机B</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在接收端，对于调用recv，都不会对tcp发送给他的数量做任何假设。对于接收端读取第一条报文可能有四种结果。  </p>
-<ol start="0">
-<li>没有数据可读，应用程序阻塞（没有设置非阻塞标识位）或者返回错误说明没有数据可读（设置非阻塞位）</li>
-<li>应用程序只读取了M1中部分报文而不是全部</li>
-<li>应用程序获取了报文M1中所有的数据，除此之外没有任何其他内容</li>
-<li>应用程序获取报文M1的所有数据，以及报文M2的部分或者全部数据</li>
-</ol>
-</blockquote>
-</li>
-<li><p><strong>理解TCP写操作</strong></p>
-<ol start="0">
-<li><strong>从应用程序的角度看写操作(写操作返回错误)</strong><ol start="0">
-<li>套接字描述符无效</li>
-<li>使用Send及其兄弟函数时文件描述符指向的不是套接字</li>
-<li>调用中制定的套接字不存在或者未连接</li>
-<li>缓冲地址参数指向无效地址</li>
-</ol>
-</li>
-<li><p><strong>从TCP角度看写操作</strong>  </p>
-<blockquote>
-<p>写操作负责将数据从应用程序的写缓冲区搬移到内核中去，并通知TCP有来自应用程序的新数据需要处理。</p>
-<ol start="0">
-<li>第一种流量控制算法被称为<strong>慢启动</strong><br>“慢慢的”将向网络发送数据的速率增加到一个门限值。</li>
-<li>TCP输出例程，在符合下列某一项数据就会被传送出去：<ol start="0">
-<li>可以发送一个完整的MSS尺寸的段</li>
-<li>连接空闲，并且可以清空发送缓冲区</li>
-<li>Nagle 算法被禁止，并且可以清空发送缓冲区</li>
-<li>有紧急数据需要发送</li>
-<li>有一小段“暂时”无法发送的数据</li>
-<li>对等实体的接受窗口至少是半开的</li>
-<li>需要重传一个段</li>
-<li>需要为来自对等实体的数据传回一个ACK</li>
-<li>需要发布一次窗口更新</li>
-</ol>
-</li>
-</ol>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p><strong>理解TCP的有序释放操作</strong>  </p>
-<ol start="0">
-<li>连接建立阶段   </li>
-<li>数据传输阶段  </li>
-<li>连接拆除阶段  </li>
-</ol>
-<blockquote>
-<p>链接的一端完成了数据的发送，并将此事通知对等实体，但同时仍然在接收数据。因为<br>TCP连接是全双工的，而且一个方向的数据流与另一个方向的数据流是相互独立的，所以可能会出现这种情况。  </p>
-</blockquote>
-</li>
-<li><p><strong>shutdown调用有乾坤</strong> </p>
-   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shutdown</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> how)</span></span></span><br></pre></td></tr></table></figure>
-<pre><code>  how| 动作|
----|----|
-SHUT_RD(0)|关闭连接的接收端|
-SHUT_WT(1)|关闭连接的发送端|
-SHUT_RDWR(2)|两端都关闭|
-</code></pre><p>  <code>shutdown(s,2)</code> 等效于<code>close(s)</code></p>
-<blockquote>
-<p>有序释放的目的是确保两端都能在连接拆除之前收到所有来自其对等实体的数据。  </p>
-</blockquote>
-</li>
-<li><p><strong>文件描述符就绪的条件</strong>  </p>
-<ol start="0">
-<li><strong>socket可读</strong>  <ol start="0">
-<li>socket 内核接收缓存区中的字节数大于或者等于其低水位标记SO_RCVLOWAT。此时我们可以无阻塞的读该socket，并且读取操作返回的字节大于0</li>
-<li>socket通信的对方关闭连接。此时对socket的读操作将返回0.</li>
-<li>监听socket上有新的连接请求。</li>
-<li>socket 上有未处理的错误，此时我们可以使用getsockopt来读取和清除该错误。</li>
-</ol>
-</li>
-<li><p><strong>socket可写</strong></p>
-<ol start="0">
-<li>socket 内核发送缓存区中的可用字节数大于或者等于其低水位标记SO_SNDLOWAT。此时我们可以无阻塞的写该socket，并且写操作返回的字节数大于0.</li>
-<li>socket的写操作被关闭，对写操作被关闭的socket执行写操作将处罚一个SIGPIPE信号</li>
-<li>socket使用非阻塞connect 连接成功或者失败（超时)之后</li>
-<li>socket上有未处理的错误，此时我们可以使用getsockopt来读取和清除该错误</li>
-</ol>
-<p>注意：网络程序中select能处理的异常情况只有一种：socket接收带外数据。（MSG_OOB)</p>
-</li>
-</ol>
-</li>
-<li><p>accept 发生在哪个阶段<br>首先tcp有两个队列：syn和accept队列，完成三次握手之后将会从syn队列移到accept队列，如果发现accpet队列已经满，则根据配置决定是否要应答RST报文。  </p>
-<blockquote>
-<p>Because of the 3-way handshake used by TCP, an incoming connection goes through an intermediate state SYN RECEIVED before it reaches the ESTABLISHED state and can be returned by the accept syscall to the application (see the part of the TCP state diagram reproduced above). This means that a TCP/IP stack has two options to implement the backlog queue for a socket in LISTEN state:  </p>
-<ol>
-<li>The implementation uses a single queue, the size of which is determined by the backlog argument of the listen syscall. When a SYN packet is received, it sends back a SYN/ACK packet and adds the connection to the queue. When the corresponding ACK is received, the connection changes its state to ESTABLISHED and becomes eligible for handover to the application. This means that the queue can contain connections in two different state: SYN RECEIVED and ESTABLISHED. Only connections in the latter state can be returned to the application by the accept syscall.</li>
-<li>The implementation uses two queues, a SYN queue (or incomplete connection queue) and an accept queue (or complete connection queue). Connections in state SYN RECEIVED are added to the SYN queue and later moved to the accept queue when their state changes to ESTABLISHED, i.e. when the ACK packet in the 3-way handshake is received. As the name implies, the accept call is then implemented simply to consume connections from the accept queue. In this case, the backlog argument of the listen syscall determines the size of the accept queue.</li>
-</ol>
-</blockquote>
-</li>
-</ol>
-<ol start="0">
-<li>Epoll LT 、ET模式注意   <ul>
-<li>LT工作模式的文件描述符，当epoll_wait 检测到其上有事件发生并且将此时间同时应用程序后，应用程序可以不立即处理该时间，这样当应用程序下次调用epoll_wait时，还会再次向应用程序通告此事件，直到改时间被处理。</li>
-<li>ET工作木事的文件描述符，当epoll_wait检测到其上有时间发生并且此事件通知应用程序之后，<code>应用程序必须立即处理该事件</code>，因为后续的epoll_wait调用将<code>不再向应用程序通知</code>这一事件</li>
-</ul>
-</li>
-</ol>
-<ol start="0">
-<li><p>Epoll EPOLLONESHOT事件<br>即使我们采用了ET模式，一个soket上的某个事件还是<code>可能被触发多次</code>，这在冰法程序中就会引发一个问题，比如一个线程或者进程在读取完某个socket上的数据后开始处理这些数据，<code>在数据的处理过程中该socket上又有新数据可读，此时另外一个线程被唤醒来读取这些新的数据</code>。于是就出现了两个线程同时操作一个socket的局面。我们希望的是一个socke连接在任一时刻都只能被一个线程处理。对于注册了EPOLLONESHOT事件的文件描述符，<code>操作系统最多触发其上的一个可读、可写或者异常事件，且只触发一次，除非我们使用epoll_ctl函数重置该文件描述符上注册的EPOLLONESHOT事件</code>。反过来，注册了EPOLLONESHOT事件的socket一旦被某个线程处理完毕，该线程就应该立即重置这个socket上的EPOLLONESHOT事件，以确保这个socket下次可读时，其EPOLLIN事件能被触发，进而让其他工作线程有机会继续处理这个socket。</p>
-</li>
-<li><p>I/O复用区别</p>
-<p>系统调用|select | poll| epoll|<br>——-|——-|—–|——|<br>事件集合|用户通过3个参数分别传入感兴趣的可读可写及异常等事件，内核通过对这些参数的在线修改反馈其中的就绪事件这使得用户这次调用select都要重置这三个参数|统一处理所有事件类型因此秩序一个事件集参数。用户通过poll.events传入感兴趣的事件，内核通过修改pollfd.revents反馈其中就绪的事件|内核通过一个事件表直接管理用户感兴趣的所有事件因此每次调用epoll_wait时无须反复传入用户感兴趣的事件，epoll_wait系统调用的参数events仅用来反馈就绪的事件。|<br>应用程序索引就绪文件描述符的事件复杂度|O(n)|O(n)|O(1)|<br>最大支持文件描述符数|一般由最大值限制|65535|65535|<br>工作模式|LT|LT|LT\ET|<br>内核实现和工作效率|采用轮询方式来检测就绪事件，算法事件复杂度为O(n)|采用轮询方式来检测就绪事件，算法事件复杂度为O(n)|采用回调方式来检测就绪事件，算法事件复杂度为O(1)|</p>
-</li>
-</ol>
+          TCP/IP 编程读书笔记
 
-          
+**TCP/IPd定时器种类、个数4种定时器、7个重传计时器：Retransmission Timer坚持计时器：Persistent Timer保活计时器：Keeplive Timer时间等待计时器：Time_Wait Timer  
+TCP/IP是一种流协议  
+
+
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/TCP_IP编程读书笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1994,152 +1744,18 @@ SHUT_RDWR(2)|两端都关闭|
       
         
           
-            <h3 id="第二章-传输层"><a href="#第二章-传输层" class="headerlink" title="第二章  传输层"></a>第二章  传输层</h3><ol start="0">
-<li><p>TCP套接字各个状态解释说明    </p>
-<blockquote>
-<p>CLOSED: 这个没什么好说的了，表示初始状态。<br>LISTEN: 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处 于监听状态，可以接受连接了。<br>SYN_RCVD: 这个状态表示接受到了SYN报 文，在正常情况下，这个状态是服务器端的SOCKET在建立TCP连接时的三次握手会话过程中的一个中间状态，很短暂，基本上用netstat你是很难看到这种状态的，除非你特意写了一个客户端测试程序，故意将三次TCP握手 过程中最后一个ACK报文不予发送。因此这种状态时，当收到客户端的ACK报文 后，它会进入到ESTABLISHED状态。<br>SYN_SENT: 这个状态与SYN_RCVD遥想呼应，当客户端SOCKET执行CONNECT连接时，它首先发送SYN报文，因此也随即它会进入到了SYN_SENT状态，并等待服务端的发送三次握手中的第2个报文。SYN_SENT状态表示客户端已发送SYN报文。<br>ESTABLISHED：这个容易理解了，表示连接已经建立了。<br>FIN_WAIT_1: 这个状态要好好解释一下，其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报 文。而这两种状态的区别是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况 下，无论对方何种情况下，都应该马上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。<br>FIN_WAIT_2：上面已经详细解释了这种状态，实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点 数据需要传送给你，稍后再关闭连接。<br>TIME_WAIT: 表示收到了对方的FIN报 文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FIN_WAIT_1状态下，收到了对方同时带FIN标 志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。<br>CLOSING: 这种状态比较特殊，实际情况中应该是很少见，属于一种比较罕见的例外状态。正常情况下，当你发 送FIN报文后，按理来说是应该先收到（或同时收到）对方的ACK报 文，再收到对方的FIN报文。但是CLOSING状态表示你发送FIN报文后，并没有收到对方的ACK报 文，反而却也收到了对方的FIN报文。什么情况下会出现此种情况呢？其实细想一下，也不难得出结论：那就是如果双方几乎在同时close一 个SOCKET的话，那么就出现了双方同时发送FIN报文的情况，也即会出现CLOSING状态，表示双方都正在关闭SOCKET连接。<br>CLOSE_WAIT: 这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方close一 个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文 给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话， 那么你也就可以close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。<br>LAST_ACK: 这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报 文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。    </p>
-</blockquote>
-</li>
-</ol>
-<h3 id="第三、四章-TCP套接字编程"><a href="#第三、四章-TCP套接字编程" class="headerlink" title="第三、四章 TCP套接字编程"></a>第三、四章 TCP套接字编程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">socket connect bind listen accept close getsockname getpeername</span><br><span class="line">`inet_aton inet_addr inet_ntoa`</span><br><span class="line">`inet_pton inet_ntop`</span><br><span class="line">sock_ntop</span><br><span class="line">readn writen readline</span><br></pre></td></tr></table></figure>
-<h3 id="第五章-SIGCHLD、SIGPIPIE-等异常情况分析"><a href="#第五章-SIGCHLD、SIGPIPIE-等异常情况分析" class="headerlink" title="第五章 SIGCHLD、SIGPIPIE 等异常情况分析"></a>第五章 SIGCHLD、SIGPIPIE 等异常情况分析</h3><h3 id="第六章-I-O复用-：select-poll"><a href="#第六章-I-O复用-：select-poll" class="headerlink" title="第六章 I/O复用 ：select poll"></a>第六章 I/O复用 ：select poll</h3><h3 id="第七章-套接字选项"><a href="#第七章-套接字选项" class="headerlink" title="第七章 套接字选项"></a>第七章 套接字选项</h3><ol start="0">
-<li><p>以下套接字是由TCP已经连接的套接字从监听套接字继承来  </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SO_DEBUG SO_DONTROUTE SO_KEEPALIVE SO_LINGER SO_OOBINLINE </span><br><span class="line">SO_RCVBUF SO_RCVLOWAT SO_SNDBUF SO_SNDLOWAT </span><br><span class="line">TCP_MAXSEG TCP_NODELAY</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>SO_BROADCAST  </p>
-<blockquote>
-<p>开启或者关闭进程的广播消息能力注意仅适用与UDP，并且还必须是支持广播消息的网络上比如：以太网、令牌环网等</p>
-</blockquote>
-</li>
-<li><p>SO_DEBUG  </p>
-<blockquote>
-<p>仅支持TCP，开启本选项时TCP在该套接字发送接收的所有分组保留详细跟踪信息。信息保存在内核的某个环形缓冲区。</p>
-</blockquote>
-</li>
-<li><p>SO_DONTROUTE  </p>
-<blockquote>
-<p>本选项规定外出的分组将绕过底层协议的正常路由机制</p>
-</blockquote>
-</li>
-<li><p>SO_ERROR<br>N/A</p>
-</li>
-<li><p>SO_KEEPALIVE  </p>
-<blockquote>
-<p>给以他tcp套接字设置保活选项后，如果在两个小时内该套接字任一方向都没有数据交换，tcp就自动给对端发送一个保持存活探测分节，这个是对端必须响应的tcp分节,它会导致一下三种情况之一：  </p>
-<ol start="0">
-<li>对端以期望的ACK响应  </li>
-<li>对端以RST响应，它告知本端TCP：对端已经崩溃且已经重启。该套接字的待处理错误置为ECONNRESET，套接字本身则被关闭  </li>
-<li>对端对保持存活探测分节没有任何响应。 如果根本没有响应该套接字的待处理错误置为ETIMEOUT套接字本身则被关闭<br>另外可能还需要结合一下选项设置间隔、次数：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> keepAlive = <span class="number">1</span>;</span><br><span class="line">Setsockopt(listenfd, SOL_SOCKET, SO_KEEPALIVE, (<span class="keyword">void</span>*)&amp;keepAlive, <span class="keyword">sizeof</span>(keepAlive));  <span class="comment">//打开自动探测</span></span><br><span class="line"><span class="keyword">int</span>                 keepIdle = <span class="number">1000</span>;  </span><br><span class="line"><span class="keyword">int</span>                 keepInterval = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">int</span>                 keepCount = <span class="number">10</span>;</span><br><span class="line">Setsockopt(listenfd, SOL_TCP, TCP_KEEPIDLE, (<span class="keyword">void</span> *)&amp;keepIdle, <span class="keyword">sizeof</span>(keepIdle));        <span class="comment">//首次探测需要空闲多久才探测</span></span><br><span class="line">Setsockopt(listenfd, SOL_TCP,TCP_KEEPINTVL, (<span class="keyword">void</span> *)&amp;keepInterval, <span class="keyword">sizeof</span>(keepInterval));<span class="comment">//两次探测时间间隔</span></span><br><span class="line">Setsockopt(listenfd,SOL_TCP, TCP_KEEPCNT, (<span class="keyword">void</span> *)&amp;keepCount, <span class="keyword">sizeof</span>(keepCount));        <span class="comment">//发送几次探测</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-</li>
-<li><p>SO_LINGER  </p>
-<blockquote>
-<p>本选项制定close函数对面向链接的协议如何操作。默认的操作是立即返回（l_onoff=0);如果l_onoff != 0 &amp;&amp; l_linger!=0 那么将会等待数据和FIN的确认后close才返回（至于等待多久由l_linger 指定，如果该值指定的时间太短，那么close将会返回-1且errno将会被设置成EWOULDBLOCK）<br>本选项设置后close返回只是告诉我们先前发送的数据和FIN已由对端TCP确认，而不能告诉我们对端应用进程是否已经读取数据。如果没有设置该选项，那么我们连对端TCP是否确认了数据都不能知道  </p>
-</blockquote>
-</li>
-<li><p>SO_OOBINLINE  </p>
-<blockquote>
-<p>开启本选项带外数据将被留在正常的输入队列中，这种情况下接收函数指定量MSG_OOB标志不能用来读取带外数据。  </p>
-</blockquote>
-</li>
-<li><p>SO_RCVBUF SO_SNDBUF  </p>
-<blockquote>
-<p>这两个选项用来设置TCP、UDP套接字接收、发送缓冲区大小。在设置这两个选项时函数调用顺序需要注意：<br>`TCP是在建立连接时通过SYN分节与对端互换得到的，对于客户端SO_RCVBUF必须在connect之前设置;对于服务器则必须在调用listen之前设置，因为accept知道TCP三次握手完成之后才会创建并返回已连接套接字。套接字缓冲区大小总是有新建的已连接的套接字从监听套接字继承而来。建议设置缓冲区大小为相应连接的MSS值4倍·[这点可以一句TCP快速恢复算法的工作机制：TCP发送端使用3个重复确认来检测某个分节是否丢失，如果发现分节丢失，接收端将给新收到的每个分节发送一个重复的确认，如果窗口大小不足以存放4个这样的分节那么就不可能连发三个重复确认，从而无法激活快速恢复算法]  </p>
-</blockquote>
-</li>
-<li><p>SO_RCVLOWAT SO_SNDLOWAT  </p>
-<blockquote>
-<p>接收低水位 发送低水位 ：TCP UDP SCTP接收低水位默认为1;TCP 发送低水位默认位2048。UDP页使用发送低水位，由于UDP套接字的发送缓冲区中可用的字节数从不改变（因为UDP并不为进程传递给它的数据保留副本),只要一个UDP套接字的发送缓冲区大小大于该套接字的低水位是UDP套接字总是可写的。</p>
-</blockquote>
-</li>
-<li><p>SO_RCVTIMEO SO_SNDTIMEO  </p>
-<blockquote>
-<p>套接字接收、发送超时设置  </p>
-</blockquote>
-</li>
-<li><p>SO_REUSEADDR  </p>
-<blockquote>
-<p>它允许启动一个监听服务其并且捆绑在其众所周知的端口，即使以前建立的该端口用作他们的本地端口<br>它允许在同一端口上启动同一服务器（单个进程)的多个实例，只要每个实例绑定一个不同的本地ip地址即可<br>对于TCP我们绝不可能启动捆绑相同IP地址和相同端口的多个服务器，也就是说我们不能在启动198.69.10.2:80 的服务器后又在启动198.69.10.2：80的另外一个服务器,解释我们设置量SO_REUSEADDR也不行。<br>该选项需要在bind之前设置  </p>
-</blockquote>
-</li>
-<li><p>SO_REUSEPORT  </p>
-<blockquote>
-<p>本选项允许完全重复的绑定不过只有在想要捆绑同一个ip和端口的每个套接字都指定量本套接字选项才行</p>
-</blockquote>
-</li>
-<li><p>SO_TYPE  </p>
-<blockquote>
-<p>本选项返回的是套接字的类型（整数值）,例如：SOCK_STREAM SOCK_DGRAM。该选项通常由启动是继承了套接字的进程使用  </p>
-</blockquote>
-</li>
-<li><p>SO_USELOOPBACK  </p>
-<blockquote>
-<p>本选项仅用于AF_ROUTE（路由域）的套接字他的默认设置为打开（<code>这是唯一一个默认值位打开而不是关闭的SO_xx二元套接字选项</code>).<br>开启本选项相应的套接字将接收在其上发送的任何数据报的一个副本  </p>
-</blockquote>
-</li>
-<li><p>IP_HDRINCL  </p>
-<blockquote>
-<p>它是给一个原始的IP套接字设置的那么我们必须位所有在该原始套接字删该法送的数据包构造自己的IP首部（一般情况下该首部是有内核构造的不过类似traceroute需要自己构造，以取代IP置于该首部中的某些字段）<br>以下字段存在例外：</p>
-<ol start="0">
-<li>IP总是计算并存储IP首部校验和</li>
-<li>如果我们将IP标识字段置为0，内核将设置该字段</li>
-<li>如果源IP地址是INADDR_ANY，IP将把它设置位外出接口的主IP地址</li>
-<li>IP首部中有的字段必须以主机字节序填写，有些字段必须以网络字节序填写</li>
-</ol>
-</blockquote>
-</li>
-<li><p>IP_OPTIONS  </p>
-<blockquote>
-<p>设置本选项将允许我们设置IPv4首部中设置IP选项  </p>
-</blockquote>
-</li>
-<li><p>IP_RECVDSTADDR  </p>
-<blockquote>
-<p>该选项导致所有接收UDP数据包的目的IP地址由recvmsg函数作为服务数据返回  </p>
-</blockquote>
-</li>
-<li><p>IP_RECVIF  </p>
-<blockquote>
-<p>该选项导致所有接收UDP数据包的接收接口由recvmsg函数作为服务数据返回  </p>
-</blockquote>
-</li>
-<li><p>IP_TOS  </p>
-<blockquote>
-<p>该选项允许TCP UDP SCTP 套接字设置IP首部中的服务类型字段</p>
-</blockquote>
-</li>
-<li><p>IP_TTL  </p>
-<blockquote>
-<p>本选项允许设置获取系统用在从某个给定套接字发送的单播组上的默认TTL值(多播由IP_MULTICAST_TTL选项设置)</p>
-</blockquote>
-</li>
-<li><p>TCP_MAXSEG  </p>
-<blockquote>
-<p>本选项允许我们获取或者设置TCP链接的最大分节大小（MSS)，返回值是我们的TCP可以发送给对端的最大数据量，它通常是由对端使用SYN分节通告MSS，除非我们的TCP选项使用一个比对端通告的MSS小的值。  </p>
-</blockquote>
-</li>
-<li><p>TCP_NODELAY  </p>
-<blockquote>
-<p>开启本选项监会禁止TCP Nagle算法，默认情况下该算法是启动的。</p>
-</blockquote>
-</li>
-</ol>
-<h3 id="第八章-UDP套接字编程"><a href="#第八章-UDP套接字编程" class="headerlink" title="第八章 UDP套接字编程"></a>第八章 UDP套接字编程</h3><ol start="0">
-<li><p>UDP的connect函数   </p>
-<blockquote>
-<p>UDP socket也可以调用connect，然而虽然调用了connect但是它不会跟TCP一样进行三次握手。内核只是检查<br>是否存在立即可知的错误(例如目的不可达)和记录对端的IP地址和端口号<br>注意通过socket创建的UDP默认是位连接的;同时已链接的UDP套接字仅仅与一个IP地址交换数据报，因为connect到广播或者多播地址也是可能的。<br>对于已经链接的UDP有以下特点：  </p>
-<ol start="0">
-<li>再也不能给该UDP套接字输出操作指定目的IP地址和端口号，也就是是我们使用sendto时第五个参数（套接字地址接口指针）必须为NULL，第六个参数必须为0（套接字地址结构大小）;或者直接使用write、send、sendmsg进行输出    </li>
-<li>同时也不必使用recvfrom来获取数据报的发送者，而改用read、write或者recvmsg  </li>
-<li>已链接的UPD套接字引发的异步错误会返回给他们所在的进程，而未连接的UDP套接字不接受任何异步错误。<br>对于已经连接的UDP可以调用多次connect（指定新的ip地址和端口号)，这点与TCP不同，tcp套接字只允许调用依次connect<br>如何断开UPD链接？ 再次调用connect此时sin_family 指定为AF_UNSPEC 这样就会断开已经链接的套接字，可能会返回EAFNOSUPPORT，不过没有关系。<br>链接与未链接的UDP套解字性能如何呢？<br>对于未链接的UDP套解字每次发送数据时呢和暂时链接该套接字发送数据，然后断开。  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">      <span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/socket.h&gt;    </span></span></span><br><span class="line">    <span class="number">1</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line">    <span class="number">2</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line">    <span class="number">3</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line">    <span class="number">4</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line">    <span class="number">5</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line">    <span class="number">6</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line">    <span class="number">7</span> <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line">    <span class="number">8</span></span><br><span class="line">    <span class="number">9</span> <span class="meta">#<span class="meta-keyword">define</span> LOG(fmt,...) printf(<span class="meta-string">"%s %s %d:"</span> fmt,__FILE__,__func__,__LINE__,__VA_ARGS__)</span></span><br><span class="line">   <span class="number">10</span> <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function">   11 </span>&#123;</span><br><span class="line">   <span class="number">12</span>     <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">addr</span>;</span></span><br><span class="line">   <span class="number">13</span>     bzero(&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">14</span>     addr.sin_family = AF_INET;</span><br><span class="line">   <span class="number">15</span>     addr.sin_port   = htons(<span class="number">80</span>);</span><br><span class="line">   <span class="number">16</span>     inet_pton(AF_INET,<span class="string">"127.0.0.1"</span>,&amp;addr.sin_addr);</span><br><span class="line">   <span class="number">17</span></span><br><span class="line">   <span class="number">18</span>     <span class="keyword">int</span> sock = socket(AF_INET,SOCK_DGRAM,<span class="number">0</span>);</span><br><span class="line">   <span class="number">19</span>     <span class="keyword">int</span> ret=connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">20</span>     LOG(<span class="string">"connect 1 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">21</span>     ret=connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">22</span>     LOG(<span class="string">"connect 2 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">23</span></span><br><span class="line">   <span class="number">24</span>     addr.sin_port   = htons(<span class="number">8080</span>);</span><br><span class="line">   <span class="number">25</span>     ret=connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">26</span>     LOG(<span class="string">"connect 3 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">27</span>     ret = write(sock,<span class="string">"123"</span>,<span class="number">3</span>);</span><br><span class="line">   <span class="number">28</span>     LOG(<span class="string">"write ret=%d: %s\n"</span>,ret,strerror(errno));</span><br><span class="line">   <span class="number">29</span>     addr.sin_family = AF_UNSPEC;</span><br><span class="line">   <span class="number">30</span>     ret = connect(sock,(struct sockaddr*)&amp;addr,<span class="keyword">sizeof</span>(addr));</span><br><span class="line">   <span class="number">31</span>     LOG(<span class="string">"connect 4 ret=%d\n"</span>,ret);</span><br><span class="line">   <span class="number">32</span>     ret = write(sock,<span class="string">"123"</span>,<span class="number">3</span>);</span><br><span class="line">   <span class="number">33</span></span><br><span class="line">   <span class="number">34</span>     LOG(<span class="string">"write ret=%d: %s\n"</span>,ret,strerror(errno));</span><br><span class="line">   <span class="number">35</span>     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   <span class="number">36</span> &#125;</span><br><span class="line">output:</span><br><span class="line">   udp_connect.cpp main <span class="number">23</span>:connect <span class="number">1</span> ret=<span class="number">0</span></span><br><span class="line">   udp_connect.cpp main <span class="number">25</span>:connect <span class="number">2</span> ret=<span class="number">0</span></span><br><span class="line">   udp_connect.cpp main <span class="number">29</span>:connect <span class="number">3</span> ret=<span class="number">0</span></span><br><span class="line">   udp_connect.cpp main <span class="number">30</span>:write ret=<span class="number">3</span>: Success</span><br><span class="line">   udp_connect.cpp main <span class="number">33</span>:connect <span class="number">4</span> ret=<span class="number">0</span>  ====&gt;close UPD connect</span><br><span class="line">   udp_connect.cpp main <span class="number">35</span>:write ret=<span class="number">-1</span>: Destination address required</span><br></pre></td></tr></table></figure></li>
-</ol>
-</blockquote>
-</li>
-</ol>
+          第二章  传输层
+TCP套接字各个状态解释说明    
 
-          
+CLOSED: 这个没什么好说的了，表示初始状态。LISTEN: 这个也是非常容易理解的一个状态，表示服务器端的某个SOCKET处 于监听状态，可以接受连接了。SYN_RCVD: 这个状态表示接受到了SYN报 文，在正常情况下，这个状态是服务
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/22/unix__网络编程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2247,7 +1863,7 @@ SHUT_RDWR(2)|两端都关闭|
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -137,7 +137,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?true";
+      hm.src = "https://hm.baidu.com/hm.js?6d39765d485ea811a3c809f80f6d0bcd";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -403,7 +403,7 @@
 <p>如果你的服务是多个进程那么，如果只是一个进程死锁，那么很容易就可以看出来该进程的cpu消耗时间应该小于其他进程，当然这个取决于进程的运行时间。下面的进程中，id=1903的进程就是疑似死锁问题。  </p>
   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root      1901     1  0 11:09 ?        00:00:00 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1902  1901 15 11:09 ?        00:31:55 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1903  1901  1 11:09 ?        00:02:25 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1904  1901 15 11:09 ?        00:31:19 ./client -f ../conf/client.ini -d</span><br><span class="line">root      1905  1901 15 11:09 ?        00:31:17 ./client -f ../conf/client.ini -d</span><br></pre></td></tr></table></figure>
 <ol start="0">
-<li>定位哪里死锁<br>经过一步步盘查之后，怀疑进程死锁，ok。最好的定位方法就是attach到进程，然后bt一下既可以看到进程hang在哪里。。。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">gdb attach 1903</span></span><br><span class="line"><span class="meta">#</span><span class="bash">0  0x00007f105892105e <span class="keyword">in</span> __lll_lock_wait_private () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">1  0x00007f10588c6cad <span class="keyword">in</span> _L_lock_2164 () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">2  0x00007f10588c6a67 <span class="keyword">in</span> __tz_convert () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">3  0x00007f105890da5d <span class="keyword">in</span> __vsyslog_chk () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">4  0x00007f105889948e <span class="keyword">in</span> __libc_message () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">5  0x00007f105889ee66 <span class="keyword">in</span> malloc_printerr () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">6  0x00007f10588c6909 <span class="keyword">in</span> tzset_internal () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">7  0x00007f10588c6a89 <span class="keyword">in</span> __tz_convert () from /lib64/libc.so.6</span></span><br><span class="line"><span class="meta">#</span><span class="bash">8  0x00000000004c0917 <span class="keyword">in</span> shift_fd (lvl=1, fmt=0x55e308 <span class="string">"[%s][%d][%s]: [server] recv SIGSEGV.pid:%d!\n"</span>) at ../src/log_xx.cpp:95</span></span><br><span class="line"><span class="meta">#</span><span class="bash">9  write_log (lvl=1, fmt=0x55e308 <span class="string">"[%s][%d][%s]: [server] recv SIGSEGV.pid:%d!\n"</span>) at ../src/log_xx.cpp:138</span></span><br></pre></td></tr></table></figure>
+<li>定位哪里死锁<br>经过一步步盘查之后，怀疑进程死锁，ok。最好的定位方法就是attach到进程，然后bt一下既可以看到进程hang在哪里。。。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span>gdb attach 1903</span><br><span class="line"><span class="meta">#</span>0  0x00007f105892105e in __lll_lock_wait_private () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>1  0x00007f10588c6cad in _L_lock_2164 () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>2  0x00007f10588c6a67 in __tz_convert () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>3  0x00007f105890da5d in __vsyslog_chk () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>4  0x00007f105889948e in __libc_message () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>5  0x00007f105889ee66 in malloc_printerr () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>6  0x00007f10588c6909 in tzset_internal () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>7  0x00007f10588c6a89 in __tz_convert () from /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span>8  0x00000000004c0917 in shift_fd (lvl=1, fmt=0x55e308 "[%s][%d][%s]: [server] recv SIGSEGV.pid:%d!\n") at ../src/log_xx.cpp:95</span><br><span class="line"><span class="meta">#</span>9  write_log (lvl=1, fmt=0x55e308 "[%s][%d][%s]: [server] recv SIGSEGV.pid:%d!\n") at ../src/log_xx.cpp:138</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>上面这个问题导致是因为进程抛出了SEGV信号之后，在处理信号的方法中使用了非线程安全的localtime，而该方法中会枷锁。 </p>
@@ -463,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/linux利用进程信息定位内存泄漏采用pmap/" rel="next" title="linux利用进程信息定位内存泄漏采用pmap">
-                <i class="fa fa-chevron-left"></i> linux利用进程信息定位内存泄漏采用pmap
+              <a href="/2019/03/22/linux服务器性能分析_TCP内存/" rel="next" title="linux服务器性能分析_TCP内存">
+                <i class="fa fa-chevron-left"></i> linux服务器性能分析_TCP内存
               </a>
             
           </div>
@@ -473,8 +473,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/22/linux_内核研究/" rel="prev" title="linux_内核研究">
-                linux_内核研究 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/22/linux利用进程信息定位内存泄漏采用pmap/" rel="prev" title="linux利用进程信息定位内存泄漏采用pmap">
+                linux利用进程信息定位内存泄漏采用pmap <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -583,7 +583,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
